@@ -42,7 +42,7 @@
             button1.Name = "button1";
             button1.Size = new Size(202, 51);
             button1.TabIndex = 0;
-            button1.Text = "Login";
+            button1.Text = "Login/Register";
             button1.UseVisualStyleBackColor = false;
             // 
             // textBox1
