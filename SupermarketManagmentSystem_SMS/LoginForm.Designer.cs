@@ -36,7 +36,7 @@
             // 
             button1.BackColor = Color.Cornsilk;
             button1.BackgroundImageLayout = ImageLayout.Center;
-            button1.Location = new Point(307, 496);
+            button1.Location = new Point(288, 493);
             button1.Name = "button1";
             button1.Size = new Size(202, 51);
             button1.TabIndex = 0;
