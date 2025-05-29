@@ -59,5 +59,15 @@ namespace SupermarketManagmentSystem_SMS.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap tot {
+            get {
+                object obj = ResourceManager.GetObject("tot", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }
