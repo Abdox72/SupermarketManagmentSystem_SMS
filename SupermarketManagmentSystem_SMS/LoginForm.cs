@@ -1,8 +1,8 @@
 namespace Supermarket_Managment_System_SMS
 {
-    public partial class LoginForm : Form
+    public partial class MainForm : Form
     {
-        public LoginForm()
+        public MainForm()
         {
             InitializeComponent();
         }
