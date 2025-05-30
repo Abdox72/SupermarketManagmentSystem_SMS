@@ -32,14 +32,15 @@
             // 
             // MainForm
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(794, 607);
+            ClientSize = new Size(696, 461);
+            Margin = new Padding(3, 2, 3, 2);
             MaximizeBox = false;
-            MaximumSize = new Size(812, 654);
+            MaximumSize = new Size(712, 500);
             MinimizeBox = false;
-            MinimumSize = new Size(812, 654);
+            MinimumSize = new Size(712, 500);
             Name = "MainForm";
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
