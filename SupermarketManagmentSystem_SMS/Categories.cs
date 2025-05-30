@@ -1,0 +1,46 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace SupermarketManagmentSystem_SMS
+{
+    public partial class Categories : Form
+    {
+        public Categories()
+        {
+            InitializeComponent();
+        }
+
+        private void UsersButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            new Users().ShowDialog();
+            this.Show();
+        }
+
+        private void ProductsButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            new Products().ShowDialog();
+            this.Show();
+        }
+
+        private void CategoriesButton_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            new Categories().ShowDialog();
+            this.Show();
+        }
+
+        private void ReportsButton_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
+}

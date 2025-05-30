@@ -44,6 +44,7 @@
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Main";
+            Load += MainForm_Load;
             ResumeLayout(false);
         }
 

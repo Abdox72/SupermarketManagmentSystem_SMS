@@ -15,6 +15,11 @@ namespace Supermarket_Managment_System_SMS.Data
             : base(options)
         {
         }
+
+        public ApplicationDbContext()
+        {
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Data Source=SupermarketManagementSystem.db");

@@ -6,5 +6,10 @@ namespace Supermarket_Managment_System_SMS
         {
             InitializeComponent();
         }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
