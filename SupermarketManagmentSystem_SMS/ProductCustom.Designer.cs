@@ -72,24 +72,27 @@
             panel1.Controls.Add(foxLabel3);
             panel1.Controls.Add(foxLabel2);
             panel1.Controls.Add(foxLabel1);
-            panel1.Location = new Point(3, 3);
+            panel1.Location = new Point(3, 4);
+            panel1.Margin = new Padding(3, 4, 3, 4);
             panel1.Name = "panel1";
             panel1.RightToLeft = RightToLeft.Yes;
-            panel1.Size = new Size(816, 485);
+            panel1.Size = new Size(932, 646);
             panel1.TabIndex = 0;
             // 
             // PriceNumeric1
             // 
-            PriceNumeric1.Location = new Point(438, 309);
+            PriceNumeric1.Location = new Point(501, 412);
+            PriceNumeric1.Margin = new Padding(3, 4, 3, 4);
             PriceNumeric1.Name = "PriceNumeric1";
-            PriceNumeric1.Size = new Size(254, 23);
+            PriceNumeric1.Size = new Size(290, 27);
             PriceNumeric1.TabIndex = 21;
             // 
             // QuantityNumeric
             // 
-            QuantityNumeric.Location = new Point(438, 244);
+            QuantityNumeric.Location = new Point(501, 325);
+            QuantityNumeric.Margin = new Padding(3, 4, 3, 4);
             QuantityNumeric.Name = "QuantityNumeric";
-            QuantityNumeric.Size = new Size(254, 23);
+            QuantityNumeric.Size = new Size(290, 27);
             QuantityNumeric.TabIndex = 20;
             // 
             // addButton
@@ -101,13 +104,14 @@
             addButton.ImageAlign = ContentAlignment.MiddleLeft;
             addButton.InactiveColorA = Color.FromArgb(253, 175, 143);
             addButton.InactiveColorB = Color.FromArgb(244, 146, 106);
-            addButton.Location = new Point(300, 431);
+            addButton.Location = new Point(343, 575);
+            addButton.Margin = new Padding(3, 4, 3, 4);
             addButton.Name = "addButton";
             addButton.PressedColorA = Color.FromArgb(244, 146, 106);
             addButton.PressedColorB = Color.FromArgb(244, 146, 106);
             addButton.PressedContourColorA = Color.FromArgb(162, 120, 101);
             addButton.PressedContourColorB = Color.FromArgb(162, 120, 101);
-            addButton.Size = new Size(177, 30);
+            addButton.Size = new Size(202, 40);
             addButton.TabIndex = 17;
             addButton.Text = "اضف";
             addButton.TextAlignment = StringAlignment.Center;
@@ -115,9 +119,10 @@
             // 
             // ProductPictureBox
             // 
-            ProductPictureBox.Location = new Point(20, 338);
+            ProductPictureBox.Location = new Point(23, 451);
+            ProductPictureBox.Margin = new Padding(3, 4, 3, 4);
             ProductPictureBox.Name = "ProductPictureBox";
-            ProductPictureBox.Size = new Size(175, 123);
+            ProductPictureBox.Size = new Size(200, 164);
             ProductPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
             ProductPictureBox.TabIndex = 15;
             ProductPictureBox.TabStop = false;
@@ -132,13 +137,14 @@
             SelectImageButton.ImageAlign = ContentAlignment.MiddleLeft;
             SelectImageButton.InactiveColorA = Color.FromArgb(253, 252, 252);
             SelectImageButton.InactiveColorB = Color.FromArgb(239, 237, 236);
-            SelectImageButton.Location = new Point(438, 373);
+            SelectImageButton.Location = new Point(501, 497);
+            SelectImageButton.Margin = new Padding(3, 4, 3, 4);
             SelectImageButton.Name = "SelectImageButton";
             SelectImageButton.PressedColorA = Color.FromArgb(226, 226, 226);
             SelectImageButton.PressedColorB = Color.FromArgb(237, 237, 237);
             SelectImageButton.PressedContourColorA = Color.FromArgb(167, 167, 167);
             SelectImageButton.PressedContourColorB = Color.FromArgb(167, 167, 167);
-            SelectImageButton.Size = new Size(254, 30);
+            SelectImageButton.Size = new Size(290, 40);
             SelectImageButton.TabIndex = 14;
             SelectImageButton.Text = "اختار صوره المنتج";
             SelectImageButton.TextAlignment = StringAlignment.Center;
@@ -147,17 +153,20 @@
             // CategoryComboBox
             // 
             CategoryComboBox.FormattingEnabled = true;
-            CategoryComboBox.Location = new Point(438, 112);
+            CategoryComboBox.Location = new Point(501, 149);
+            CategoryComboBox.Margin = new Padding(3, 4, 3, 4);
             CategoryComboBox.Name = "CategoryComboBox";
-            CategoryComboBox.Size = new Size(254, 23);
+            CategoryComboBox.Size = new Size(290, 28);
             CategoryComboBox.TabIndex = 12;
             // 
             // ProductGridView
             // 
             ProductGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            ProductGridView.Location = new Point(20, 39);
+            ProductGridView.Location = new Point(23, 52);
+            ProductGridView.Margin = new Padding(3, 4, 3, 4);
             ProductGridView.Name = "ProductGridView";
-            ProductGridView.Size = new Size(412, 293);
+            ProductGridView.RowHeadersWidth = 51;
+            ProductGridView.Size = new Size(471, 391);
             ProductGridView.TabIndex = 11;
             // 
             // foxLabel5
@@ -165,9 +174,10 @@
             foxLabel5.BackColor = Color.Transparent;
             foxLabel5.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             foxLabel5.ForeColor = Color.Black;
-            foxLabel5.Location = new Point(736, 185);
+            foxLabel5.Location = new Point(841, 247);
+            foxLabel5.Margin = new Padding(3, 4, 3, 4);
             foxLabel5.Name = "foxLabel5";
-            foxLabel5.Size = new Size(77, 19);
+            foxLabel5.Size = new Size(88, 25);
             foxLabel5.TabIndex = 9;
             foxLabel5.Text = "الباركود";
             // 
@@ -180,7 +190,8 @@
             BarcodeTextBox.Font = new Font("Segoe UI", 12F);
             BarcodeTextBox.ForeColor = Color.FromArgb(48, 49, 51);
             BarcodeTextBox.Hint = "";
-            BarcodeTextBox.Location = new Point(438, 166);
+            BarcodeTextBox.Location = new Point(501, 221);
+            BarcodeTextBox.Margin = new Padding(3, 4, 3, 4);
             BarcodeTextBox.MaxLength = 32767;
             BarcodeTextBox.Multiline = false;
             BarcodeTextBox.Name = "BarcodeTextBox";
@@ -189,7 +200,7 @@
             BarcodeTextBox.SelectedText = "";
             BarcodeTextBox.SelectionLength = 0;
             BarcodeTextBox.SelectionStart = 0;
-            BarcodeTextBox.Size = new Size(254, 38);
+            BarcodeTextBox.Size = new Size(290, 43);
             BarcodeTextBox.TabIndex = 5;
             BarcodeTextBox.TabStop = false;
             BarcodeTextBox.UseSystemPasswordChar = false;
@@ -203,7 +214,8 @@
             NameTextBox.Font = new Font("Segoe UI", 12F);
             NameTextBox.ForeColor = Color.FromArgb(48, 49, 51);
             NameTextBox.Hint = "";
-            NameTextBox.Location = new Point(438, 39);
+            NameTextBox.Location = new Point(501, 52);
+            NameTextBox.Margin = new Padding(3, 4, 3, 4);
             NameTextBox.MaxLength = 32767;
             NameTextBox.Multiline = false;
             NameTextBox.Name = "NameTextBox";
@@ -212,7 +224,7 @@
             NameTextBox.SelectedText = "";
             NameTextBox.SelectionLength = 0;
             NameTextBox.SelectionStart = 0;
-            NameTextBox.Size = new Size(254, 38);
+            NameTextBox.Size = new Size(290, 43);
             NameTextBox.TabIndex = 4;
             NameTextBox.TabStop = false;
             NameTextBox.UseSystemPasswordChar = false;
@@ -222,9 +234,10 @@
             foxLabel4.BackColor = Color.Transparent;
             foxLabel4.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             foxLabel4.ForeColor = Color.Black;
-            foxLabel4.Location = new Point(736, 244);
+            foxLabel4.Location = new Point(841, 325);
+            foxLabel4.Margin = new Padding(3, 4, 3, 4);
             foxLabel4.Name = "foxLabel4";
-            foxLabel4.Size = new Size(77, 19);
+            foxLabel4.Size = new Size(88, 25);
             foxLabel4.TabIndex = 3;
             foxLabel4.Text = "الكميه";
             // 
@@ -233,9 +246,10 @@
             foxLabel3.BackColor = Color.Transparent;
             foxLabel3.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             foxLabel3.ForeColor = Color.Black;
-            foxLabel3.Location = new Point(736, 300);
+            foxLabel3.Location = new Point(841, 400);
+            foxLabel3.Margin = new Padding(3, 4, 3, 4);
             foxLabel3.Name = "foxLabel3";
-            foxLabel3.Size = new Size(77, 19);
+            foxLabel3.Size = new Size(88, 25);
             foxLabel3.TabIndex = 2;
             foxLabel3.Text = "السعر";
             // 
@@ -244,9 +258,10 @@
             foxLabel2.BackColor = Color.Transparent;
             foxLabel2.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             foxLabel2.ForeColor = Color.Black;
-            foxLabel2.Location = new Point(736, 112);
+            foxLabel2.Location = new Point(841, 149);
+            foxLabel2.Margin = new Padding(3, 4, 3, 4);
             foxLabel2.Name = "foxLabel2";
-            foxLabel2.Size = new Size(77, 19);
+            foxLabel2.Size = new Size(88, 25);
             foxLabel2.TabIndex = 1;
             foxLabel2.Text = "الصنف";
             // 
@@ -255,9 +270,10 @@
             foxLabel1.BackColor = Color.Transparent;
             foxLabel1.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             foxLabel1.ForeColor = Color.Black;
-            foxLabel1.Location = new Point(736, 48);
+            foxLabel1.Location = new Point(841, 64);
+            foxLabel1.Margin = new Padding(3, 4, 3, 4);
             foxLabel1.Name = "foxLabel1";
-            foxLabel1.Size = new Size(77, 19);
+            foxLabel1.Size = new Size(88, 25);
             foxLabel1.TabIndex = 0;
             foxLabel1.Text = "اسم المنتج";
             // 
@@ -267,11 +283,12 @@
             // 
             // ProductCustom
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(panel1);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "ProductCustom";
-            Size = new Size(821, 491);
+            Size = new Size(938, 655);
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)PriceNumeric1).EndInit();
             ((System.ComponentModel.ISupportInitialize)QuantityNumeric).EndInit();
