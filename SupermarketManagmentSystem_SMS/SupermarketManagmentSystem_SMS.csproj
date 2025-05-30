@@ -26,6 +26,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="photo\" />
+    <Folder Include="Servicesg\" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="FontAwesome.Sharp" Version="6.6.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />

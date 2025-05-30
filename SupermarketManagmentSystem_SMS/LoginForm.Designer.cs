@@ -104,6 +104,7 @@
             // 
             // MainForm
             // 
+
             AutoScaleDimensions = new SizeF(9F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
