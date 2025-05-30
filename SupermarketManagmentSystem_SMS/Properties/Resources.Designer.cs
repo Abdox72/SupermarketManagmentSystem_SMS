@@ -63,29 +63,10 @@ namespace SupermarketManagmentSystem_SMS.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _2 {
+
+        internal static System.Drawing.Bitmap tot {
             get {
-                object obj = ResourceManager.GetObject("2", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap _3 {
-            get {
-                object obj = ResourceManager.GetObject("3", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap AddProduct {
-            get {
-                object obj = ResourceManager.GetObject("AddProduct", resourceCulture);
+                object obj = ResourceManager.GetObject("tot", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
