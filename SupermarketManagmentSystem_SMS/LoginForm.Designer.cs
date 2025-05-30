@@ -28,53 +28,79 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
+            LoginBtn = new ReaLTaiizor.Controls.RoyalButton();
+            PasswordTextBox = new TextBox();
+            NationalIdTextBox = new TextBox();
             label2 = new Label();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
+            label1 = new Label();
             SuspendLayout();
             // 
-            // label1
+            // LoginBtn
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Arial", 12F, FontStyle.Bold);
-            label1.Location = new Point(86, 117);
-            label1.Name = "label1";
-            label1.Size = new Size(91, 24);
-            label1.TabIndex = 3;
-            label1.Text = "الرقم القومي";
+            LoginBtn.BackColor = Color.FromArgb(243, 243, 243);
+            LoginBtn.BorderColor = Color.FromArgb(180, 180, 180);
+            LoginBtn.BorderThickness = 3;
+            LoginBtn.DrawBorder = true;
+            LoginBtn.Font = new Font("Arial", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 178);
+            LoginBtn.ForeColor = Color.FromArgb(31, 31, 31);
+            LoginBtn.HotTrackColor = Color.FromArgb(221, 221, 221);
+            LoginBtn.Image = null;
+            LoginBtn.LayoutFlags = ReaLTaiizor.Util.RoyalLayoutFlags.TextOnly;
+            LoginBtn.Location = new Point(370, 328);
+            LoginBtn.Name = "LoginBtn";
+            LoginBtn.PressedColor = Color.FromArgb(51, 102, 255);
+            LoginBtn.PressedForeColor = Color.White;
+            LoginBtn.Size = new Size(150, 50);
+            LoginBtn.TabIndex = 16;
+            LoginBtn.Text = "تسجيل الدخول";
+            LoginBtn.Click += LoginBtn_Click;
+            // 
+            // PasswordTextBox
+            // 
+            PasswordTextBox.BackColor = Color.White;
+            PasswordTextBox.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 178);
+            PasswordTextBox.Location = new Point(87, 230);
+            PasswordTextBox.Multiline = true;
+            PasswordTextBox.Name = "PasswordTextBox";
+            PasswordTextBox.PasswordChar = '*';
+            PasswordTextBox.PlaceholderText = "  أدخل الرقم السري هنا";
+            PasswordTextBox.Size = new Size(433, 34);
+            PasswordTextBox.TabIndex = 15;
+            // 
+            // NationalIdTextBox
+            // 
+            NationalIdTextBox.BackColor = Color.White;
+            NationalIdTextBox.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 178);
+            NationalIdTextBox.Location = new Point(87, 148);
+            NationalIdTextBox.Multiline = true;
+            NationalIdTextBox.Name = "NationalIdTextBox";
+            NationalIdTextBox.PlaceholderText = "  أدخل الرقم القومي هنا";
+            NationalIdTextBox.Size = new Size(433, 33);
+            NationalIdTextBox.TabIndex = 14;
             // 
             // label2
             // 
             label2.AutoSize = true;
+            label2.BackColor = Color.Transparent;
             label2.Font = new Font("Arial", 12F, FontStyle.Bold);
-            label2.Location = new Point(86, 178);
+            label2.ForeColor = Color.Cornsilk;
+            label2.Location = new Point(569, 234);
             label2.Name = "label2";
             label2.Size = new Size(90, 24);
-            label2.TabIndex = 4;
+            label2.TabIndex = 13;
             label2.Text = "الرقم السري";
             // 
-            // textBox1
+            // label1
             // 
-            textBox1.BackColor = Color.White;
-            textBox1.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 178);
-            textBox1.Location = new Point(192, 114);
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.PlaceholderText = "  أدخل الرقم القومي هنا";
-            textBox1.Size = new Size(638, 35);
-            textBox1.TabIndex = 5;
-            // 
-            // textBox2
-            // 
-            textBox2.BackColor = Color.White;
-            textBox2.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 178);
-            textBox2.Location = new Point(192, 175);
-            textBox2.Multiline = true;
-            textBox2.Name = "textBox2";
-            textBox2.PlaceholderText = "  أدخل الرقم القومي هنا";
-            textBox2.Size = new Size(638, 35);
-            textBox2.TabIndex = 6;
+            label1.AutoSize = true;
+            label1.BackColor = Color.Transparent;
+            label1.Font = new Font("Arial", 12F, FontStyle.Bold);
+            label1.ForeColor = Color.Cornsilk;
+            label1.Location = new Point(567, 150);
+            label1.Name = "label1";
+            label1.Size = new Size(91, 24);
+            label1.TabIndex = 12;
+            label1.Text = "الرقم القومي";
             // 
             // MainForm
             // 
@@ -82,20 +108,18 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             BackgroundImage = SupermarketManagmentSystem_SMS.Properties.Resources.tot;
-            BackgroundImageLayout = ImageLayout.Zoom;
-            ClientSize = new Size(882, 430);
-            Controls.Add(textBox2);
-            Controls.Add(textBox1);
+            ClientSize = new Size(747, 527);
+            Controls.Add(LoginBtn);
+            Controls.Add(PasswordTextBox);
+            Controls.Add(NationalIdTextBox);
             Controls.Add(label2);
             Controls.Add(label1);
-            Cursor = Cursors.No;
             Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 178);
             ImeMode = ImeMode.Hiragana;
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "MainForm";
             RightToLeft = RightToLeft.Yes;
-            RightToLeftLayout = true;
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "صفحة التسجيل";
@@ -106,9 +130,10 @@
 
         #endregion
 
-        private Label label1;
+        private ReaLTaiizor.Controls.RoyalButton LoginBtn;
+        private TextBox PasswordTextBox;
+        private TextBox NationalIdTextBox;
         private Label label2;
-        private TextBox textBox1;
-        private TextBox textBox2;
+        private Label label1;
     }
 }

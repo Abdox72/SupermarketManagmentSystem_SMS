@@ -10,16 +10,11 @@ using System.Windows.Forms;
 
 namespace SupermarketManagmentSystem_SMS
 {
-    public partial class UserControl1 : UserControl
+    public partial class AdminDashboardForm : Form
     {
-        public UserControl1()
+        public AdminDashboardForm()
         {
             InitializeComponent();
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
         }
     }
 }
