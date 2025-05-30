@@ -16,5 +16,21 @@ namespace SupermarketManagmentSystem_SMS
         {
             InitializeComponent();
         }
+
+        private void AdminDashboardForm_Load(object sender, EventArgs e)
+        {
+
+        }
+        public void LoadPage(UserControl page)
+        {
+            ContentPanel.Controls.Clear();
+            page.Dock = DockStyle.Fill;
+            ContentPanel.Controls.Add(page);
+        }
+        private void BtnDashboard_Click(object sender, EventArgs e)
+        {
+            //LoadPage(new DashboardControl());
+        }
+
     }
 }

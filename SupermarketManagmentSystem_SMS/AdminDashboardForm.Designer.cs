@@ -28,33 +28,83 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdminDashboardForm));
+            tableLayoutPanel1 = new TableLayoutPanel();
+            ContentPanel = new Panel();
+            TobBarPanel = new Panel();
+            SidebarPanel = new Panel();
+            tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
-            // label1
+            // tableLayoutPanel1
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(339, 197);
-            label1.Name = "label1";
-            label1.Size = new Size(140, 54);
-            label1.TabIndex = 0;
-            label1.Text = "Admin";
+            tableLayoutPanel1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            tableLayoutPanel1.ColumnCount = 2;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 150F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
+            tableLayoutPanel1.Controls.Add(ContentPanel, 1, 1);
+            tableLayoutPanel1.Controls.Add(TobBarPanel, 1, 0);
+            tableLayoutPanel1.Controls.Add(SidebarPanel, 0, 1);
+            tableLayoutPanel1.Dock = DockStyle.Fill;
+            tableLayoutPanel1.Location = new Point(0, 0);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 2;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
+            tableLayoutPanel1.RowStyles.Add(new RowStyle());
+            tableLayoutPanel1.Size = new Size(988, 506);
+            tableLayoutPanel1.TabIndex = 0;
+            // 
+            // ContentPanel
+            // 
+            ContentPanel.BackColor = Color.DarkGoldenrod;
+            ContentPanel.BackgroundImage = Properties.Resources.tot;
+            ContentPanel.Dock = DockStyle.Fill;
+            ContentPanel.Location = new Point(3, 63);
+            ContentPanel.Name = "ContentPanel";
+            ContentPanel.Size = new Size(832, 440);
+            ContentPanel.TabIndex = 0;
+            // 
+            // TobBarPanel
+            // 
+            TobBarPanel.BackColor = Color.DarkCyan;
+            TobBarPanel.BackgroundImage = (Image)resources.GetObject("TobBarPanel.BackgroundImage");
+            TobBarPanel.Dock = DockStyle.Fill;
+            TobBarPanel.Location = new Point(3, 3);
+            TobBarPanel.Name = "TobBarPanel";
+            TobBarPanel.Size = new Size(832, 54);
+            TobBarPanel.TabIndex = 1;
+            // 
+            // SidebarPanel
+            // 
+            SidebarPanel.BackColor = Color.DarkGreen;
+            SidebarPanel.BackgroundImage = (Image)resources.GetObject("SidebarPanel.BackgroundImage");
+            SidebarPanel.Dock = DockStyle.Fill;
+            SidebarPanel.Location = new Point(841, 63);
+            SidebarPanel.Name = "SidebarPanel";
+            SidebarPanel.Size = new Size(144, 440);
+            SidebarPanel.TabIndex = 2;
             // 
             // AdminDashboardForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(label1);
+            BackColor = Color.DarkBlue;
+            ClientSize = new Size(988, 506);
+            Controls.Add(tableLayoutPanel1);
             Name = "AdminDashboardForm";
+            RightToLeft = RightToLeft.Yes;
+            RightToLeftLayout = true;
             Text = "AdminDashboardForm";
+            Load += AdminDashboardForm_Load;
+            tableLayoutPanel1.ResumeLayout(false);
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
-        private Label label1;
+        private TableLayoutPanel tableLayoutPanel1;
+        private Panel ContentPanel;
+        private Panel TobBarPanel;
+        private Panel SidebarPanel;
     }
 }
