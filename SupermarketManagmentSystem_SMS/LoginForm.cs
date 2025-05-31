@@ -30,10 +30,10 @@ namespace SupermarketManagmentSystem_SMS
             }
             if (AuthenticationService.AuthenticateUser(nationalID, password, out var user))
             {
-                MessageBox.Show($"Welcome {user.FirstName} {user.LastName}!", "Login Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"Welcome {user?.FirstName} {user?.LastName}!", "Login Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Hide();
                 //check role if admin or cashier
-                if (user.Role == UserRole.Admin)
+                if (user?.Role == UserRole.Admin)
                 {
                     // Show Admin Dashboard
                     //var adminDashboardForm = new AdminDashboardForm();
@@ -41,7 +41,7 @@ namespace SupermarketManagmentSystem_SMS
                     adminDashboardForm.ShowDialog();
                     this.Show();
                 }
-                else if (user.Role == UserRole.Cashier)
+                else if (user?.Role == UserRole.Cashier)
                 {
                     // Show Cashier Dashboard
                     var cashierDashboardForm = new CashierDashboardForm();

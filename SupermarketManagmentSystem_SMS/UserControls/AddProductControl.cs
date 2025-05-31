@@ -18,7 +18,7 @@ namespace SupermarketManagmentSystem_SMS.UserControls
             InitializeComponent();
         }
         public string selectedImagePath { get; set; } = "";
-        public Category SelectedCategory => CategoryComboBox.SelectedItem as Category;
+        public Category? SelectedCategory => CategoryComboBox.SelectedItem as Category;
 
         public void LoadCategories(List<Category> categories)
         {
@@ -69,7 +69,7 @@ namespace SupermarketManagmentSystem_SMS.UserControls
                 Name = NameTextBox.Text,
                 Barcode = BarcodeTextBox.Text,
                 Price = PriceNumeric1.Value,
-                CategoryID = SelectedCategory.CategoryID,
+                CategoryID = SelectedCategory?.CategoryID,
                 ImagePath = selectedImagePath,
                 Quantity = int.Parse(QuantityNumeric.Text),
             };

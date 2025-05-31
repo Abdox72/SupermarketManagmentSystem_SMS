@@ -2,8 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Supermarket_Managment_System_SMS.Data;
+using SupermarketManagmentSystem_SMS.Data;
 
 #nullable disable
 

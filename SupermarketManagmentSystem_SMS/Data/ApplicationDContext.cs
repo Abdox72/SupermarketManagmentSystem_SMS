@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Supermarket_Managment_System_SMS.Data
+namespace SupermarketManagmentSystem_SMS.Data
 {
     public class ApplicationDbContext: DbContext
     {

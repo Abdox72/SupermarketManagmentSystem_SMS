@@ -8,7 +8,7 @@ namespace SupermarketManagmentSystem_SMS.Services
 {
     internal static class AuthenticationService
     {
-        public static User CurrentUser { get; set; } = null;
+        public static User? CurrentUser { get; set; } = null;
         static AuthenticationService() { }
 
         public static bool CreateUser(string firstName, string lastName, string nationalID, string password, string role, out string errorMessage)
@@ -48,7 +48,7 @@ namespace SupermarketManagmentSystem_SMS.Services
             return true;
         }
         //login or authenticate the user
-        public static bool AuthenticateUser(string nationalID, string password, out Models.User user)
+        public static bool AuthenticateUser(string nationalID, string password, out Models.User? user)
         {
             user = null;
             if (!IsValidNationalID(nationalID) || !IsValidPassword(password))
