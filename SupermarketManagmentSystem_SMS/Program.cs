@@ -14,7 +14,7 @@ namespace Supermarket_Managment_System_SMS
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
 
-            Application.Run(new AdminDashboardForm());
+            Application.Run(new test());
         }
     }
 }

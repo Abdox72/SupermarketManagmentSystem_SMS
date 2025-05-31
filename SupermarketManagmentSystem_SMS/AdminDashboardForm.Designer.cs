@@ -33,7 +33,6 @@
             ContentPanel = new Panel();
             TobBarPanel = new Panel();
             SidebarPanel = new Panel();
-            productCustom1 = new ProductCustom();
             tableLayoutPanel1.SuspendLayout();
             ContentPanel.SuspendLayout();
             SuspendLayout();
@@ -128,6 +127,5 @@
         private Panel ContentPanel;
         private Panel TobBarPanel;
         private Panel SidebarPanel;
-        private ProductCustom productCustom1;
     }
 }
