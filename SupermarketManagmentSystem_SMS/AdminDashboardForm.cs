@@ -9,22 +9,29 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using SupermarketManagmentSystem_SMS.Models;
 
+
 namespace SupermarketManagmentSystem_SMS
 {
     public partial class AdminDashboardForm : Form
     {
+        private System.Windows.Forms.Timer resizeTimer;
+
         public AdminDashboardForm()
         {
             InitializeComponent();
+            this.DoubleBuffered = true;
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+
+
             List<Category> categories = new List<Category>() {
                 new Category { CategoryID=1,Name="chees"} ,
                 new Category { CategoryID=1,Name="asd"} ,
                 new Category { CategoryID=1,Name="sss"}
             };
             //var categories= applicationDbContextFactory
-            productCustom1.ProductDataGridView.DataSource = null;
-            productCustom1.ProductDataGridView.DataSource = new List<Product>();
-            productCustom1.LoadCategories(categories);
+            addProductControl1.ProductDataGridView.DataSource = null;
+            addProductControl1.ProductDataGridView.DataSource = new List<Product>();
+            addProductControl1.LoadCategories(categories);
         }
         public void LoadPage(UserControl page)
         {
@@ -36,6 +43,5 @@ namespace SupermarketManagmentSystem_SMS
         {
             //LoadPage(new DashboardControl());
         }
-
     }
 }

@@ -28,33 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
+            panel1 = new Panel();
             SuspendLayout();
             // 
-            // label1
+            // panel1
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 24F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(334, 178);
-            label1.Name = "label1";
-            label1.Size = new Size(153, 54);
-            label1.TabIndex = 1;
-            label1.Text = "Cashier";
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1050, 545);
+            panel1.TabIndex = 0;
             // 
             // CashierDashboardForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(label1);
+            AutoSize = true;
+            ClientSize = new Size(1050, 545);
+            Controls.Add(panel1);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "CashierDashboardForm";
+            RightToLeft = RightToLeft.Yes;
             Text = "CashierDashboardForm";
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
 
-        private Label label1;
+        private Panel panel1;
     }
 }

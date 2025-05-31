@@ -31,9 +31,9 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdminDashboardForm));
             tableLayoutPanel1 = new TableLayoutPanel();
             ContentPanel = new Panel();
+            addProductControl1 = new UserControls.AddProductControl();
             TobBarPanel = new Panel();
             SidebarPanel = new Panel();
-            productCustom1 = new ProductCustom();
             tableLayoutPanel1.SuspendLayout();
             ContentPanel.SuspendLayout();
             SuspendLayout();
@@ -53,7 +53,7 @@
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle());
-            tableLayoutPanel1.Size = new Size(1195, 684);
+            tableLayoutPanel1.Size = new Size(1195, 743);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // ContentPanel
@@ -62,12 +62,29 @@
             ContentPanel.AutoSize = true;
             ContentPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             ContentPanel.BackColor = Color.Transparent;
-            ContentPanel.Controls.Add(productCustom1);
+            ContentPanel.Controls.Add(addProductControl1);
             ContentPanel.Dock = DockStyle.Fill;
             ContentPanel.Location = new Point(3, 63);
             ContentPanel.Name = "ContentPanel";
-            ContentPanel.Size = new Size(1039, 654);
+            ContentPanel.Size = new Size(1039, 677);
             ContentPanel.TabIndex = 0;
+            // 
+            // addProductControl1
+            // 
+            addProductControl1.AutoSize = true;
+            addProductControl1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            addProductControl1.BackgroundImageLayout = ImageLayout.None;
+            addProductControl1.Dock = DockStyle.Fill;
+            addProductControl1.ImeMode = ImeMode.NoControl;
+            addProductControl1.Location = new Point(0, 0);
+            addProductControl1.Name = "addProductControl1";
+            addProductControl1.ProductBarcode = "";
+            addProductControl1.ProductPrice = "0";
+            addProductControl1.ProductQuantity = "0";
+            addProductControl1.RightToLeft = RightToLeft.Yes;
+            addProductControl1.selectedImagePath = "";
+            addProductControl1.Size = new Size(1039, 677);
+            addProductControl1.TabIndex = 1;
             // 
             // TobBarPanel
             // 
@@ -86,30 +103,15 @@
             SidebarPanel.Dock = DockStyle.Fill;
             SidebarPanel.Location = new Point(1048, 63);
             SidebarPanel.Name = "SidebarPanel";
-            SidebarPanel.Size = new Size(144, 654);
+            SidebarPanel.Size = new Size(144, 677);
             SidebarPanel.TabIndex = 2;
-            // 
-            // productCustom1
-            // 
-            productCustom1.AutoScroll = true;
-            productCustom1.AutoSize = true;
-            productCustom1.Dock = DockStyle.Fill;
-            productCustom1.Location = new Point(0, 0);
-            productCustom1.Margin = new Padding(3, 4, 3, 4);
-            productCustom1.Name = "productCustom1";
-            productCustom1.ProductBarcode = "";
-            productCustom1.ProductPrice = "0";
-            productCustom1.ProductQuantity = "0";
-            productCustom1.selectedImagePath = "";
-            productCustom1.Size = new Size(1039, 654);
-            productCustom1.TabIndex = 0;
             // 
             // AdminDashboardForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.DarkBlue;
-            ClientSize = new Size(1195, 684);
+            ClientSize = new Size(1195, 743);
             Controls.Add(tableLayoutPanel1);
             Name = "AdminDashboardForm";
             RightToLeft = RightToLeft.Yes;
@@ -128,6 +130,6 @@
         private Panel ContentPanel;
         private Panel TobBarPanel;
         private Panel SidebarPanel;
-        private ProductCustom productCustom1;
+        private UserControls.AddProductControl addProductControl1;
     }
 }

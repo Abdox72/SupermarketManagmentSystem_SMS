@@ -1,12 +1,11 @@
-using Supermarket_Managment_System_SMS.Data;
 using SupermarketManagmentSystem_SMS;
 using SupermarketManagmentSystem_SMS.Services;
 using SupermarketManagmentSystem_SMS.Utilities;
-namespace Supermarket_Managment_System_SMS
+namespace SupermarketManagmentSystem_SMS
 {
-    public partial class MainForm : Form
+    public partial class LoginForm : Form
     {
-        public MainForm()
+        public LoginForm()
         {
             InitializeComponent();
 
@@ -37,6 +36,7 @@ namespace Supermarket_Managment_System_SMS
                 if (user.Role == UserRole.Admin)
                 {
                     // Show Admin Dashboard
+                    //var adminDashboardForm = new AdminDashboardForm();
                     var adminDashboardForm = new AdminDashboardForm();
                     adminDashboardForm.ShowDialog();
                     this.Show();

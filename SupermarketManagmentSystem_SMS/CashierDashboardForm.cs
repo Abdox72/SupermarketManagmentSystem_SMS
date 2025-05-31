@@ -15,6 +15,8 @@ namespace SupermarketManagmentSystem_SMS
         public CashierDashboardForm()
         {
             InitializeComponent();
+            this.DoubleBuffered = true;
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
         }
     }
 }

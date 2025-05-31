@@ -1,6 +1,6 @@
-﻿namespace Supermarket_Managment_System_SMS
+﻿namespace SupermarketManagmentSystem_SMS
 {
-    partial class MainForm
+    partial class LoginForm
     {
         /// <summary>
         ///  Required designer variable.

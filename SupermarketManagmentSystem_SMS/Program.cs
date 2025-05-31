@@ -1,6 +1,6 @@
 using SupermarketManagmentSystem_SMS;
 
-namespace Supermarket_Managment_System_SMS
+namespace SupermarketManagmentSystem_SMS
 {
     internal static class Program
     {
@@ -14,7 +14,7 @@ namespace Supermarket_Managment_System_SMS
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
 
-            Application.Run(new AdminDashboardForm());
+            Application.Run(new LoginForm());
         }
     }
 }

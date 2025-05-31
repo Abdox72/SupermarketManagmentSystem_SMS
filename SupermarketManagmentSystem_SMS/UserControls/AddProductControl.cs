@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SupermarketManagmentSystem_SMS.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -6,37 +7,26 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Threading.Tasks.Sources;
 using System.Windows.Forms;
-using SupermarketManagmentSystem_SMS.Models;
 
-namespace SupermarketManagmentSystem_SMS
+namespace SupermarketManagmentSystem_SMS.UserControls
 {
-    public partial class ProductCustom : UserControl
+    public partial class AddProductControl : UserControl
     {
-        public ProductCustom()
+        public AddProductControl()
         {
-
             InitializeComponent();
-          
         }
         public string selectedImagePath { get; set; } = "";
         public Category SelectedCategory => CategoryComboBox.SelectedItem as Category;
 
-
-        public string ProductName
-        {
-            get { return NameTextBox.Text; }
-            set { NameTextBox.Text = value; }
-        }
         public void LoadCategories(List<Category> categories)
         {
             CategoryComboBox.DataSource = null;
             CategoryComboBox.DataSource = categories;
-            CategoryComboBox.DisplayMember = "Name"; // أو استخدم ToString
-            CategoryComboBox.ValueMember = "CategoryID";     // لو هتحتاج قيمة الـ Id
+            CategoryComboBox.DisplayMember = "Name";
+            CategoryComboBox.ValueMember = "CategoryID";
         }
-
         private void SelectImageButton_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog ofd = new OpenFileDialog())
@@ -78,16 +68,27 @@ namespace SupermarketManagmentSystem_SMS
             {
                 Name = NameTextBox.Text,
                 Barcode = BarcodeTextBox.Text,
-                Price=PriceNumeric1.Value,
+                Price = PriceNumeric1.Value,
                 CategoryID = SelectedCategory.CategoryID,
                 ImagePath = selectedImagePath,
                 Quantity = int.Parse(QuantityNumeric.Text),
             };
-
         }
 
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+            this.SetStyle(ControlStyles.AllPaintingInWmPaint |
+              ControlStyles.UserPaint |
+              ControlStyles.DoubleBuffer, true);
 
+            
+        }
 
+        public new string ProductName
+        {
+            get { return NameTextBox.Text; }
+            set { NameTextBox.Text = value; }
+        }
         public string ProductBarcode
         {
             get { return BarcodeTextBox.Text; }
@@ -108,7 +109,5 @@ namespace SupermarketManagmentSystem_SMS
             get { return ProductGridView; }
             set { ProductGridView = value; }
         }
-
-
     }
 }
