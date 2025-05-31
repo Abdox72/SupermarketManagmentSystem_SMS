@@ -9,7 +9,7 @@ using Supermarket_Managment_System_SMS.Data;
 
 namespace SupermarketManagmentSystem_SMS.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(ApplicationDContext))]
     [Migration("20250528140825_InitialCreate")]
     partial class InitialCreate
     {

@@ -2,12 +2,12 @@
 using Microsoft.EntityFrameworkCore.Design;
 using Supermarket_Managment_System_SMS.Data;
 
-public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
+public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<ApplicationDContext>
 {
-    public ApplicationDbContext CreateDbContext(string[] args)
+    public ApplicationDContext CreateDbContext(string[] args)
     {
-        var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
+        var optionsBuilder = new DbContextOptionsBuilder<ApplicationDContext>();
         optionsBuilder.UseSqlite("Data Source=supermarket.db");
-        return new ApplicationDbContext(optionsBuilder.Options);
+        return new ApplicationDContext(optionsBuilder.Options);
     }
 }

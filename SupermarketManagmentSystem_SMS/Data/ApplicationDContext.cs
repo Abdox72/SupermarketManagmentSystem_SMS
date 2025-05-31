@@ -9,12 +9,17 @@ using System.Windows.Forms;
 
 namespace Supermarket_Managment_System_SMS.Data
 {
-    public class ApplicationDbContext: DbContext
+    public class ApplicationDContext: DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public ApplicationDContext(DbContextOptions<ApplicationDContext> options)
             : base(options)
         {
         }
+
+        public ApplicationDContext()
+        {
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Data Source=SupermarketManagementSystem.db");
@@ -59,7 +64,7 @@ namespace Supermarket_Managment_System_SMS.Data
 
         }
 
-        public DbSet<User> Users { get; set; }
+        public DbSet<User> User { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Cart> Carts { get; set; }
