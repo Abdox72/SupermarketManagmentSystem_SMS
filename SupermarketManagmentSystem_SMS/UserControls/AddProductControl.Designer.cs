@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             tableLayoutPanel1 = new TableLayoutPanel();
             panel1 = new Panel();
             PriceNumeric1 = new NumericUpDown();
@@ -75,9 +76,8 @@
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 80.88803F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 19.111969F));
-            tableLayoutPanel1.Size = new Size(1052, 546);
+            tableLayoutPanel1.Size = new Size(938, 655);
             tableLayoutPanel1.TabIndex = 0;
-            tableLayoutPanel1.Paint += tableLayoutPanel1_Paint;
             // 
             // panel1
             // 
@@ -93,9 +93,9 @@
             panel1.Controls.Add(foxLabel2);
             panel1.Controls.Add(foxLabel1);
             panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(519, 3);
+            panel1.Location = new Point(463, 3);
             panel1.Name = "panel1";
-            panel1.Size = new Size(530, 435);
+            panel1.Size = new Size(472, 523);
             panel1.TabIndex = 0;
             // 
             // PriceNumeric1
@@ -104,7 +104,7 @@
             PriceNumeric1.Location = new Point(43, 341);
             PriceNumeric1.Margin = new Padding(3, 4, 3, 4);
             PriceNumeric1.Name = "PriceNumeric1";
-            PriceNumeric1.Size = new Size(330, 27);
+            PriceNumeric1.Size = new Size(272, 27);
             PriceNumeric1.TabIndex = 31;
             // 
             // QuantityNumeric
@@ -113,17 +113,18 @@
             QuantityNumeric.Location = new Point(43, 270);
             QuantityNumeric.Margin = new Padding(3, 4, 3, 4);
             QuantityNumeric.Name = "QuantityNumeric";
-            QuantityNumeric.Size = new Size(330, 27);
+            QuantityNumeric.Size = new Size(272, 27);
             QuantityNumeric.TabIndex = 30;
             // 
             // CategoryComboBox
             // 
             CategoryComboBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            CategoryComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             CategoryComboBox.FormattingEnabled = true;
             CategoryComboBox.Location = new Point(43, 111);
             CategoryComboBox.Margin = new Padding(3, 4, 3, 4);
             CategoryComboBox.Name = "CategoryComboBox";
-            CategoryComboBox.Size = new Size(330, 28);
+            CategoryComboBox.Size = new Size(272, 28);
             CategoryComboBox.TabIndex = 29;
             // 
             // foxLabel5
@@ -132,11 +133,11 @@
             foxLabel5.BackColor = Color.Transparent;
             foxLabel5.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             foxLabel5.ForeColor = Color.Black;
-            foxLabel5.Location = new Point(415, 191);
+            foxLabel5.Location = new Point(357, 191);
             foxLabel5.Margin = new Padding(3, 4, 3, 4);
             foxLabel5.Name = "foxLabel5";
             foxLabel5.Size = new Size(88, 25);
-            foxLabel5.TabIndex = 28;
+            foxLabel5.TabIndex = 9;
             foxLabel5.Text = "الباركود";
             // 
             // BarcodeTextBox
@@ -149,7 +150,7 @@
             BarcodeTextBox.Font = new Font("Segoe UI", 12F);
             BarcodeTextBox.ForeColor = Color.FromArgb(48, 49, 51);
             BarcodeTextBox.Hint = "";
-            BarcodeTextBox.Location = new Point(43, 183);
+            BarcodeTextBox.Location = new Point(43, 182);
             BarcodeTextBox.Margin = new Padding(3, 4, 3, 4);
             BarcodeTextBox.MaxLength = 32767;
             BarcodeTextBox.Multiline = false;
@@ -159,8 +160,8 @@
             BarcodeTextBox.SelectedText = "";
             BarcodeTextBox.SelectionLength = 0;
             BarcodeTextBox.SelectionStart = 0;
-            BarcodeTextBox.Size = new Size(330, 43);
-            BarcodeTextBox.TabIndex = 27;
+            BarcodeTextBox.Size = new Size(272, 43);
+            BarcodeTextBox.TabIndex = 5;
             BarcodeTextBox.TabStop = false;
             BarcodeTextBox.UseSystemPasswordChar = false;
             // 
@@ -174,7 +175,7 @@
             NameTextBox.Font = new Font("Segoe UI", 12F);
             NameTextBox.ForeColor = Color.FromArgb(48, 49, 51);
             NameTextBox.Hint = "";
-            NameTextBox.Location = new Point(43, 24);
+            NameTextBox.Location = new Point(43, 42);
             NameTextBox.Margin = new Padding(3, 4, 3, 4);
             NameTextBox.MaxLength = 32767;
             NameTextBox.Multiline = false;
@@ -184,8 +185,8 @@
             NameTextBox.SelectedText = "";
             NameTextBox.SelectionLength = 0;
             NameTextBox.SelectionStart = 0;
-            NameTextBox.Size = new Size(330, 43);
-            NameTextBox.TabIndex = 26;
+            NameTextBox.Size = new Size(272, 43);
+            NameTextBox.TabIndex = 4;
             NameTextBox.TabStop = false;
             NameTextBox.UseSystemPasswordChar = false;
             // 
@@ -195,11 +196,11 @@
             foxLabel4.BackColor = Color.Transparent;
             foxLabel4.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             foxLabel4.ForeColor = Color.Black;
-            foxLabel4.Location = new Point(415, 270);
+            foxLabel4.Location = new Point(357, 270);
             foxLabel4.Margin = new Padding(3, 4, 3, 4);
             foxLabel4.Name = "foxLabel4";
             foxLabel4.Size = new Size(88, 25);
-            foxLabel4.TabIndex = 25;
+            foxLabel4.TabIndex = 3;
             foxLabel4.Text = "الكميه";
             // 
             // foxLabel3
@@ -208,11 +209,11 @@
             foxLabel3.BackColor = Color.Transparent;
             foxLabel3.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             foxLabel3.ForeColor = Color.Black;
-            foxLabel3.Location = new Point(415, 341);
+            foxLabel3.Location = new Point(357, 341);
             foxLabel3.Margin = new Padding(3, 4, 3, 4);
             foxLabel3.Name = "foxLabel3";
             foxLabel3.Size = new Size(88, 25);
-            foxLabel3.TabIndex = 24;
+            foxLabel3.TabIndex = 2;
             foxLabel3.Text = "السعر";
             // 
             // foxLabel2
@@ -221,11 +222,11 @@
             foxLabel2.BackColor = Color.Transparent;
             foxLabel2.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             foxLabel2.ForeColor = Color.Black;
-            foxLabel2.Location = new Point(415, 115);
+            foxLabel2.Location = new Point(357, 115);
             foxLabel2.Margin = new Padding(3, 4, 3, 4);
             foxLabel2.Name = "foxLabel2";
             foxLabel2.Size = new Size(88, 25);
-            foxLabel2.TabIndex = 23;
+            foxLabel2.TabIndex = 1;
             foxLabel2.Text = "الصنف";
             // 
             // foxLabel1
@@ -234,11 +235,11 @@
             foxLabel1.BackColor = Color.Transparent;
             foxLabel1.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             foxLabel1.ForeColor = Color.Black;
-            foxLabel1.Location = new Point(399, 42);
+            foxLabel1.Location = new Point(341, 42);
             foxLabel1.Margin = new Padding(3, 4, 3, 4);
             foxLabel1.Name = "foxLabel1";
             foxLabel1.Size = new Size(88, 25);
-            foxLabel1.TabIndex = 22;
+            foxLabel1.TabIndex = 0;
             foxLabel1.Text = "اسم المنتج";
             // 
             // panel2
@@ -247,7 +248,7 @@
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(3, 3);
             panel2.Name = "panel2";
-            panel2.Size = new Size(510, 435);
+            panel2.Size = new Size(454, 523);
             panel2.TabIndex = 1;
             // 
             // ProductGridView
@@ -255,13 +256,24 @@
             ProductGridView.AllowUserToAddRows = false;
             ProductGridView.AllowUserToDeleteRows = false;
             ProductGridView.AllowUserToOrderColumns = true;
+            ProductGridView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            ProductGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            ProductGridView.BackgroundColor = Color.White;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.ControlLight;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            ProductGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             ProductGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            ProductGridView.Dock = DockStyle.Fill;
             ProductGridView.Location = new Point(0, 0);
             ProductGridView.Margin = new Padding(3, 4, 3, 4);
             ProductGridView.Name = "ProductGridView";
+            ProductGridView.ReadOnly = true;
             ProductGridView.RowHeadersWidth = 51;
-            ProductGridView.Size = new Size(510, 435);
+            ProductGridView.Size = new Size(454, 523);
             ProductGridView.TabIndex = 12;
             // 
             // panel3
@@ -270,9 +282,9 @@
             panel3.Controls.Add(addButton);
             panel3.Controls.Add(SelectImageButton);
             panel3.Dock = DockStyle.Fill;
-            panel3.Location = new Point(519, 444);
+            panel3.Location = new Point(463, 532);
             panel3.Name = "panel3";
-            panel3.Size = new Size(530, 99);
+            panel3.Size = new Size(472, 120);
             panel3.TabIndex = 2;
             // 
             // addButton
@@ -292,7 +304,7 @@
             addButton.PressedColorB = Color.FromArgb(244, 146, 106);
             addButton.PressedContourColorA = Color.FromArgb(162, 120, 101);
             addButton.PressedContourColorB = Color.FromArgb(162, 120, 101);
-            addButton.Size = new Size(330, 37);
+            addButton.Size = new Size(272, 37);
             addButton.TabIndex = 19;
             addButton.Text = "اضف";
             addButton.TextAlignment = StringAlignment.Center;
@@ -315,7 +327,7 @@
             SelectImageButton.PressedColorB = Color.FromArgb(237, 237, 237);
             SelectImageButton.PressedContourColorA = Color.FromArgb(167, 167, 167);
             SelectImageButton.PressedContourColorB = Color.FromArgb(167, 167, 167);
-            SelectImageButton.Size = new Size(330, 40);
+            SelectImageButton.Size = new Size(272, 40);
             SelectImageButton.TabIndex = 18;
             SelectImageButton.Text = "اختار صوره المنتج";
             SelectImageButton.TextAlignment = StringAlignment.Center;
@@ -325,24 +337,24 @@
             // 
             ProductPictureBox.Dock = DockStyle.Right;
             ProductPictureBox.Image = Properties.Resources.tot;
-            ProductPictureBox.Location = new Point(3, 444);
+            ProductPictureBox.Location = new Point(3, 532);
             ProductPictureBox.Name = "ProductPictureBox";
-            ProductPictureBox.Size = new Size(132, 99);
+            ProductPictureBox.Size = new Size(132, 120);
             ProductPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
             ProductPictureBox.TabIndex = 3;
             ProductPictureBox.TabStop = false;
+            ProductPictureBox.Visible = false;
             // 
             // AddProductControl
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
             AutoSize = true;
             BackgroundImageLayout = ImageLayout.Stretch;
             Controls.Add(tableLayoutPanel1);
             ImeMode = ImeMode.NoControl;
+            Margin = new Padding(3, 4, 3, 4);
             Name = "AddProductControl";
             RightToLeft = RightToLeft.Yes;
-            Size = new Size(1052, 546);
+            Size = new Size(938, 655);
             tableLayoutPanel1.ResumeLayout(false);
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)PriceNumeric1).EndInit();

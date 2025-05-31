@@ -1,4 +1,6 @@
-﻿namespace SupermarketManagmentSystem_SMS
+﻿using SupermarketManagmentSystem_SMS.Data;
+
+namespace SupermarketManagmentSystem_SMS
 {
     partial class AdminDashboardForm
     {
@@ -31,7 +33,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdminDashboardForm));
             tableLayoutPanel1 = new TableLayoutPanel();
             ContentPanel = new Panel();
-            addProductControl1 = new UserControls.AddProductControl();
+            //addProductControl1 = new UserControls.AddProductControl();
             TobBarPanel = new Panel();
             SidebarPanel = new Panel();
             tableLayoutPanel1.SuspendLayout();
@@ -130,6 +132,6 @@
         private Panel ContentPanel;
         private Panel TobBarPanel;
         private Panel SidebarPanel;
-        private UserControls.AddProductControl addProductControl1;
+        //private UserControls.AddProductControl addProductControl1;
     }
 }

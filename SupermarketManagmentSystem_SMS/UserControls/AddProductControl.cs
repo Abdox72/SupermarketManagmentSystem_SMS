@@ -8,14 +8,61 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
+using Microsoft.EntityFrameworkCore;
+using SupermarketManagmentSystem_SMS.Data;
+using SupermarketManagmentSystem_SMS.Dto;
 namespace SupermarketManagmentSystem_SMS.UserControls
 {
     public partial class AddProductControl : UserControl
     {
-        public AddProductControl()
+        
+        ApplicationDbContext dbcontext;
+        List<Product> getproducts;
+        BindingList<ProductDisplay> productsBindingList;
+        private void addDataToDataGrideView()
         {
+            ProductDataGridView.DataSource = productsBindingList;
+            ProductDataGridView.Columns["Name"].Visible = false;
+            ProductDataGridView.Columns["Price"].Visible = false;
+            ProductDataGridView.Columns["Quantity"].Visible = false;
+            ProductDataGridView.Columns["CategoryName"].Visible = false;           
+            ProductDataGridView.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Name",
+                HeaderText = "اسم المنتج"
+            });
+            ProductDataGridView.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Price",
+                HeaderText = "سعر المنتج"
+            });
+            ProductDataGridView.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Quantity",
+                HeaderText = " الكميه المتاحه"
+            }); 
+            ProductDataGridView.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "CategoryName",
+                HeaderText = " الصنف",
+               
+            });
+        }
+        public AddProductControl(ApplicationDbContext _context)
+        {   
             InitializeComponent();
+            
+            dbcontext = _context;
+            getproducts = dbcontext.Products.Include(c=>c.Category).ToList();
+            var displayList = getproducts.Select(p => new ProductDisplay
+            {
+                Name = p.Name,
+                Price = p.Price,
+                Quantity=p.Quantity,
+                CategoryName = p.Category.Name 
+            }).ToList();
+            productsBindingList = new BindingList<ProductDisplay>(displayList);
+            addDataToDataGrideView();
         }
         public string selectedImagePath { get; set; } = "";
         public Category? SelectedCategory => CategoryComboBox.SelectedItem as Category;
@@ -64,24 +111,34 @@ namespace SupermarketManagmentSystem_SMS.UserControls
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            Product product = new Product
+            Product product1 = dbcontext.Products.FirstOrDefault(c => (c.Name.ToLower()== NameTextBox.Text.ToLower())||(c.Barcode.ToLower() == BarcodeTextBox.Text.ToLower()));
+            if (product1!=null)
             {
-                Name = NameTextBox.Text,
-                Barcode = BarcodeTextBox.Text,
-                Price = PriceNumeric1.Value,
-                CategoryID = SelectedCategory?.CategoryID,
-                ImagePath = selectedImagePath,
-                Quantity = int.Parse(QuantityNumeric.Text),
-            };
-        }
-
-        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
-        {
-            this.SetStyle(ControlStyles.AllPaintingInWmPaint |
-              ControlStyles.UserPaint |
-              ControlStyles.DoubleBuffer, true);
-
-            
+                MessageBox.Show("هذا المنتج موجود بالفعل");
+            }
+            else
+            {
+                Product product = new Product
+                {
+                    Name = NameTextBox.Text,
+                    Barcode = BarcodeTextBox.Text,
+                    Price = PriceNumeric1.Value,
+                    CategoryID = SelectedCategory.CategoryID,
+                    ImagePath = selectedImagePath,
+                    Quantity = int.Parse(QuantityNumeric.Text),
+                };
+                var category = dbcontext.Categories.FirstOrDefault(c => c.CategoryID == SelectedCategory.CategoryID);
+                ProductDisplay productDisplay = new ProductDisplay
+                {
+                    Name = NameTextBox.Text,
+                    Price = PriceNumeric1.Value,
+                    Quantity = int.Parse(QuantityNumeric.Text),
+                    CategoryName = category.Name
+                };
+                dbcontext.Products.Add(product);
+                dbcontext.SaveChanges();
+                productsBindingList.Add(productDisplay);
+            }
         }
 
         public new string ProductName
