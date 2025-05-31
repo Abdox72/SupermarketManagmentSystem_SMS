@@ -108,7 +108,7 @@
             AutoScaleDimensions = new SizeF(9F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
-            BackgroundImage = SupermarketManagmentSystem_SMS.Properties.Resources.tot;
+            //BackgroundImage = SupermarketManagmentSystem_SMS.Properties.Resources.tot;
             ClientSize = new Size(747, 527);
             Controls.Add(LoginBtn);
             Controls.Add(PasswordTextBox);
