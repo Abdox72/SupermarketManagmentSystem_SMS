@@ -77,6 +77,18 @@ namespace SupermarketManagmentSystem_SMS.Migrations
                     b.HasKey("CategoryID");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            CategoryID = 1,
+                            Name = "Fruits"
+                        },
+                        new
+                        {
+                            CategoryID = 2,
+                            Name = "Vegetables"
+                        });
                 });
 
             modelBuilder.Entity("SupermarketManagmentSystem_SMS.Models.Product", b =>
@@ -111,6 +123,44 @@ namespace SupermarketManagmentSystem_SMS.Migrations
                     b.HasIndex("CategoryID");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            ProductID = 1,
+                            Barcode = "",
+                            CategoryID = 1,
+                            Name = "Apple",
+                            Price = 1.2m,
+                            Quantity = 0
+                        },
+                        new
+                        {
+                            ProductID = 2,
+                            Barcode = "",
+                            CategoryID = 1,
+                            Name = "Banana",
+                            Price = 0.8m,
+                            Quantity = 0
+                        },
+                        new
+                        {
+                            ProductID = 3,
+                            Barcode = "",
+                            CategoryID = 2,
+                            Name = "Carrot",
+                            Price = 0.5m,
+                            Quantity = 0
+                        },
+                        new
+                        {
+                            ProductID = 4,
+                            Barcode = "",
+                            CategoryID = 2,
+                            Name = "Broccoli",
+                            Price = 1.0m,
+                            Quantity = 0
+                        });
                 });
 
             modelBuilder.Entity("SupermarketManagmentSystem_SMS.Models.Sale", b =>
@@ -191,7 +241,30 @@ namespace SupermarketManagmentSystem_SMS.Migrations
 
                     b.HasKey("ID");
 
+                    b.HasIndex("NationalID")
+                        .IsUnique();
+
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            ID = 1,
+                            FirstName = "Abdo",
+                            LastName = "Mustafa",
+                            NationalID = "12345678901234",
+                            PasswordHash = "$2a$11$XJaXQUyQxAOfRtAEcEa6ceT8JOkSddFJGoGSj9RwuLA8yDDm3588S",
+                            Role = 0
+                        },
+                        new
+                        {
+                            ID = 2,
+                            FirstName = "Ahmed",
+                            LastName = "Ali",
+                            NationalID = "23456789012345",
+                            PasswordHash = "$2a$11$r8CKo/O6euw/dl/38mn6eeyAOfwzKS30qApeQ.Kbb5BwY4XQqn2Dq",
+                            Role = 1
+                        });
                 });
 
             modelBuilder.Entity("SupermarketManagmentSystem_SMS.Models.Cart", b =>

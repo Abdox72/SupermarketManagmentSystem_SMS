@@ -75,19 +75,19 @@
             panel1.Location = new Point(3, 3);
             panel1.Name = "panel1";
             panel1.RightToLeft = RightToLeft.Yes;
-            panel1.Size = new Size(816, 485);
+            panel1.Size = new Size(862, 485);
             panel1.TabIndex = 0;
             // 
             // PriceNumeric1
             // 
-            PriceNumeric1.Location = new Point(438, 309);
+            PriceNumeric1.Location = new Point(505, 309);
             PriceNumeric1.Name = "PriceNumeric1";
             PriceNumeric1.Size = new Size(254, 23);
             PriceNumeric1.TabIndex = 21;
             // 
             // QuantityNumeric
             // 
-            QuantityNumeric.Location = new Point(438, 244);
+            QuantityNumeric.Location = new Point(505, 244);
             QuantityNumeric.Name = "QuantityNumeric";
             QuantityNumeric.Size = new Size(254, 23);
             QuantityNumeric.TabIndex = 20;
@@ -146,18 +146,23 @@
             // 
             // CategoryComboBox
             // 
+            CategoryComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             CategoryComboBox.FormattingEnabled = true;
-            CategoryComboBox.Location = new Point(438, 112);
+            CategoryComboBox.Location = new Point(505, 112);
             CategoryComboBox.Name = "CategoryComboBox";
             CategoryComboBox.Size = new Size(254, 23);
             CategoryComboBox.TabIndex = 12;
             // 
             // ProductGridView
             // 
+            ProductGridView.AllowUserToAddRows = false;
+            ProductGridView.AllowUserToDeleteRows = false;
             ProductGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            ProductGridView.Location = new Point(20, 39);
+            ProductGridView.Location = new Point(-1, 39);
             ProductGridView.Name = "ProductGridView";
-            ProductGridView.Size = new Size(412, 293);
+            ProductGridView.ReadOnly = true;
+            ProductGridView.RowHeadersWidth = 51;
+            ProductGridView.Size = new Size(478, 293);
             ProductGridView.TabIndex = 11;
             // 
             // foxLabel5
@@ -165,7 +170,7 @@
             foxLabel5.BackColor = Color.Transparent;
             foxLabel5.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             foxLabel5.ForeColor = Color.Black;
-            foxLabel5.Location = new Point(736, 185);
+            foxLabel5.Location = new Point(771, 185);
             foxLabel5.Name = "foxLabel5";
             foxLabel5.Size = new Size(77, 19);
             foxLabel5.TabIndex = 9;
@@ -180,7 +185,7 @@
             BarcodeTextBox.Font = new Font("Segoe UI", 12F);
             BarcodeTextBox.ForeColor = Color.FromArgb(48, 49, 51);
             BarcodeTextBox.Hint = "";
-            BarcodeTextBox.Location = new Point(438, 166);
+            BarcodeTextBox.Location = new Point(505, 166);
             BarcodeTextBox.MaxLength = 32767;
             BarcodeTextBox.Multiline = false;
             BarcodeTextBox.Name = "BarcodeTextBox";
@@ -203,7 +208,7 @@
             NameTextBox.Font = new Font("Segoe UI", 12F);
             NameTextBox.ForeColor = Color.FromArgb(48, 49, 51);
             NameTextBox.Hint = "";
-            NameTextBox.Location = new Point(438, 39);
+            NameTextBox.Location = new Point(505, 39);
             NameTextBox.MaxLength = 32767;
             NameTextBox.Multiline = false;
             NameTextBox.Name = "NameTextBox";
@@ -222,7 +227,7 @@
             foxLabel4.BackColor = Color.Transparent;
             foxLabel4.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             foxLabel4.ForeColor = Color.Black;
-            foxLabel4.Location = new Point(736, 244);
+            foxLabel4.Location = new Point(771, 244);
             foxLabel4.Name = "foxLabel4";
             foxLabel4.Size = new Size(77, 19);
             foxLabel4.TabIndex = 3;
@@ -233,7 +238,7 @@
             foxLabel3.BackColor = Color.Transparent;
             foxLabel3.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             foxLabel3.ForeColor = Color.Black;
-            foxLabel3.Location = new Point(736, 300);
+            foxLabel3.Location = new Point(771, 300);
             foxLabel3.Name = "foxLabel3";
             foxLabel3.Size = new Size(77, 19);
             foxLabel3.TabIndex = 2;
@@ -244,7 +249,7 @@
             foxLabel2.BackColor = Color.Transparent;
             foxLabel2.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             foxLabel2.ForeColor = Color.Black;
-            foxLabel2.Location = new Point(736, 112);
+            foxLabel2.Location = new Point(771, 112);
             foxLabel2.Name = "foxLabel2";
             foxLabel2.Size = new Size(77, 19);
             foxLabel2.TabIndex = 1;
@@ -255,7 +260,7 @@
             foxLabel1.BackColor = Color.Transparent;
             foxLabel1.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             foxLabel1.ForeColor = Color.Black;
-            foxLabel1.Location = new Point(736, 48);
+            foxLabel1.Location = new Point(765, 49);
             foxLabel1.Name = "foxLabel1";
             foxLabel1.Size = new Size(77, 19);
             foxLabel1.TabIndex = 0;
@@ -271,7 +276,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(panel1);
             Name = "ProductCustom";
-            Size = new Size(821, 491);
+            Size = new Size(865, 491);
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)PriceNumeric1).EndInit();
             ((System.ComponentModel.ISupportInitialize)QuantityNumeric).EndInit();

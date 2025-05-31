@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace SupermarketManagmentSystem_SMS
 {
-    public partial class Cashier : Form
+    public partial class CashierDashboardForm : Form
     {
-        public Cashier()
+        public CashierDashboardForm()
         {
             InitializeComponent();
         }

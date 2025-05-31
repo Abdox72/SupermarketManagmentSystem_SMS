@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace SupermarketManagmentSystem_SMS.Migrations
 {
     /// <inheritdoc />
-    public partial class AddEntities : Migration
+    public partial class initialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -160,6 +162,35 @@ namespace SupermarketManagmentSystem_SMS.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "CategoryID", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Fruits" },
+                    { 2, "Vegetables" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "ID", "FirstName", "LastName", "NationalID", "PasswordHash", "Role" },
+                values: new object[,]
+                {
+                    { 1, "Abdo", "Mustafa", "12345678901234", "$2a$11$XJaXQUyQxAOfRtAEcEa6ceT8JOkSddFJGoGSj9RwuLA8yDDm3588S", 0 },
+                    { 2, "Ahmed", "Ali", "23456789012345", "$2a$11$r8CKo/O6euw/dl/38mn6eeyAOfwzKS30qApeQ.Kbb5BwY4XQqn2Dq", 1 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "ProductID", "Barcode", "CategoryID", "ImagePath", "Name", "Price", "Quantity" },
+                values: new object[,]
+                {
+                    { 1, "", 1, null, "Apple", 1.2m, 0 },
+                    { 2, "", 1, null, "Banana", 0.8m, 0 },
+                    { 3, "", 2, null, "Carrot", 0.5m, 0 },
+                    { 4, "", 2, null, "Broccoli", 1.0m, 0 }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_CartItems_CartID",
                 table: "CartItems",
@@ -194,6 +225,12 @@ namespace SupermarketManagmentSystem_SMS.Migrations
                 name: "IX_Sales_CashierID",
                 table: "Sales",
                 column: "CashierID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_NationalID",
+                table: "Users",
+                column: "NationalID",
+                unique: true);
         }
 
         /// <inheritdoc />
