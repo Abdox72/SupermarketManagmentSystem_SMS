@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SupermarketManagmentSystem_SMS.Data;
 
 #nullable disable
@@ -127,38 +128,38 @@ namespace SupermarketManagmentSystem_SMS.Migrations
                         new
                         {
                             ProductID = 1,
-                            Barcode = "",
+                            Barcode = "111",
                             CategoryID = 1,
                             Name = "Apple",
                             Price = 1.2m,
-                            Quantity = 0
+                            Quantity = 50
                         },
                         new
                         {
                             ProductID = 2,
-                            Barcode = "",
+                            Barcode = "222",
                             CategoryID = 1,
                             Name = "Banana",
                             Price = 0.8m,
-                            Quantity = 0
+                            Quantity = 20
                         },
                         new
                         {
                             ProductID = 3,
-                            Barcode = "",
+                            Barcode = "333",
                             CategoryID = 2,
                             Name = "Carrot",
                             Price = 0.5m,
-                            Quantity = 0
+                            Quantity = 15
                         },
                         new
                         {
                             ProductID = 4,
-                            Barcode = "",
+                            Barcode = "444",
                             CategoryID = 2,
                             Name = "Broccoli",
                             Price = 1.0m,
-                            Quantity = 0
+                            Quantity = 12
                         });
                 });
 
@@ -252,7 +253,7 @@ namespace SupermarketManagmentSystem_SMS.Migrations
                             FirstName = "Abdo",
                             LastName = "Mustafa",
                             NationalID = "12345678901234",
-                            PasswordHash = "$2a$11$XJaXQUyQxAOfRtAEcEa6ceT8JOkSddFJGoGSj9RwuLA8yDDm3588S",
+                            PasswordHash = "$2a$11$xUwPjokIX/Q2u1IGg1VlJexCcPwGYEKD.kjpf2X76t8jC60aUwmqS",
                             Role = 0
                         },
                         new
@@ -261,7 +262,7 @@ namespace SupermarketManagmentSystem_SMS.Migrations
                             FirstName = "Ahmed",
                             LastName = "Ali",
                             NationalID = "23456789012345",
-                            PasswordHash = "$2a$11$r8CKo/O6euw/dl/38mn6eeyAOfwzKS30qApeQ.Kbb5BwY4XQqn2Dq",
+                            PasswordHash = "$2a$11$G.bveYHvXHbW43mkWJxn..utTmjnUGx6IwXy2eDAxWF02u8.0zm.q",
                             Role = 1
                         });
                 });

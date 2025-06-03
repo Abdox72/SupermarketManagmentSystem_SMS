@@ -44,7 +44,7 @@ namespace SupermarketManagmentSystem_SMS
                 else if (user?.Role == UserRole.Cashier)
                 {
                     // Show Cashier Dashboard
-                    var cashierDashboardForm = new CashierDashboardForm();
+                    var cashierDashboardForm = new CashierDashboardForm(user);
                     cashierDashboardForm.ShowDialog();
                     this.Show();
                 }
