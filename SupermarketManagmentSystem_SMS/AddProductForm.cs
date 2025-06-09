@@ -10,14 +10,14 @@ using System.Windows.Forms;
 
 namespace SupermarketManagmentSystem_SMS
 {
-    public partial class UserControl1 : UserControl
+    public partial class AddProductForm : Form
     {
-        public UserControl1()
+        public AddProductForm()
         {
             InitializeComponent();
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
+        private void AddProductForm_Load(object sender, EventArgs e)
         {
 
         }

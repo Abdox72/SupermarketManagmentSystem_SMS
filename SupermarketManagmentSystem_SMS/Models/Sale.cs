@@ -27,5 +27,6 @@ namespace SupermarketManagmentSystem_SMS.Models
         [ForeignKey("CashierID")]
         public User? Cashier { get; set; }
         public ICollection<SaleItem> SaleItem { get; set; } = new List<SaleItem>();
+        public DateTime Date { get; internal set; }
     }
 }

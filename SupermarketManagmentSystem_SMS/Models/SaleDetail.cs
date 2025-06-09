@@ -25,7 +25,7 @@ namespace SupermarketManagmentSystem_SMS.Models
         public decimal UnitPrice { get; set; }
 
         // Navigation
-        public Sale Sale { get; set; } = null!;
-        public Product Product { get; set; } = null!;
+        public Sale Sale { get; set; }
+        public Product Product { get; set; } 
     }
 }

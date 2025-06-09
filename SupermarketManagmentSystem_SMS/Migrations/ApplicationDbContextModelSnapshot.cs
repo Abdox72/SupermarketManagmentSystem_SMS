@@ -3,7 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Supermarket_Managment_System_SMS.Data;
+using SupermarketManagmentSystem_SMS.Data;
 
 #nullable disable
 
@@ -128,38 +128,38 @@ namespace SupermarketManagmentSystem_SMS.Migrations
                         new
                         {
                             ProductID = 1,
-                            Barcode = "",
+                            Barcode = "111",
                             CategoryID = 1,
                             Name = "Apple",
                             Price = 1.2m,
-                            Quantity = 0
+                            Quantity = 50
                         },
                         new
                         {
                             ProductID = 2,
-                            Barcode = "",
+                            Barcode = "222",
                             CategoryID = 1,
                             Name = "Banana",
                             Price = 0.8m,
-                            Quantity = 0
+                            Quantity = 20
                         },
                         new
                         {
                             ProductID = 3,
-                            Barcode = "",
+                            Barcode = "333",
                             CategoryID = 2,
                             Name = "Carrot",
                             Price = 0.5m,
-                            Quantity = 0
+                            Quantity = 15
                         },
                         new
                         {
                             ProductID = 4,
-                            Barcode = "",
+                            Barcode = "444",
                             CategoryID = 2,
                             Name = "Broccoli",
                             Price = 1.0m,
-                            Quantity = 0
+                            Quantity = 12
                         });
                 });
 
@@ -171,6 +171,9 @@ namespace SupermarketManagmentSystem_SMS.Migrations
 
                     b.Property<int?>("CashierID")
                         .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("SaleDate")
                         .HasColumnType("TEXT");
@@ -253,7 +256,7 @@ namespace SupermarketManagmentSystem_SMS.Migrations
                             FirstName = "Abdo",
                             LastName = "Mustafa",
                             NationalID = "12345678901234",
-                            PasswordHash = "admin123",
+                            PasswordHash = "$2a$11$kmS7BPKsjvEQGqGqg.rLbe6UadMxryNSNPrVwDzQKcDEBgwFaQ856",
                             Role = 0
                         },
                         new
@@ -262,7 +265,7 @@ namespace SupermarketManagmentSystem_SMS.Migrations
                             FirstName = "Ahmed",
                             LastName = "Ali",
                             NationalID = "23456789012345",
-                            PasswordHash = "cashier123",
+                            PasswordHash = "$2a$11$VagXCIY2HAbI2qNMVg1olukwPDzDLRweB7ow.SBdT.U9XHqJT8KIe",
                             Role = 1
                         });
                 });

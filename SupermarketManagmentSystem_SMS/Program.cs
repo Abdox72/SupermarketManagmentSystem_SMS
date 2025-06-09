@@ -1,19 +1,28 @@
 using SupermarketManagmentSystem_SMS;
+using Microsoft.Extensions.DependencyInjection;
+using SupermarketManagmentSystem_SMS.Data;
 
-namespace Supermarket_Managment_System_SMS
+namespace SupermarketManagmentSystem_SMS
 {
     internal static class Program
     {
-        /// <summary>
-        ///  The main entry point for the application.
-        /// </summary>
+        /// <summary>  
+        ///  The main entry point for the application.  
+        /// </summary>  
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
-            ApplicationConfiguration.Initialize();
-            Application.Run(new LoginForm());
+            // To customize application configuration such as set high DPI settings or default font,  
+            // see https://aka.ms/applicationconfiguration.  
+            Application.EnableVisualStyles(); // Replace ApplicationConfiguration.Initialize()  
+            Application.SetCompatibleTextRenderingDefault(false);
+
+           
+            //Application.Run(new Reports());
+            //Application.Run(new LoginForm());
+            Application.Run(new MainForm());
+            //Application.Run(new BillingForm());
+
         }
     }
 }

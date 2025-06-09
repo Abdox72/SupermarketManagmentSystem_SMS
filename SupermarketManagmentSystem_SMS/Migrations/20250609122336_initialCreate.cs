@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace SupermarketManagmentSystem_SMS.Migrations
 {
     /// <inheritdoc />
-    public partial class AddEntities : Migration
+    public partial class initialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -92,7 +94,8 @@ namespace SupermarketManagmentSystem_SMS.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     SaleDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     TotalAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    CashierID = table.Column<int>(type: "INTEGER", nullable: true)
+                    CashierID = table.Column<int>(type: "INTEGER", nullable: true),
+                    Date = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -160,6 +163,35 @@ namespace SupermarketManagmentSystem_SMS.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "CategoryID", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Fruits" },
+                    { 2, "Vegetables" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Users",
+                columns: new[] { "ID", "FirstName", "LastName", "NationalID", "PasswordHash", "Role" },
+                values: new object[,]
+                {
+                    { 1, "Abdo", "Mustafa", "12345678901234", "$2a$11$kmS7BPKsjvEQGqGqg.rLbe6UadMxryNSNPrVwDzQKcDEBgwFaQ856", 0 },
+                    { 2, "Ahmed", "Ali", "23456789012345", "$2a$11$VagXCIY2HAbI2qNMVg1olukwPDzDLRweB7ow.SBdT.U9XHqJT8KIe", 1 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Products",
+                columns: new[] { "ProductID", "Barcode", "CategoryID", "ImagePath", "Name", "Price", "Quantity" },
+                values: new object[,]
+                {
+                    { 1, "111", 1, null, "Apple", 1.2m, 50 },
+                    { 2, "222", 1, null, "Banana", 0.8m, 20 },
+                    { 3, "333", 2, null, "Carrot", 0.5m, 15 },
+                    { 4, "444", 2, null, "Broccoli", 1.0m, 12 }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_CartItems_CartID",
                 table: "CartItems",
@@ -194,6 +226,12 @@ namespace SupermarketManagmentSystem_SMS.Migrations
                 name: "IX_Sales_CashierID",
                 table: "Sales",
                 column: "CashierID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_NationalID",
+                table: "Users",
+                column: "NationalID",
+                unique: true);
         }
 
         /// <inheritdoc />
