@@ -15,12 +15,12 @@ namespace SupermarketManagmentSystem_SMS
     public partial class CashierDashboardForm : Form
     {
         private User _loggedInUser; // Stores the logged-in user info
-        
+
         private DateTime _shiftStartTime;// Stores the shift start time for filtering sales summary
         public CashierDashboardForm(User user)
         {
             _loggedInUser = user;
-            _shiftStartTime = DateTime.Now; 
+            _shiftStartTime = DateTime.Now;
             InitializeComponent();
             this.Load += CashierDashboardForm_Load;
         }
@@ -29,8 +29,8 @@ namespace SupermarketManagmentSystem_SMS
         private void CashierDashboardForm_Load(object sender, EventArgs e)
         {
             //_shiftStartTime = DateTime.Now;
-            CashierNamelabel.Text = $"الكاشير:{_loggedInUser.FirstName} {_loggedInUser.LastName}";
-            CashierShiftlabel.Text = $"بداية الشيفت: {DateTime.Now:hh:mm tt}";
+            CashierNamelabel.Text = $"{_loggedInUser.FirstName} {_loggedInUser.LastName}:الكاشير";
+            CashierShiftlabel.Text = $"{DateTime.Now:hh:mm tt}:بداية الشيفت";
             UpdateSalesSummary();
         }
 
@@ -49,7 +49,7 @@ namespace SupermarketManagmentSystem_SMS
                         subtotal += rowSubtotal;
                     }
                 }
-            }  
+            }
             SubtotaltextBox.Text = subtotal.ToString("0.00");
             UpdateTotalAmount();
         }
@@ -181,11 +181,11 @@ namespace SupermarketManagmentSystem_SMS
             if (change < 0)
             {
                 change = 0;
-                CompleteSalebutton.Enabled = false; 
+                CompleteSalebutton.Enabled = false;
             }
             else
             {
-                CompleteSalebutton.Enabled = true; 
+                CompleteSalebutton.Enabled = true;
             }
 
             ChangeTextBox.Text = change.ToString("0.00");
@@ -315,7 +315,7 @@ namespace SupermarketManagmentSystem_SMS
                         }
 
                         db.SaveChanges();
-                        
+
                         transaction.Commit();
                         UpdateSalesSummary();
 
@@ -347,7 +347,7 @@ namespace SupermarketManagmentSystem_SMS
             {
                 var salesThisShift = db.Sales
             .Where(s => s.CashierID == _loggedInUser.ID && s.SaleDate >= _shiftStartTime)
-                        .AsEnumerable(); 
+                        .AsEnumerable();
 
                 int numberOfSales = salesThisShift.Count();
                 decimal totalSales = salesThisShift.Sum(s => s.TotalAmount);
@@ -357,5 +357,6 @@ namespace SupermarketManagmentSystem_SMS
             }
         }
 
+        
     }
 }

@@ -102,14 +102,12 @@
             label1.TabIndex = 12;
             label1.Text = "الرقم القومي";
             // 
-            // MainForm
+            // LoginForm
             // 
-
             AutoScaleDimensions = new SizeF(9F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
-            //BackgroundImage = SupermarketManagmentSystem_SMS.Properties.Resources.tot;
-            ClientSize = new Size(747, 527);
+            ClientSize = new Size(659, 527);
             Controls.Add(LoginBtn);
             Controls.Add(PasswordTextBox);
             Controls.Add(NationalIdTextBox);
@@ -119,7 +117,7 @@
             ImeMode = ImeMode.Hiragana;
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "MainForm";
+            Name = "LoginForm";
             RightToLeft = RightToLeft.Yes;
             ShowIcon = false;
             StartPosition = FormStartPosition.CenterScreen;
