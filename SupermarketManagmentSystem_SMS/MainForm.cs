@@ -59,15 +59,6 @@ namespace SupermarketManagmentSystem_SMS
                 Location = new Point(20, 25)
             };
 
-            //Label userLabel = new Label
-            //{
-            //    Text = $"مرحباً، {_currentUser.FirstName} {_currentUser.LastName}",
-            //    Font = new Font("Arial", 12),
-            //    ForeColor = Color.White,
-            //    AutoSize = true,
-            //    Location = new Point(650, 30)
-            //};
-
 
             Panel sidePanel = new Panel
             {
@@ -136,8 +127,7 @@ namespace SupermarketManagmentSystem_SMS
             throw new NotImplementedException();
         }
 
-   
-
+  
         private void OpenForm(Form form)
         {
             form.TopLevel = false;

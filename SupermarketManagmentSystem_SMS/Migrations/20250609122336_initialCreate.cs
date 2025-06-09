@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SupermarketManagmentSystem_SMS.Migrations
 {
     /// <inheritdoc />
-    public partial class initialcreate : Migration
+    public partial class initialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -94,7 +94,8 @@ namespace SupermarketManagmentSystem_SMS.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     SaleDate = table.Column<DateTime>(type: "TEXT", nullable: false),
                     TotalAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    CashierID = table.Column<int>(type: "INTEGER", nullable: true)
+                    CashierID = table.Column<int>(type: "INTEGER", nullable: true),
+                    Date = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -176,8 +177,8 @@ namespace SupermarketManagmentSystem_SMS.Migrations
                 columns: new[] { "ID", "FirstName", "LastName", "NationalID", "PasswordHash", "Role" },
                 values: new object[,]
                 {
-                    { 1, "Abdo", "Mustafa", "12345678901234", "$2a$11$xUwPjokIX/Q2u1IGg1VlJexCcPwGYEKD.kjpf2X76t8jC60aUwmqS", 0 },
-                    { 2, "Ahmed", "Ali", "23456789012345", "$2a$11$G.bveYHvXHbW43mkWJxn..utTmjnUGx6IwXy2eDAxWF02u8.0zm.q", 1 }
+                    { 1, "Abdo", "Mustafa", "12345678901234", "$2a$11$kmS7BPKsjvEQGqGqg.rLbe6UadMxryNSNPrVwDzQKcDEBgwFaQ856", 0 },
+                    { 2, "Ahmed", "Ali", "23456789012345", "$2a$11$VagXCIY2HAbI2qNMVg1olukwPDzDLRweB7ow.SBdT.U9XHqJT8KIe", 1 }
                 });
 
             migrationBuilder.InsertData(

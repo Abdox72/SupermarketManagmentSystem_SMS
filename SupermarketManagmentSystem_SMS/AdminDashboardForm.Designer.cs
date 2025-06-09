@@ -220,7 +220,6 @@ namespace SupermarketManagmentSystem_SMS
             RightToLeft = RightToLeft.Yes;
             RightToLeftLayout = true;
             Text = "AdminDashboardForm";
-            Load += AdminDashboardForm_Load;
             tableLayoutPanel1.ResumeLayout(false);
             SidebarPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)hopePictureBox1).EndInit();

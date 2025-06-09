@@ -256,7 +256,7 @@ namespace SupermarketManagmentSystem_SMS.Migrations
                             FirstName = "Abdo",
                             LastName = "Mustafa",
                             NationalID = "12345678901234",
-                            PasswordHash = "$2a$11$xUwPjokIX/Q2u1IGg1VlJexCcPwGYEKD.kjpf2X76t8jC60aUwmqS",
+                            PasswordHash = "$2a$11$kmS7BPKsjvEQGqGqg.rLbe6UadMxryNSNPrVwDzQKcDEBgwFaQ856",
                             Role = 0
                         },
                         new
@@ -265,7 +265,7 @@ namespace SupermarketManagmentSystem_SMS.Migrations
                             FirstName = "Ahmed",
                             LastName = "Ali",
                             NationalID = "23456789012345",
-                            PasswordHash = "$2a$11$G.bveYHvXHbW43mkWJxn..utTmjnUGx6IwXy2eDAxWF02u8.0zm.q",
+                            PasswordHash = "$2a$11$VagXCIY2HAbI2qNMVg1olukwPDzDLRweB7ow.SBdT.U9XHqJT8KIe",
                             Role = 1
                         });
                 });
