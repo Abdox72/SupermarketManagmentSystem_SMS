@@ -64,7 +64,7 @@ namespace SupermarketManagmentSystem_SMS
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 80F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle());
-            tableLayoutPanel1.Size = new Size(1195, 743);
+            tableLayoutPanel1.Size = new Size(982, 553);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // ContentPanel
@@ -214,12 +214,13 @@ namespace SupermarketManagmentSystem_SMS
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.DarkBlue;
-            ClientSize = new Size(1195, 743);
+            ClientSize = new Size(982, 553);
             Controls.Add(tableLayoutPanel1);
             Name = "AdminDashboardForm";
             RightToLeft = RightToLeft.Yes;
             RightToLeftLayout = true;
             Text = "AdminDashboardForm";
+            Load += AdminDashboardForm_Load;
             tableLayoutPanel1.ResumeLayout(false);
             SidebarPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)hopePictureBox1).EndInit();

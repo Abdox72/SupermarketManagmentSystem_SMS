@@ -22,6 +22,10 @@ namespace SupermarketManagmentSystem_SMS
             InitializeComponent();
         }
 
+        public CategoryCustom()
+        {
+        }
+
         private void foxLabel1_Click(object sender, EventArgs e)
         {
 
