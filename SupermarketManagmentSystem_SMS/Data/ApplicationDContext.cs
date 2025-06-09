@@ -37,7 +37,7 @@ namespace SupermarketManagmentSystem_SMS.Data
                     LastName = "Mustafa",
                     NationalID = "12345678901234",
                     PasswordHash = AuthenticationService.HashPassword("admin123"),
-                    Role = SupermarketManagmentSystem_SMS.Utilities.UserRole.Admin
+                    Role = Utilities.UserRole.Admin
                 },
                 new User
                 {
@@ -46,7 +46,7 @@ namespace SupermarketManagmentSystem_SMS.Data
                     LastName = "Ali",
                     NationalID = "23456789012345",
                     PasswordHash = AuthenticationService.HashPassword("cashier123"),
-                    Role = SupermarketManagmentSystem_SMS.Utilities.UserRole.Cashier
+                    Role = Utilities.UserRole.Cashier
                 }
             );
             builder.Entity<Category>().HasData(

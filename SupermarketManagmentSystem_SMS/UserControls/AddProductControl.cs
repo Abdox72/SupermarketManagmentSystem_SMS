@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using Microsoft.EntityFrameworkCore;
 using SupermarketManagmentSystem_SMS.Data;
 using SupermarketManagmentSystem_SMS.Dto;
+using System.Reflection;
 namespace SupermarketManagmentSystem_SMS.UserControls
 {
     public partial class AddProductControl : UserControl
@@ -51,7 +52,20 @@ namespace SupermarketManagmentSystem_SMS.UserControls
         public AddProductControl(ApplicationDbContext _context)
         {   
             InitializeComponent();
-            
+            this.DoubleBuffered = true; // Enable for user control
+            // ... existing code ...
+            EnableDoubleBuffering(ProductGridView);
+            EnableDoubleBuffering(ProductPictureBox);
+            EnableDoubleBuffering(CategoryComboBox);
+            EnableDoubleBuffering(NameTextBox);
+            EnableDoubleBuffering(BarcodeTextBox);
+            EnableDoubleBuffering(PriceNumeric1);
+            EnableDoubleBuffering(QuantityNumeric);
+            EnableDoubleBuffering(SelectImageButton);
+            EnableDoubleBuffering(addButton);
+            EnableDoubleBuffering(ProductDataGridView);
+            // Set double buffering for the user control
+
             dbcontext = _context;
             getproducts = dbcontext.Products.Include(c=>c.Category).ToList();
             var displayList = getproducts.Select(p => new ProductDisplay
@@ -165,6 +179,19 @@ namespace SupermarketManagmentSystem_SMS.UserControls
         {
             get { return ProductGridView; }
             set { ProductGridView = value; }
+        }
+        //// Helper method to enable double-buffering on any control
+        //private void SetDoubleBuffered(Control control)
+        //{
+        //    typeof(Control).InvokeMember("DoubleBuffered",
+        //        BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic,
+        //        null, control, new object[] { true });
+        //}
+
+        private void EnableDoubleBuffering(Control control)
+        {
+            typeof(Control).GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)
+                ?.SetValue(control, true, null);
         }
     }
 }

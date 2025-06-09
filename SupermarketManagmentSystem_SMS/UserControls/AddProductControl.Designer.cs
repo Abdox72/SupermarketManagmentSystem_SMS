@@ -30,7 +30,7 @@
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             tableLayoutPanel1 = new TableLayoutPanel();
-            panel1 = new Panel();
+            panel1 = new BufferedPanel();
             PriceNumeric1 = new NumericUpDown();
             QuantityNumeric = new NumericUpDown();
             CategoryComboBox = new ComboBox();
@@ -41,9 +41,9 @@
             foxLabel3 = new ReaLTaiizor.Controls.FoxLabel();
             foxLabel2 = new ReaLTaiizor.Controls.FoxLabel();
             foxLabel1 = new ReaLTaiizor.Controls.FoxLabel();
-            panel2 = new Panel();
+            panel2 = new BufferedPanel();
             ProductGridView = new DataGridView();
-            panel3 = new Panel();
+            panel3 = new BufferedPanel();
             addButton = new ReaLTaiizor.Controls.DungeonButtonRight();
             SelectImageButton = new ReaLTaiizor.Controls.DungeonButtonLeft();
             ProductPictureBox = new PictureBox();
