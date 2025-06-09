@@ -33,11 +33,9 @@ namespace SupermarketManagmentSystem_SMS
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdminDashboardForm));
             tableLayoutPanel1 = new TableLayoutPanel();
             ContentPanel = new Panel();
-            //addProductControl1 = new UserControls.AddProductControl();
             TobBarPanel = new Panel();
             SidebarPanel = new Panel();
             tableLayoutPanel1.SuspendLayout();
-            ContentPanel.SuspendLayout();
             SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -55,7 +53,7 @@ namespace SupermarketManagmentSystem_SMS
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 60F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle());
-            tableLayoutPanel1.Size = new Size(1195, 743);
+            tableLayoutPanel1.Size = new Size(982, 553);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // ContentPanel
@@ -64,36 +62,18 @@ namespace SupermarketManagmentSystem_SMS
             ContentPanel.AutoSize = true;
             ContentPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
             ContentPanel.BackColor = Color.Transparent;
-            ContentPanel.Controls.Add(addProductControl1);
             ContentPanel.Dock = DockStyle.Fill;
-            ContentPanel.Location = new Point(3, 63);
+            ContentPanel.Location = new Point(-210, 63);
             ContentPanel.Name = "ContentPanel";
             ContentPanel.Size = new Size(1039, 677);
             ContentPanel.TabIndex = 0;
-            // 
-            // addProductControl1
-            // 
-            addProductControl1.AutoSize = true;
-            addProductControl1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            addProductControl1.BackgroundImageLayout = ImageLayout.None;
-            addProductControl1.Dock = DockStyle.Fill;
-            addProductControl1.ImeMode = ImeMode.NoControl;
-            addProductControl1.Location = new Point(0, 0);
-            addProductControl1.Name = "addProductControl1";
-            addProductControl1.ProductBarcode = "";
-            addProductControl1.ProductPrice = "0";
-            addProductControl1.ProductQuantity = "0";
-            addProductControl1.RightToLeft = RightToLeft.Yes;
-            addProductControl1.selectedImagePath = "";
-            addProductControl1.Size = new Size(1039, 677);
-            addProductControl1.TabIndex = 1;
             // 
             // TobBarPanel
             // 
             TobBarPanel.BackColor = Color.DarkCyan;
             TobBarPanel.BackgroundImage = (Image)resources.GetObject("TobBarPanel.BackgroundImage");
             TobBarPanel.Dock = DockStyle.Fill;
-            TobBarPanel.Location = new Point(3, 3);
+            TobBarPanel.Location = new Point(-210, 3);
             TobBarPanel.Name = "TobBarPanel";
             TobBarPanel.Size = new Size(1039, 54);
             TobBarPanel.TabIndex = 1;
@@ -103,7 +83,7 @@ namespace SupermarketManagmentSystem_SMS
             SidebarPanel.BackColor = Color.DarkGreen;
             SidebarPanel.BackgroundImage = (Image)resources.GetObject("SidebarPanel.BackgroundImage");
             SidebarPanel.Dock = DockStyle.Fill;
-            SidebarPanel.Location = new Point(1048, 63);
+            SidebarPanel.Location = new Point(835, 63);
             SidebarPanel.Name = "SidebarPanel";
             SidebarPanel.Size = new Size(144, 677);
             SidebarPanel.TabIndex = 2;
@@ -113,16 +93,15 @@ namespace SupermarketManagmentSystem_SMS
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.DarkBlue;
-            ClientSize = new Size(1195, 743);
+            ClientSize = new Size(982, 553);
             Controls.Add(tableLayoutPanel1);
             Name = "AdminDashboardForm";
             RightToLeft = RightToLeft.Yes;
             RightToLeftLayout = true;
             Text = "AdminDashboardForm";
+            Load += AdminDashboardForm_Load;
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
-            ContentPanel.ResumeLayout(false);
-            ContentPanel.PerformLayout();
             ResumeLayout(false);
         }
 

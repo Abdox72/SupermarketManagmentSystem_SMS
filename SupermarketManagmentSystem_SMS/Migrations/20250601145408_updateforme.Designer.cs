@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SupermarketManagmentSystem_SMS.Data;
 
@@ -10,9 +11,11 @@ using SupermarketManagmentSystem_SMS.Data;
 namespace SupermarketManagmentSystem_SMS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250601145408_updateforme")]
+    partial class updateforme
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
@@ -172,9 +175,6 @@ namespace SupermarketManagmentSystem_SMS.Migrations
                     b.Property<int?>("CashierID")
                         .HasColumnType("INTEGER");
 
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("TEXT");
-
                     b.Property<DateTime>("SaleDate")
                         .HasColumnType("TEXT");
 
@@ -256,7 +256,7 @@ namespace SupermarketManagmentSystem_SMS.Migrations
                             FirstName = "Abdo",
                             LastName = "Mustafa",
                             NationalID = "12345678901234",
-                            PasswordHash = "$2a$11$mzkifGiBKkPnpdd7QRBQO.540v8YIsPx9pis68lEtRlYQBEGhMy2K",
+                            PasswordHash = "$2a$11$xHrrYHvQPOWRXFWdVZCRX.njeMAEYV3nAIAy2x/yz/lx2kguJM/1m",
                             Role = 0
                         },
                         new
@@ -265,7 +265,7 @@ namespace SupermarketManagmentSystem_SMS.Migrations
                             FirstName = "Ahmed",
                             LastName = "Ali",
                             NationalID = "23456789012345",
-                            PasswordHash = "$2a$11$m5XZWRMSdDo5WMlYPCS8ceKbP604LPPY7NiaEnAqREodeR9BNWOK6",
+                            PasswordHash = "$2a$11$g4oJgXyQ3lVC.UEqEjyi/O0aDee9QqmZvitt5acyDheYA1RkpHAJO",
                             Role = 1
                         });
                 });

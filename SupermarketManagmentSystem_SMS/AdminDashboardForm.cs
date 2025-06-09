@@ -20,7 +20,7 @@ namespace SupermarketManagmentSystem_SMS
 
         //only dbcontext sent it to all user conterol such product custom
         ApplicationDbContext dbcontext = new ApplicationDbContextFactory().CreateDbContext(null);
-       //عرفتها بره عشان ابعتلها ال dbcontext في ال constractor
+        //عرفتها بره عشان ابعتلها ال dbcontext في ال constractor
         private AddProductControl addProductControl1;
 
         public AdminDashboardForm()
@@ -51,6 +51,11 @@ namespace SupermarketManagmentSystem_SMS
         private void BtnDashboard_Click(object sender, EventArgs e)
         {
             //LoadPage(new DashboardControl());
+        }
+
+        private void AdminDashboardForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -17,6 +17,11 @@ namespace SupermarketManagmentSystem_SMS.Data
             : base(options)
         {
         }
+
+        public ApplicationDbContext()
+        {
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 
