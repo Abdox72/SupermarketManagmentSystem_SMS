@@ -42,8 +42,13 @@
             foxLabel2 = new ReaLTaiizor.Controls.FoxLabel();
             foxLabel1 = new ReaLTaiizor.Controls.FoxLabel();
             panel2 = new Panel();
+            foxLabel6 = new ReaLTaiizor.Controls.FoxLabel();
+            searchTextBox = new ReaLTaiizor.Controls.HopeTextBox();
             ProductGridView = new DataGridView();
+            EditButton = new DataGridViewButtonColumn();
+            DeleteButton = new DataGridViewButtonColumn();
             panel3 = new Panel();
+            editProductButton = new ReaLTaiizor.Controls.DungeonButtonRight();
             addButton = new ReaLTaiizor.Controls.DungeonButtonRight();
             SelectImageButton = new ReaLTaiizor.Controls.DungeonButtonLeft();
             ProductPictureBox = new PictureBox();
@@ -101,10 +106,12 @@
             // PriceNumeric1
             // 
             PriceNumeric1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            PriceNumeric1.DecimalPlaces = 2;
+            PriceNumeric1.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
             PriceNumeric1.Location = new Point(43, 341);
             PriceNumeric1.Margin = new Padding(3, 4, 3, 4);
             PriceNumeric1.Name = "PriceNumeric1";
-            PriceNumeric1.Size = new Size(272, 27);
+            PriceNumeric1.Size = new Size(272, 23);
             PriceNumeric1.TabIndex = 31;
             // 
             // QuantityNumeric
@@ -113,7 +120,7 @@
             QuantityNumeric.Location = new Point(43, 270);
             QuantityNumeric.Margin = new Padding(3, 4, 3, 4);
             QuantityNumeric.Name = "QuantityNumeric";
-            QuantityNumeric.Size = new Size(272, 27);
+            QuantityNumeric.Size = new Size(272, 23);
             QuantityNumeric.TabIndex = 30;
             // 
             // CategoryComboBox
@@ -124,7 +131,7 @@
             CategoryComboBox.Location = new Point(43, 111);
             CategoryComboBox.Margin = new Padding(3, 4, 3, 4);
             CategoryComboBox.Name = "CategoryComboBox";
-            CategoryComboBox.Size = new Size(272, 28);
+            CategoryComboBox.Size = new Size(272, 23);
             CategoryComboBox.TabIndex = 29;
             // 
             // foxLabel5
@@ -160,7 +167,7 @@
             BarcodeTextBox.SelectedText = "";
             BarcodeTextBox.SelectionLength = 0;
             BarcodeTextBox.SelectionStart = 0;
-            BarcodeTextBox.Size = new Size(272, 43);
+            BarcodeTextBox.Size = new Size(272, 38);
             BarcodeTextBox.TabIndex = 5;
             BarcodeTextBox.TabStop = false;
             BarcodeTextBox.UseSystemPasswordChar = false;
@@ -185,7 +192,7 @@
             NameTextBox.SelectedText = "";
             NameTextBox.SelectionLength = 0;
             NameTextBox.SelectionStart = 0;
-            NameTextBox.Size = new Size(272, 43);
+            NameTextBox.Size = new Size(272, 38);
             NameTextBox.TabIndex = 4;
             NameTextBox.TabStop = false;
             NameTextBox.UseSystemPasswordChar = false;
@@ -244,12 +251,55 @@
             // 
             // panel2
             // 
+            panel2.Controls.Add(foxLabel6);
+            panel2.Controls.Add(searchTextBox);
             panel2.Controls.Add(ProductGridView);
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(3, 3);
             panel2.Name = "panel2";
             panel2.Size = new Size(454, 523);
             panel2.TabIndex = 1;
+            // 
+            // foxLabel6
+            // 
+            foxLabel6.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            foxLabel6.BackColor = Color.Transparent;
+            foxLabel6.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            foxLabel6.ForeColor = Color.Black;
+            foxLabel6.Location = new Point(283, 55);
+            foxLabel6.Margin = new Padding(3, 4, 3, 4);
+            foxLabel6.Name = "foxLabel6";
+            foxLabel6.RightToLeft = RightToLeft.Yes;
+            foxLabel6.Size = new Size(63, 25);
+            foxLabel6.TabIndex = 32;
+            foxLabel6.Text = "بحث";
+            foxLabel6.Click += foxLabel6_Click;
+            // 
+            // searchTextBox
+            // 
+            searchTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            searchTextBox.BackColor = Color.White;
+            searchTextBox.BaseColor = Color.FromArgb(44, 55, 66);
+            searchTextBox.BorderColorA = Color.FromArgb(64, 158, 255);
+            searchTextBox.BorderColorB = Color.FromArgb(220, 223, 230);
+            searchTextBox.Font = new Font("Segoe UI", 12F);
+            searchTextBox.ForeColor = Color.FromArgb(48, 49, 51);
+            searchTextBox.Hint = "";
+            searchTextBox.Location = new Point(30, 42);
+            searchTextBox.Margin = new Padding(3, 4, 3, 4);
+            searchTextBox.MaxLength = 32767;
+            searchTextBox.Multiline = false;
+            searchTextBox.Name = "searchTextBox";
+            searchTextBox.PasswordChar = '\0';
+            searchTextBox.ScrollBars = ScrollBars.None;
+            searchTextBox.SelectedText = "";
+            searchTextBox.SelectionLength = 0;
+            searchTextBox.SelectionStart = 0;
+            searchTextBox.Size = new Size(227, 38);
+            searchTextBox.TabIndex = 32;
+            searchTextBox.TabStop = false;
+            searchTextBox.UseSystemPasswordChar = false;
+            searchTextBox.TextChanged += txtSearch_TextChanged;
             // 
             // ProductGridView
             // 
@@ -268,17 +318,36 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             ProductGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             ProductGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            ProductGridView.Location = new Point(0, 0);
+            ProductGridView.Columns.AddRange(new DataGridViewColumn[] { EditButton, DeleteButton });
+            ProductGridView.Location = new Point(-3, 119);
             ProductGridView.Margin = new Padding(3, 4, 3, 4);
             ProductGridView.Name = "ProductGridView";
             ProductGridView.ReadOnly = true;
             ProductGridView.RowHeadersWidth = 51;
-            ProductGridView.Size = new Size(454, 523);
+            ProductGridView.Size = new Size(454, 404);
             ProductGridView.TabIndex = 12;
+            ProductGridView.CellContentClick += ProductGridView_CellContentClick;
+            // 
+            // EditButton
+            // 
+            EditButton.HeaderText = "تعديل";
+            EditButton.Name = "EditButton";
+            EditButton.ReadOnly = true;
+            EditButton.Text = "تعديل";
+            EditButton.UseColumnTextForButtonValue = true;
+            // 
+            // DeleteButton
+            // 
+            DeleteButton.HeaderText = "حذف";
+            DeleteButton.Name = "DeleteButton";
+            DeleteButton.ReadOnly = true;
+            DeleteButton.Text = "حذف";
+            DeleteButton.UseColumnTextForButtonValue = true;
             // 
             // panel3
             // 
             panel3.BackColor = Color.Transparent;
+            panel3.Controls.Add(editProductButton);
             panel3.Controls.Add(addButton);
             panel3.Controls.Add(SelectImageButton);
             panel3.Dock = DockStyle.Fill;
@@ -286,6 +355,28 @@
             panel3.Name = "panel3";
             panel3.Size = new Size(472, 120);
             panel3.TabIndex = 2;
+            // 
+            // editProductButton
+            // 
+            editProductButton.BackColor = Color.Transparent;
+            editProductButton.BorderColor = Color.FromArgb(162, 120, 101);
+            editProductButton.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            editProductButton.Image = null;
+            editProductButton.ImageAlign = ContentAlignment.MiddleLeft;
+            editProductButton.InactiveColorA = Color.FromArgb(253, 175, 143);
+            editProductButton.InactiveColorB = Color.FromArgb(244, 146, 106);
+            editProductButton.Location = new Point(138, 76);
+            editProductButton.Name = "editProductButton";
+            editProductButton.PressedColorA = Color.FromArgb(244, 146, 106);
+            editProductButton.PressedColorB = Color.FromArgb(244, 146, 106);
+            editProductButton.PressedContourColorA = Color.FromArgb(162, 120, 101);
+            editProductButton.PressedContourColorB = Color.FromArgb(162, 120, 101);
+            editProductButton.Size = new Size(272, 41);
+            editProductButton.TabIndex = 20;
+            editProductButton.Text = "تعديل";
+            editProductButton.TextAlignment = StringAlignment.Center;
+            editProductButton.Visible = false;
+            editProductButton.Click += editProductButton_Click;
             // 
             // addButton
             // 
@@ -297,7 +388,7 @@
             addButton.ImageAlign = ContentAlignment.MiddleLeft;
             addButton.InactiveColorA = Color.FromArgb(253, 175, 143);
             addButton.InactiveColorB = Color.FromArgb(244, 146, 106);
-            addButton.Location = new Point(138, 52);
+            addButton.Location = new Point(138, 34);
             addButton.Margin = new Padding(3, 4, 3, 4);
             addButton.Name = "addButton";
             addButton.PressedColorA = Color.FromArgb(244, 146, 106);
@@ -320,7 +411,7 @@
             SelectImageButton.ImageAlign = ContentAlignment.MiddleLeft;
             SelectImageButton.InactiveColorA = Color.FromArgb(253, 252, 252);
             SelectImageButton.InactiveColorB = Color.FromArgb(239, 237, 236);
-            SelectImageButton.Location = new Point(138, 4);
+            SelectImageButton.Location = new Point(138, -7);
             SelectImageButton.Margin = new Padding(3, 4, 3, 4);
             SelectImageButton.Name = "SelectImageButton";
             SelectImageButton.PressedColorA = Color.FromArgb(226, 226, 226);
@@ -386,5 +477,10 @@
         private ReaLTaiizor.Controls.DungeonButtonRight addButton;
         private ReaLTaiizor.Controls.DungeonButtonLeft SelectImageButton;
         private PictureBox ProductPictureBox;
+        private DataGridViewButtonColumn EditButton;
+        private DataGridViewButtonColumn DeleteButton;
+        private ReaLTaiizor.Controls.DungeonButtonRight editProductButton;
+        private ReaLTaiizor.Controls.FoxLabel foxLabel6;
+        private ReaLTaiizor.Controls.HopeTextBox searchTextBox;
     }
 }
