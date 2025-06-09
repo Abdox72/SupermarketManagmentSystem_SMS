@@ -17,6 +17,11 @@ namespace SupermarketManagmentSystem_SMS.Data
             : base(options)
         {
         }
+
+        public ApplicationDbContext()
+        {
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 
@@ -54,10 +59,10 @@ namespace SupermarketManagmentSystem_SMS.Data
                 new Category { CategoryID = 2, Name = "Vegetables" }
             );
             builder.Entity<Product>().HasData(
-                new Product { ProductID = 1, Name = "Apple", Price = 1.2m, CategoryID = 1 },
-                new Product { ProductID = 2, Name = "Banana", Price = 0.8m, CategoryID = 1 },
-                new Product { ProductID = 3, Name = "Carrot", Price = 0.5m, CategoryID = 2 },
-                new Product { ProductID = 4, Name = "Broccoli", Price = 1.0m, CategoryID = 2 }
+                new Product { ProductID = 1, Barcode = "111", Name = "Apple", Price = 1.2m, CategoryID = 1, Quantity = 50 },
+                new Product { ProductID = 2, Barcode = "222", Name = "Banana", Price = 0.8m, CategoryID = 1, Quantity = 20 },
+                new Product { ProductID = 3, Barcode = "333", Name = "Carrot", Price = 0.5m, CategoryID = 2, Quantity = 15 },
+                new Product { ProductID = 4, Barcode = "444", Name = "Broccoli", Price = 1.0m, CategoryID = 2, Quantity = 12 }
             );
 
         }
@@ -69,5 +74,7 @@ namespace SupermarketManagmentSystem_SMS.Data
         public DbSet<CartItem> CartItems { get; set; }
         public DbSet<Sale> Sales { get; set; }
         public DbSet<SaleItem> SaleItems { get; set; }
+
+        
     }
 }

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SupermarketManagmentSystem_SMS.Migrations
 {
     /// <inheritdoc />
-    public partial class initialCreate : Migration
+    public partial class initialcreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -176,8 +176,8 @@ namespace SupermarketManagmentSystem_SMS.Migrations
                 columns: new[] { "ID", "FirstName", "LastName", "NationalID", "PasswordHash", "Role" },
                 values: new object[,]
                 {
-                    { 1, "Abdo", "Mustafa", "12345678901234", "$2a$11$XJaXQUyQxAOfRtAEcEa6ceT8JOkSddFJGoGSj9RwuLA8yDDm3588S", 0 },
-                    { 2, "Ahmed", "Ali", "23456789012345", "$2a$11$r8CKo/O6euw/dl/38mn6eeyAOfwzKS30qApeQ.Kbb5BwY4XQqn2Dq", 1 }
+                    { 1, "Abdo", "Mustafa", "12345678901234", "$2a$11$xUwPjokIX/Q2u1IGg1VlJexCcPwGYEKD.kjpf2X76t8jC60aUwmqS", 0 },
+                    { 2, "Ahmed", "Ali", "23456789012345", "$2a$11$G.bveYHvXHbW43mkWJxn..utTmjnUGx6IwXy2eDAxWF02u8.0zm.q", 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -185,10 +185,10 @@ namespace SupermarketManagmentSystem_SMS.Migrations
                 columns: new[] { "ProductID", "Barcode", "CategoryID", "ImagePath", "Name", "Price", "Quantity" },
                 values: new object[,]
                 {
-                    { 1, "", 1, null, "Apple", 1.2m, 0 },
-                    { 2, "", 1, null, "Banana", 0.8m, 0 },
-                    { 3, "", 2, null, "Carrot", 0.5m, 0 },
-                    { 4, "", 2, null, "Broccoli", 1.0m, 0 }
+                    { 1, "111", 1, null, "Apple", 1.2m, 50 },
+                    { 2, "222", 1, null, "Banana", 0.8m, 20 },
+                    { 3, "333", 2, null, "Carrot", 0.5m, 15 },
+                    { 4, "444", 2, null, "Broccoli", 1.0m, 12 }
                 });
 
             migrationBuilder.CreateIndex(
