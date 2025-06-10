@@ -110,5 +110,10 @@ namespace SupermarketManagmentSystem_SMS
         {
 
         }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

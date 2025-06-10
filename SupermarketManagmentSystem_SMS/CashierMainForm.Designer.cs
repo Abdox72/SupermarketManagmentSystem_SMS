@@ -1,6 +1,7 @@
-﻿namespace SupermarketManagmentSystem_SMS
+﻿
+namespace SupermarketManagmentSystem_SMS
 {
-    partial class AddProductForm
+    partial class CashierMainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,18 +29,28 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CashierMainForm));
             SuspendLayout();
             // 
-            // AddProductForm
+            // CashierMainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(982, 553);
-            Name = "AddProductForm";
-            Text = "AddProductForm";
-            Load += AddProductForm_Load;
+            BackgroundImage = Properties.Resources._111;
+            BackgroundImageLayout = ImageLayout.Stretch;
+            ClientSize = new Size(800, 450);
+            DoubleBuffered = true;
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            Name = "CashierMainForm";
+            Text = "CashierMainForm";
+            Load += CashierMainForm_Load;
             ResumeLayout(false);
         }
+
+        //private void CashierMainForm_Load(object sender, EventArgs e)
+        //{
+        //    throw new NotImplementedException();
+        //}
 
         #endregion
     }

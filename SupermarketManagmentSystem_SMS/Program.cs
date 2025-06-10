@@ -18,6 +18,7 @@ namespace SupermarketManagmentSystem_SMS
             Application.SetCompatibleTextRenderingDefault(false);
 
            
+            //Application.Run(new CashierMainForm()); 
             //Application.Run(new Reports());
             Application.Run(new LoginForm());
             //Application.Run(new AddUser());

@@ -198,7 +198,13 @@ namespace SupermarketManagmentSystem_SMS
             label6.TabIndex = 81;
             label6.Text = "تعديل بيانات المستخدم";
             // 
-            // label5
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(258, 83);
+            label1.Name = "label1";
+            label1.Size = new Size(119, 31);
+            label1.TabIndex = 41;
+            label1.Text = "الاسم الاول";
             // 
             label5.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label5.AutoSize = true;
@@ -211,7 +217,13 @@ namespace SupermarketManagmentSystem_SMS
             label5.TabIndex = 80;
             label5.Text = "دور المستخدم";
             // 
-            // label4
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.Location = new Point(254, 138);
+            label2.Name = "label2";
+            label2.Size = new Size(123, 31);
+            label2.TabIndex = 42;
+            label2.Text = "الاسم الاخير";
             // 
             label4.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label4.AutoSize = true;
@@ -228,14 +240,16 @@ namespace SupermarketManagmentSystem_SMS
             // 
             label3.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             label3.AutoSize = true;
-            label3.BackColor = SystemColors.ButtonHighlight;
+            label3.BackColor = Color.White;
             label3.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.Location = new Point(234, 210);
             label3.ForeColor = SystemColors.ActiveCaptionText;
             label3.Location = new Point(961, 220);
             label3.Name = "label3";
             label3.Size = new Size(137, 31);
             label3.TabIndex = 78;
             label3.Text = "الرقم القومى";
+            //label3.Click += this.label3_Click;
             // 
             // label2
             // 
@@ -302,9 +316,27 @@ namespace SupermarketManagmentSystem_SMS
             txtFirstname.RightToLeft = RightToLeft.Yes;
             txtFirstname.Size = new Size(314, 38);
             txtFirstname.TabIndex = 72;
+            label5.AutoSize = true;
+            label5.BackColor = Color.White;
+            label5.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label5.Location = new Point(225, 334);
+            label5.Name = "label5";
+            label5.Size = new Size(146, 31);
+            label5.TabIndex = 45;
+            label5.Text = "دور المستخدم";
+            //label5.Click += this.label5_Click;
             // 
             // comboRole
             // 
+            label6.AutoSize = true;
+            label6.BackColor = Color.White;
+            label6.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label6.Location = new Point(56, 2);
+            label6.Name = "label6";
+            label6.Size = new Size(277, 38);
+            label6.TabIndex = 46;
+            label6.Text = "تعديل بيانات المستخدم";
+            label6.Click += label6_Click;
             comboRole.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             comboRole.AutoCompleteCustomSource.AddRange(new string[] { "Admin", "Cachiar" });
             comboRole.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold);
@@ -319,8 +351,7 @@ namespace SupermarketManagmentSystem_SMS
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            AutoSize = true;
-            BackColor = Color.FromArgb(192, 255, 255);
+            BackColor = Color.White;
             BackgroundImage = Properties.Resources._121;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1164, 563);

@@ -72,6 +72,8 @@
             // 
             tableLayoutPanel1.BackgroundImage = Properties.Resources.AddProduct;
             tableLayoutPanel1.BackgroundImageLayout = ImageLayout.Stretch;
+            tableLayoutPanel1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            tableLayoutPanel1.BackgroundImage = Properties.Resources._11;
             tableLayoutPanel1.ColumnCount = 2;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50.9881439F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 49.0118561F));
@@ -97,6 +99,8 @@
             panel1.Controls.Add(foxLabel7);
             panel1.Controls.Add(btnStartCam);
             panel1.Controls.Add(CameraPictureBox);
+            panel1.BackgroundImage = Properties.Resources._11;
+            panel1.BackgroundImageLayout = ImageLayout.Stretch;
             panel1.Controls.Add(PriceNumeric1);
             panel1.Controls.Add(QuantityNumeric);
             panel1.Controls.Add(CategoryComboBox);
@@ -415,6 +419,8 @@
             // panel3
             // 
             panel3.BackColor = Color.Transparent;
+            panel3.BackgroundImage = Properties.Resources._11;
+            panel3.BackgroundImageLayout = ImageLayout.None;
             panel3.Controls.Add(editProductButton);
             panel3.Controls.Add(addButton);
             panel3.Controls.Add(SelectImageButton);
@@ -558,5 +564,6 @@
         private BufferedPanel panel1;
         private ComboBox comboBoxCameras;
         private Button btnStopCam;
+        private BufferedPanel panel1;
     }
 }

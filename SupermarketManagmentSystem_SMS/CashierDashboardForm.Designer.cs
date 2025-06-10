@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CashierDashboardForm));
             tableLayoutPanel1 = new TableLayoutPanel();
             TotalSaleslabel = new Label();
             NumSaleslabel = new Label();
@@ -42,6 +43,7 @@
             BarcodetextBox = new TextBox();
             AddToCardbutton = new Button();
             groupBoxBilling = new GroupBox();
+            PrintInvoice = new Button();
             CashReceivedtextBox = new TextBox();
             ChangeTextBox = new TextBox();
             label3 = new Label();
@@ -68,6 +70,7 @@
             // tableLayoutPanel1
             // 
             tableLayoutPanel1.AutoSize = true;
+            tableLayoutPanel1.BackColor = Color.FromArgb(224, 224, 224);
             tableLayoutPanel1.ColumnCount = 4;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
@@ -86,14 +89,14 @@
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Size = new Size(1309, 38);
+            tableLayoutPanel1.Size = new Size(1259, 38);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // TotalSaleslabel
             // 
             TotalSaleslabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             TotalSaleslabel.AutoSize = true;
-            TotalSaleslabel.Location = new Point(122, 0);
+            TotalSaleslabel.Location = new Point(109, 0);
             TotalSaleslabel.Name = "TotalSaleslabel";
             TotalSaleslabel.Size = new Size(202, 38);
             TotalSaleslabel.TabIndex = 4;
@@ -103,7 +106,7 @@
             // 
             NumSaleslabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             NumSaleslabel.AutoSize = true;
-            NumSaleslabel.Location = new Point(501, 0);
+            NumSaleslabel.Location = new Point(475, 0);
             NumSaleslabel.Name = "NumSaleslabel";
             NumSaleslabel.Size = new Size(150, 38);
             NumSaleslabel.TabIndex = 3;
@@ -113,6 +116,7 @@
             // 
             CashierNamelabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             CashierNamelabel.AutoSize = true;
+            CashierNamelabel.Location = new Point(1158, 0);
             CashierNamelabel.ForeColor = Color.Crimson;
             CashierNamelabel.Location = new Point(1208, 0);
             CashierNamelabel.Name = "CashierNamelabel";
@@ -124,7 +128,7 @@
             // 
             CashierShiftlabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             CashierShiftlabel.AutoSize = true;
-            CashierShiftlabel.Location = new Point(812, 0);
+            CashierShiftlabel.Location = new Point(773, 0);
             CashierShiftlabel.Name = "CashierShiftlabel";
             CashierShiftlabel.Size = new Size(166, 38);
             CashierShiftlabel.TabIndex = 2;
@@ -143,7 +147,7 @@
             dataGridViewCard.RightToLeft = RightToLeft.Yes;
             dataGridViewCard.RowHeadersWidth = 51;
             dataGridViewCard.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewCard.Size = new Size(704, 332);
+            dataGridViewCard.Size = new Size(654, 364);
             dataGridViewCard.TabIndex = 1;
             dataGridViewCard.CellContentClick += dataGridViewCard_CellContentClick;
             dataGridViewCard.CellEndEdit += dataGridViewCard_CellEndEdit;
@@ -213,6 +217,7 @@
             // groupBoxBilling
             // 
             groupBoxBilling.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            groupBoxBilling.Controls.Add(PrintInvoice);
             groupBoxBilling.Controls.Add(CashReceivedtextBox);
             groupBoxBilling.Controls.Add(ChangeTextBox);
             groupBoxBilling.Controls.Add(label3);
@@ -235,6 +240,18 @@
             groupBoxBilling.TabIndex = 4;
             groupBoxBilling.TabStop = false;
             groupBoxBilling.Text = "الفاتورة";
+            // 
+            // PrintInvoice
+            // 
+            PrintInvoice.BackColor = Color.FromArgb(0, 192, 0);
+            PrintInvoice.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            PrintInvoice.Location = new Point(35, 496);
+            PrintInvoice.Name = "PrintInvoice";
+            PrintInvoice.Size = new Size(191, 42);
+            PrintInvoice.TabIndex = 12;
+            PrintInvoice.Text = "طباعة الفاتورة";
+            PrintInvoice.UseVisualStyleBackColor = false;
+            PrintInvoice.Click += PrintInvoice_Click;
             // 
             // CashReceivedtextBox
             // 
@@ -418,6 +435,9 @@
             Controls.Add(comboBoxCameras);
             Controls.Add(btnStartCam);
             Controls.Add(CameraPictureBox);
+            BackgroundImage = Properties.Resources._11;
+            BackgroundImageLayout = ImageLayout.Stretch;
+            ClientSize = new Size(1259, 697);
             Controls.Add(CompleteSalebutton);
             Controls.Add(groupBoxBilling);
             Controls.Add(AddToCardbutton);
@@ -426,10 +446,13 @@
             Controls.Add(tableLayoutPanel1);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
+            DoubleBuffered = true;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "CashierDashboardForm";
             RightToLeft = RightToLeft.Yes;
             Text = "CashierDashboard";
             FormClosed += CashierDashboardForm_FormClosed;
+            Load += CashierDashboardForm_Load_1;
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewCard).EndInit();

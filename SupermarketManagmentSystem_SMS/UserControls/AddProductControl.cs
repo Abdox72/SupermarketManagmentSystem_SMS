@@ -91,6 +91,11 @@ namespace SupermarketManagmentSystem_SMS.UserControls
             SetupBarcodeReader();
             EnumerateCameras();
         }
+
+        public AddProductControl()
+        {
+        }
+
         public string selectedImagePath { get; set; } = "";
         public Category? SelectedCategory => CategoryComboBox.SelectedItem as Category;
 

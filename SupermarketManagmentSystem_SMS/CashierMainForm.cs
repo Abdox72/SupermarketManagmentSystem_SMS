@@ -1,7 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualBasic.ApplicationServices;
+﻿using Microsoft.VisualBasic.ApplicationServices;
 using SupermarketManagmentSystem_SMS.Data;
-using SupermarketManagmentSystem_SMS.Models;
 using SupermarketManagmentSystem_SMS.UserControls;
 using System;
 using System.Collections.Generic;
@@ -11,30 +9,32 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Documents;
 using System.Windows.Forms;
 
 namespace SupermarketManagmentSystem_SMS
 {
-    public partial class MainForm : Form
+    public partial class CashierMainForm : Form
     {
         private readonly Models.User _currentUser;
         private ApplicationDbContext _context;
 
+        //private User _loggedInUser;
+
         ApplicationDbContext dbcontext = new ApplicationDbContextFactory().CreateDbContext(null);
         private AddProductControl addProductControl1;
-        public MainForm(Models.User user)
+        public CashierMainForm(Models.User user)
         {
             InitializeComponent();
             _currentUser = user;
             ConfigureUI();
         }
 
-        public MainForm()
+        public CashierMainForm()
         {
             InitializeComponent();
             //_currentUser = user;
             ConfigureUI();
+
         }
 
         private void ConfigureUI()
@@ -72,15 +72,15 @@ namespace SupermarketManagmentSystem_SMS
             };
 
 
-            Button[] menuButtons = new Button[5];
-            string[] buttonTexts = { "تسجيل الخروج", "المنتجات", "الفئات", "المستخدمين", "التقارير" };
+            Button[] menuButtons = new Button[2];
+            string[] buttonTexts = { "تسجيل الخروج", "شاشة البيع" };
             Color[] buttonColors = {
-            //Color.FromArgb(220, 53, 69),    
-            Color.FromArgb(40, 167, 69),    
-            Color.FromArgb(255, 193, 7),    
-            Color.FromArgb(23, 162, 184),   
-            Color.FromArgb(108, 117, 125),  
-            Color.FromArgb(0, 123, 255)    
+            Color.FromArgb(220, 53, 69),
+            //Color.FromArgb(40, 167, 69),
+            //Color.FromArgb(255, 193, 7),
+            //Color.FromArgb(23, 162, 184),
+            //Color.FromArgb(108, 117, 125),
+            Color.FromArgb(0, 123, 255)
             };
 
 
@@ -105,12 +105,12 @@ namespace SupermarketManagmentSystem_SMS
 
             //menuButtons[0].Click += (s, e) => OpenForm(new BillingForm(_currentUser));
             menuButtons[0].Click += (s, e) => Logout();
-            menuButtons[1].Click += (s, e) => OpenForm(new AddProductControl());
-            menuButtons[2].Click += (s, e) => OpenForm(new CategoryCustom());
-            menuButtons[3].Click += (s, e) => OpenForm(new AddUser());
-            menuButtons[4].Click += (s, e) => OpenForm(new Reports());
-           //enuButtons[5].Click += (s, e) => OpenForm(new BillingForm());
-            
+            //menuButtons[1].Click += (s, e) => OpenForm(new AddProductControl());
+            //menuButtons[2].Click += (s, e) => OpenForm(new CategoryCustom());
+            //menuButtons[3].Click += (s, e) => OpenForm(new AddUser(_context));
+            //menuButtons[4].Click += (s, e) => OpenForm(new Reports());
+            menuButtons[1].Click += (s, e) => OpenForm(new CashierDashboardForm(_currentUser));
+
 
 
             Panel contentPanel = new Panel
@@ -194,15 +194,15 @@ namespace SupermarketManagmentSystem_SMS
         {
             if (MessageBox.Show("هل تريد تسجيل الخروج؟", "تأكيد", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-               
-                LoginForm LoginForm = new LoginForm();
-                LoginForm.Show();
+                
+                LoginForm loginForm = new LoginForm();
+                loginForm.Show();
 
                 this.Close(); 
             }
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
+        private void CashierMainForm_Load(object sender, EventArgs e)
         {
             InitializeComponent();
         }

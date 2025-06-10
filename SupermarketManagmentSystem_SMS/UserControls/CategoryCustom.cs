@@ -179,6 +179,11 @@ namespace SupermarketManagmentSystem_SMS
             }
         }
 
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
         public string CategoryName
         {
             get { return NameTextBox.Text; }
