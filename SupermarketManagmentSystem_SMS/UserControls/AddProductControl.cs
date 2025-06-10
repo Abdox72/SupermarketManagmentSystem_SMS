@@ -64,9 +64,15 @@ namespace SupermarketManagmentSystem_SMS.UserControls
 
             });
         }
+        //public AddProductControl() { }
         public AddProductControl(ApplicationDbContext _context)
         {
             InitializeComponent();
+            //// بيخلي عمود التعديل والحذف في الاخر بس لسه مجربتهاش 
+            //ProductDataGridView.Columns["EditColumn"].DisplayIndex = ProductDataGridView.Columns.Count - 2;
+            //ProductDataGridView.Columns["DeleteColumn"].DisplayIndex = ProductDataGridView.Columns.Count - 1;
+            // خليك متأكد إنك كاتب اسم العمود صح بالضبط زي اللي في الـ designer
+
             this.DoubleBuffered = true; // Enable for user control
             dbcontext = _context;
             getproducts = dbcontext.Products.Include(c => c.Category).ToList();
@@ -144,6 +150,7 @@ namespace SupermarketManagmentSystem_SMS.UserControls
             //save and add this product to DataGridView 
             ProductDisplay productDisplay = new ProductDisplay
             {
+                ProductID= product.ProductID,
                 Name = NameTextBox.Text,
                 Price = PriceNumeric1.Value,
                 Quantity = int.Parse(QuantityNumeric.Text),
@@ -240,6 +247,7 @@ namespace SupermarketManagmentSystem_SMS.UserControls
             if (itemToUpdate != null)
             {
                 var category = dbcontext.Categories.FirstOrDefault(c => c.CategoryID == SelectedCategory.CategoryID);
+                itemToUpdate.ProductID = productToEdit.ProductID;
                 itemToUpdate.Name = productToEdit.Name;
                 itemToUpdate.ProductID = productToEdit.ProductID;
                 itemToUpdate.Quantity = int.Parse(QuantityNumeric.Text);

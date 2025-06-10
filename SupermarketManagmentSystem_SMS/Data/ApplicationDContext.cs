@@ -55,8 +55,8 @@ namespace SupermarketManagmentSystem_SMS.Data
                 }
             );
             builder.Entity<Category>().HasData(
-                new Category { CategoryID = 1, Name = "Fruits"},
-                new Category { CategoryID = 2, Name = "Vegetables" }
+                new Category { CategoryID = 1, Name = "Fruits",Description=""},
+                new Category { CategoryID = 2, Name = "Vegetables",Description="" }
             );
             builder.Entity<Product>().HasData(
                 new Product { ProductID = 1, Barcode = "111", Name = "Apple", Price = 1.2m, CategoryID = 1, Quantity = 50 },
