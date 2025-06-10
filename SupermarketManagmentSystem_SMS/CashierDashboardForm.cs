@@ -1,5 +1,8 @@
-﻿using SupermarketManagmentSystem_SMS.Data;
+﻿using AForge.Video;
+using AForge.Video.DirectShow;
+using SupermarketManagmentSystem_SMS.Data;
 using SupermarketManagmentSystem_SMS.Models;
+using SupermarketManagmentSystem_SMS.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,12 +20,23 @@ namespace SupermarketManagmentSystem_SMS
         private User _loggedInUser; // Stores the logged-in user info
 
         private DateTime _shiftStartTime;// Stores the shift start time for filtering sales summary
+
+
+        //video
+        private FilterInfoCollection _videoDevices;
+        private VideoCaptureDevice _videoSource;
+        private IBarcodeReaderService _barcodeReader;
+        //
+
         public CashierDashboardForm(User user)
         {
             _loggedInUser = user;
             _shiftStartTime = DateTime.Now;
             InitializeComponent();
             this.Load += CashierDashboardForm_Load;
+
+            SetupBarcodeReader();
+            EnumerateCameras();
         }
 
         //sets cashier name and shift start label, then updates sales summary
@@ -194,9 +208,7 @@ namespace SupermarketManagmentSystem_SMS
         // Handles Add to Cart button click
         private void AddToCardbutton_Click(object sender, EventArgs e)
         {
-
             AddProductToCart();
-
         }
         // Handles click on remove button in the cart grid
         private void dataGridViewCard_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -357,6 +369,67 @@ namespace SupermarketManagmentSystem_SMS
             }
         }
 
-        
+        private void SetupBarcodeReader()
+        {
+            _barcodeReader = new ZxingBarcodeReaderService();
+        }
+
+        private void EnumerateCameras()
+        {
+            _videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
+            foreach (FilterInfo dev in _videoDevices)
+                comboBoxCameras.Items.Add(dev.Name);
+            if (comboBoxCameras.Items.Count > 0)
+                comboBoxCameras.SelectedIndex = 0;
+        }
+
+        private void CashierDashboardForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            btnStopCam_Click(sender, e);
+        }
+        private void btnStartCam_Click(object sender, EventArgs e)
+        {
+            if (_videoDevices.Count == 0)
+            {
+                MessageBox.Show("No cameras found");
+                return;
+            }
+            var cameraIndex = comboBoxCameras.SelectedIndex;
+            var moniker = _videoDevices[cameraIndex].MonikerString;
+            _videoSource = new VideoCaptureDevice(moniker);
+            _videoSource.NewFrame += VideoSource_NewFrame;
+            _videoSource.Start();
+            btnStartCam.Enabled = false;
+            btnStopCam.Enabled = true;
+        }
+        private void btnStopCam_Click(object sender, EventArgs e)
+        {
+            if (_videoSource != null && _videoSource.IsRunning)
+            {
+                _videoSource.SignalToStop();
+                _videoSource.NewFrame -= VideoSource_NewFrame;
+            }
+            btnStartCam.Enabled = true;
+            btnStopCam.Enabled = false;
+        }
+        private void VideoSource_NewFrame(object sender, NewFrameEventArgs eventArgs)
+        {
+            using (var frame = (Bitmap)eventArgs.Frame.Clone())
+            {
+                CameraPictureBox.Image?.Dispose();
+                CameraPictureBox.Image = (Bitmap)frame.Clone();
+                var result = _barcodeReader.Decode(frame);
+                if (result != null)
+                {
+                    _videoSource.SignalToStop();   // pause scanning
+                    this.Invoke(new Action(() =>
+                    {
+                        BarcodetextBox.Text = result; // set the barcode text
+                        btnStartCam.Enabled = true;   // allow restart
+                        btnStopCam.Enabled = false;
+                    }));
+                }
+            }
+        }
     }
 }

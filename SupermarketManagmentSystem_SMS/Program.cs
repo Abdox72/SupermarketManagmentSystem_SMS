@@ -19,8 +19,9 @@ namespace SupermarketManagmentSystem_SMS
 
            
             //Application.Run(new Reports());
-            //Application.Run(new LoginForm());
-            Application.Run(new MainForm());
+            Application.Run(new LoginForm());
+            //Application.Run(new AddUser());
+            //Application.Run(new CashierDashboardForm());
             //Application.Run(new BillingForm());
 
         }

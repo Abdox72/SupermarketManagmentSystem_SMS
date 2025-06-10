@@ -54,7 +54,5 @@ namespace SupermarketManagmentSystem_SMS
                 MessageBox.Show("Invalid National ID or Password.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-
     }
 }

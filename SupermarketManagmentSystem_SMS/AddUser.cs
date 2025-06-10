@@ -22,11 +22,10 @@ namespace SupermarketManagmentSystem_SMS
         private int selectedUserId = -1;
 
 
-        public AddUser(ApplicationDbContext _context)
+        public AddUser()
         {
             InitializeComponent();
             dbcontext = new ApplicationDbContextFactory().CreateDbContext(null);
-
             comboRole.DataSource = Enum.GetValues(typeof(UserRole));
             LoadUsers();
         }

@@ -28,60 +28,52 @@
         /// </summary>
         private void InitializeComponent()
         {
-            tableLayoutPanel1 = new TableLayoutPanel();
             iconButton1 = new FontAwesome.Sharp.IconButton();
-            tableLayoutPanel1.SuspendLayout();
+            tableLayoutPanel1 = new TableLayoutPanel();
             SuspendLayout();
-            // 
-            // tableLayoutPanel1
-            // 
-            tableLayoutPanel1.ColumnCount = 1;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Controls.Add(categoryCustom1, 0, 0);
-            tableLayoutPanel1.Location = new Point(92, 12);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 1;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Size = new Size(839, 470);
-            tableLayoutPanel1.TabIndex = 0;
-            // 
-            // categoryCustom1
-            // 
-            categoryCustom1.CategoryName = "";
-            categoryCustom1.Location = new Point(3, 3);
-            categoryCustom1.Name = "categoryCustom1";
-            categoryCustom1.Size = new Size(833, 464);
-            categoryCustom1.TabIndex = 0;
             // 
             // iconButton1
             // 
             iconButton1.IconChar = FontAwesome.Sharp.IconChar.None;
             iconButton1.IconColor = Color.Black;
             iconButton1.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            iconButton1.Location = new Point(-7, 149);
+            iconButton1.Location = new Point(-8, 199);
+            iconButton1.Margin = new Padding(3, 4, 3, 4);
             iconButton1.Name = "iconButton1";
-            iconButton1.Size = new Size(124, 23);
+            iconButton1.Size = new Size(142, 31);
             iconButton1.TabIndex = 1;
             iconButton1.Text = "Go To Dashboard";
             iconButton1.UseVisualStyleBackColor = true;
             iconButton1.Click += iconButton1_Click;
             // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.ColumnCount = 1;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Location = new Point(105, 16);
+            tableLayoutPanel1.Margin = new Padding(3, 4, 3, 4);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 1;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Size = new Size(959, 627);
+            tableLayoutPanel1.TabIndex = 0;
+            // 
             // test
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(943, 506);
+            ClientSize = new Size(1078, 675);
             Controls.Add(iconButton1);
             Controls.Add(tableLayoutPanel1);
+            Margin = new Padding(3, 4, 3, 4);
             Name = "test";
             Text = "test";
-            tableLayoutPanel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
-        private TableLayoutPanel tableLayoutPanel1;
         private FontAwesome.Sharp.IconButton iconButton1;
+        private TableLayoutPanel tableLayoutPanel1;
     }
 }

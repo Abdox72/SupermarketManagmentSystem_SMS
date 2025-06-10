@@ -99,9 +99,9 @@ namespace SupermarketManagmentSystem_SMS
 
             //menuButtons[0].Click += (s, e) => OpenForm(new BillingForm(_currentUser));
             menuButtons[0].Click += (s, e) => OpenForm(new BillingForm());
-            menuButtons[1].Click += (s, e) => OpenForm(new AdminDashboardForm());
+            menuButtons[1].Click += (s, e) => OpenForm(new DoxForm());
             menuButtons[2].Click += (s, e) => OpenForm(new CategoryCustom());
-            menuButtons[3].Click += (s, e) => OpenForm(new AddUser(_context));
+            menuButtons[3].Click += (s, e) => OpenForm(new AddUser());
             menuButtons[4].Click += (s, e) => OpenForm(new Reports());
             menuButtons[5].Click += (s, e) => Logout();
 

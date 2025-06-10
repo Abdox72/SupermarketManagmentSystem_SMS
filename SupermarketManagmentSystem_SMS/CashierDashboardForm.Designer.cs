@@ -55,9 +55,14 @@
             Discountlabel = new Label();
             Subtotallabel = new Label();
             CompleteSalebutton = new Button();
+            btnStopCam = new Button();
+            comboBoxCameras = new ComboBox();
+            btnStartCam = new Button();
+            CameraPictureBox = new PictureBox();
             tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewCard).BeginInit();
             groupBoxBilling.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)CameraPictureBox).BeginInit();
             SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -130,12 +135,12 @@
             dataGridViewCard.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewCard.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCard.Columns.AddRange(new DataGridViewColumn[] { ProductName, UnitPrice, Quantity, Subtotal, Remove });
-            dataGridViewCard.Location = new Point(526, 161);
+            dataGridViewCard.Location = new Point(526, 312);
             dataGridViewCard.Name = "dataGridViewCard";
             dataGridViewCard.RightToLeft = RightToLeft.Yes;
             dataGridViewCard.RowHeadersWidth = 51;
             dataGridViewCard.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewCard.Size = new Size(704, 308);
+            dataGridViewCard.Size = new Size(704, 332);
             dataGridViewCard.TabIndex = 1;
             dataGridViewCard.CellContentClick += dataGridViewCard_CellContentClick;
             dataGridViewCard.CellEndEdit += dataGridViewCard_CellEndEdit;
@@ -182,18 +187,18 @@
             // 
             BarcodetextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             BarcodetextBox.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            BarcodetextBox.Location = new Point(899, 108);
+            BarcodetextBox.Location = new Point(784, 108);
             BarcodetextBox.Name = "BarcodetextBox";
-            BarcodetextBox.Size = new Size(331, 34);
+            BarcodetextBox.Size = new Size(446, 34);
             BarcodetextBox.TabIndex = 2;
             BarcodetextBox.KeyDown += BarcodetextBox_KeyDown;
             // 
             // AddToCardbutton
             // 
             AddToCardbutton.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            AddToCardbutton.Location = new Point(671, 106);
+            AddToCardbutton.Location = new Point(641, 104);
             AddToCardbutton.Name = "AddToCardbutton";
-            AddToCardbutton.Size = new Size(94, 29);
+            AddToCardbutton.Size = new Size(114, 38);
             AddToCardbutton.TabIndex = 3;
             AddToCardbutton.Text = "بحث";
             AddToCardbutton.UseVisualStyleBackColor = true;
@@ -217,7 +222,7 @@
             groupBoxBilling.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBoxBilling.Location = new Point(31, 108);
             groupBoxBilling.Name = "groupBoxBilling";
-            groupBoxBilling.Size = new Size(423, 499);
+            groupBoxBilling.Size = new Size(423, 523);
             groupBoxBilling.TabIndex = 4;
             groupBoxBilling.TabStop = false;
             groupBoxBilling.Text = "الفاتورة";
@@ -336,12 +341,58 @@
             CompleteSalebutton.UseVisualStyleBackColor = true;
             CompleteSalebutton.Click += CompleteSalebutton_Click;
             // 
+            // btnStopCam
+            // 
+            btnStopCam.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnStopCam.Location = new Point(812, 231);
+            btnStopCam.Name = "btnStopCam";
+            btnStopCam.Size = new Size(94, 29);
+            btnStopCam.TabIndex = 41;
+            btnStopCam.Text = "Stop";
+            btnStopCam.UseVisualStyleBackColor = true;
+            btnStopCam.Click += btnStopCam_Click;
+            // 
+            // comboBoxCameras
+            // 
+            comboBoxCameras.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            comboBoxCameras.FormattingEnabled = true;
+            comboBoxCameras.Location = new Point(784, 148);
+            comboBoxCameras.Name = "comboBoxCameras";
+            comboBoxCameras.Size = new Size(446, 28);
+            comboBoxCameras.TabIndex = 40;
+            // 
+            // btnStartCam
+            // 
+            btnStartCam.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnStartCam.Location = new Point(915, 231);
+            btnStartCam.Name = "btnStartCam";
+            btnStartCam.Size = new Size(94, 29);
+            btnStartCam.TabIndex = 38;
+            btnStartCam.Text = "Start";
+            btnStartCam.UseVisualStyleBackColor = true;
+            btnStartCam.Click += btnStartCam_Click;
+            // 
+            // CameraPictureBox
+            // 
+            CameraPictureBox.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            CameraPictureBox.BorderStyle = BorderStyle.FixedSingle;
+            CameraPictureBox.Location = new Point(1027, 182);
+            CameraPictureBox.Name = "CameraPictureBox";
+            CameraPictureBox.Size = new Size(203, 124);
+            CameraPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
+            CameraPictureBox.TabIndex = 37;
+            CameraPictureBox.TabStop = false;
+            // 
             // CashierDashboardForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoSize = true;
-            ClientSize = new Size(1309, 641);
+            ClientSize = new Size(1309, 665);
+            Controls.Add(btnStopCam);
+            Controls.Add(comboBoxCameras);
+            Controls.Add(btnStartCam);
+            Controls.Add(CameraPictureBox);
             Controls.Add(CompleteSalebutton);
             Controls.Add(groupBoxBilling);
             Controls.Add(AddToCardbutton);
@@ -351,11 +402,13 @@
             Name = "CashierDashboardForm";
             RightToLeft = RightToLeft.Yes;
             Text = "CashierDashboard";
+            FormClosed += CashierDashboardForm_FormClosed;
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewCard).EndInit();
             groupBoxBilling.ResumeLayout(false);
             groupBoxBilling.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)CameraPictureBox).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -389,5 +442,9 @@
         private Label label3;
         private Label label1;
         private Button CompleteSalebutton;
+        private Button btnStopCam;
+        private ComboBox comboBoxCameras;
+        private Button btnStartCam;
+        private PictureBox CameraPictureBox;
     }
 }
