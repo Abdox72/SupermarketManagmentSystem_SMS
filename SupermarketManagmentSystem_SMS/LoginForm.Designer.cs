@@ -43,8 +43,8 @@
             LoginBtn.BorderThickness = 3;
             LoginBtn.DrawBorder = true;
             LoginBtn.Font = new Font("Arial", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 178);
-            LoginBtn.ForeColor = Color.FromArgb(31, 31, 31);
-            LoginBtn.HotTrackColor = Color.FromArgb(221, 221, 221);
+            LoginBtn.ForeColor = Color.White;
+            LoginBtn.HotTrackColor = Color.FromArgb(255, 128, 128);
             LoginBtn.Image = null;
             LoginBtn.LayoutFlags = ReaLTaiizor.Util.RoyalLayoutFlags.TextOnly;
             LoginBtn.Location = new Point(347, 316);
@@ -84,7 +84,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.BackColor = SystemColors.Highlight;
+            label3.BackColor = SystemColors.MenuHighlight;
             label3.FlatStyle = FlatStyle.Flat;
             label3.Font = new Font("Arial", 16.2F, FontStyle.Bold);
             label3.ForeColor = SystemColors.HighlightText;
@@ -97,7 +97,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.BackColor = SystemColors.Highlight;
+            label4.BackColor = SystemColors.MenuHighlight;
             label4.FlatStyle = FlatStyle.Flat;
             label4.Font = new Font("Arial", 16.2F, FontStyle.Bold);
             label4.ForeColor = SystemColors.HighlightText;
