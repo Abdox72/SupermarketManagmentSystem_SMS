@@ -20,7 +20,7 @@ namespace SupermarketManagmentSystem_SMS
            
             //Application.Run(new Reports());
             //Application.Run(new LoginForm());
-            Application.Run(new MainForm());
+            Application.Run(new AdminDashboardForm());
             //Application.Run(new BillingForm());
 
         }
