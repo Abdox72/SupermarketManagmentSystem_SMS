@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CashierDashboardForm));
             tableLayoutPanel1 = new TableLayoutPanel();
             TotalSaleslabel = new Label();
             NumSaleslabel = new Label();
@@ -42,6 +43,7 @@
             BarcodetextBox = new TextBox();
             AddToCardbutton = new Button();
             groupBoxBilling = new GroupBox();
+            PrintInvoice = new Button();
             CashReceivedtextBox = new TextBox();
             ChangeTextBox = new TextBox();
             label3 = new Label();
@@ -63,6 +65,7 @@
             // tableLayoutPanel1
             // 
             tableLayoutPanel1.AutoSize = true;
+            tableLayoutPanel1.BackColor = Color.FromArgb(224, 224, 224);
             tableLayoutPanel1.ColumnCount = 4;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
@@ -80,14 +83,14 @@
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Size = new Size(1309, 38);
+            tableLayoutPanel1.Size = new Size(1259, 38);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // TotalSaleslabel
             // 
             TotalSaleslabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             TotalSaleslabel.AutoSize = true;
-            TotalSaleslabel.Location = new Point(122, 0);
+            TotalSaleslabel.Location = new Point(109, 0);
             TotalSaleslabel.Name = "TotalSaleslabel";
             TotalSaleslabel.Size = new Size(202, 38);
             TotalSaleslabel.TabIndex = 4;
@@ -97,7 +100,7 @@
             // 
             NumSaleslabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             NumSaleslabel.AutoSize = true;
-            NumSaleslabel.Location = new Point(501, 0);
+            NumSaleslabel.Location = new Point(475, 0);
             NumSaleslabel.Name = "NumSaleslabel";
             NumSaleslabel.Size = new Size(150, 38);
             NumSaleslabel.TabIndex = 3;
@@ -107,7 +110,7 @@
             // 
             CashierNamelabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             CashierNamelabel.AutoSize = true;
-            CashierNamelabel.Location = new Point(1208, 0);
+            CashierNamelabel.Location = new Point(1158, 0);
             CashierNamelabel.Name = "CashierNamelabel";
             CashierNamelabel.Size = new Size(98, 38);
             CashierNamelabel.TabIndex = 1;
@@ -117,7 +120,7 @@
             // 
             CashierShiftlabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             CashierShiftlabel.AutoSize = true;
-            CashierShiftlabel.Location = new Point(812, 0);
+            CashierShiftlabel.Location = new Point(773, 0);
             CashierShiftlabel.Name = "CashierShiftlabel";
             CashierShiftlabel.Size = new Size(166, 38);
             CashierShiftlabel.TabIndex = 2;
@@ -135,7 +138,7 @@
             dataGridViewCard.RightToLeft = RightToLeft.Yes;
             dataGridViewCard.RowHeadersWidth = 51;
             dataGridViewCard.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewCard.Size = new Size(704, 308);
+            dataGridViewCard.Size = new Size(654, 364);
             dataGridViewCard.TabIndex = 1;
             dataGridViewCard.CellContentClick += dataGridViewCard_CellContentClick;
             dataGridViewCard.CellEndEdit += dataGridViewCard_CellEndEdit;
@@ -184,24 +187,26 @@
             BarcodetextBox.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             BarcodetextBox.Location = new Point(899, 108);
             BarcodetextBox.Name = "BarcodetextBox";
-            BarcodetextBox.Size = new Size(331, 34);
+            BarcodetextBox.Size = new Size(281, 34);
             BarcodetextBox.TabIndex = 2;
             BarcodetextBox.KeyDown += BarcodetextBox_KeyDown;
             // 
             // AddToCardbutton
             // 
+            AddToCardbutton.BackColor = Color.Green;
             AddToCardbutton.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            AddToCardbutton.Location = new Point(671, 106);
+            AddToCardbutton.Location = new Point(614, 101);
             AddToCardbutton.Name = "AddToCardbutton";
-            AddToCardbutton.Size = new Size(94, 29);
+            AddToCardbutton.Size = new Size(151, 41);
             AddToCardbutton.TabIndex = 3;
-            AddToCardbutton.Text = "بحث";
-            AddToCardbutton.UseVisualStyleBackColor = true;
+            AddToCardbutton.Text = "اضف الى السلة";
+            AddToCardbutton.UseVisualStyleBackColor = false;
             AddToCardbutton.Click += AddToCardbutton_Click;
             // 
             // groupBoxBilling
             // 
             groupBoxBilling.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            groupBoxBilling.Controls.Add(PrintInvoice);
             groupBoxBilling.Controls.Add(CashReceivedtextBox);
             groupBoxBilling.Controls.Add(ChangeTextBox);
             groupBoxBilling.Controls.Add(label3);
@@ -217,10 +222,22 @@
             groupBoxBilling.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBoxBilling.Location = new Point(31, 108);
             groupBoxBilling.Name = "groupBoxBilling";
-            groupBoxBilling.Size = new Size(423, 499);
+            groupBoxBilling.Size = new Size(423, 555);
             groupBoxBilling.TabIndex = 4;
             groupBoxBilling.TabStop = false;
             groupBoxBilling.Text = "الفاتورة";
+            // 
+            // PrintInvoice
+            // 
+            PrintInvoice.BackColor = Color.FromArgb(0, 192, 0);
+            PrintInvoice.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            PrintInvoice.Location = new Point(35, 496);
+            PrintInvoice.Name = "PrintInvoice";
+            PrintInvoice.Size = new Size(191, 42);
+            PrintInvoice.TabIndex = 12;
+            PrintInvoice.Text = "طباعة الفاتورة";
+            PrintInvoice.UseVisualStyleBackColor = false;
+            PrintInvoice.Click += PrintInvoice_Click;
             // 
             // CashReceivedtextBox
             // 
@@ -327,13 +344,14 @@
             // 
             // CompleteSalebutton
             // 
+            CompleteSalebutton.BackColor = Color.LightSeaGreen;
             CompleteSalebutton.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             CompleteSalebutton.Location = new Point(340, 604);
             CompleteSalebutton.Name = "CompleteSalebutton";
             CompleteSalebutton.Size = new Size(94, 42);
             CompleteSalebutton.TabIndex = 5;
             CompleteSalebutton.Text = "تم الدفع";
-            CompleteSalebutton.UseVisualStyleBackColor = true;
+            CompleteSalebutton.UseVisualStyleBackColor = false;
             CompleteSalebutton.Click += CompleteSalebutton_Click;
             // 
             // CashierDashboardForm
@@ -341,16 +359,21 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             AutoSize = true;
-            ClientSize = new Size(1309, 641);
+            BackgroundImage = Properties.Resources._11;
+            BackgroundImageLayout = ImageLayout.Stretch;
+            ClientSize = new Size(1259, 697);
             Controls.Add(CompleteSalebutton);
             Controls.Add(groupBoxBilling);
             Controls.Add(AddToCardbutton);
             Controls.Add(BarcodetextBox);
             Controls.Add(dataGridViewCard);
             Controls.Add(tableLayoutPanel1);
+            DoubleBuffered = true;
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "CashierDashboardForm";
             RightToLeft = RightToLeft.Yes;
             Text = "CashierDashboard";
+            Load += CashierDashboardForm_Load_1;
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewCard).EndInit();
@@ -389,5 +412,6 @@
         private Label label3;
         private Label label1;
         private Button CompleteSalebutton;
+        private Button PrintInvoice;
     }
 }

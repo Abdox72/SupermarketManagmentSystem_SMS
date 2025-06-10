@@ -82,6 +82,11 @@ namespace SupermarketManagmentSystem_SMS.UserControls
             productsBindingList = new BindingList<ProductDisplay>(displayList);
             addDataToDataGrideView();
         }
+
+        public AddProductControl()
+        {
+        }
+
         public string selectedImagePath { get; set; } = "";
         public Category? SelectedCategory => CategoryComboBox.SelectedItem as Category;
 
@@ -132,7 +137,7 @@ namespace SupermarketManagmentSystem_SMS.UserControls
             {
                 Name = NameTextBox.Text,
                 Barcode = BarcodeTextBox.Text,
-                Price = int.Parse(PriceNumeric1.Text),//PriceNumeric1.Value,
+                Price = decimal.Parse(PriceNumeric1.Text),//PriceNumeric1.Value,
                 CategoryID = SelectedCategory.CategoryID,
                 ImagePath = selectedImagePath,
                 Quantity = int.Parse(QuantityNumeric.Text),

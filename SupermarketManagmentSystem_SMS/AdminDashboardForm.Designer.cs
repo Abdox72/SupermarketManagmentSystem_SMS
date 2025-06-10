@@ -72,7 +72,7 @@ namespace SupermarketManagmentSystem_SMS
             ContentPanel.AutoScroll = true;
             ContentPanel.BackColor = Color.Transparent;
             ContentPanel.Dock = DockStyle.Fill;
-            ContentPanel.Location = new Point(-47, 83);
+            ContentPanel.Location = new Point(-260, 83);
             ContentPanel.Name = "ContentPanel";
             ContentPanel.Size = new Size(1039, 677);
             ContentPanel.TabIndex = 0;
@@ -87,7 +87,7 @@ namespace SupermarketManagmentSystem_SMS
             SidebarPanel.Controls.Add(iconButton2);
             SidebarPanel.Controls.Add(iconButton1);
             SidebarPanel.Dock = DockStyle.Fill;
-            SidebarPanel.Location = new Point(998, 83);
+            SidebarPanel.Location = new Point(785, 83);
             SidebarPanel.Name = "SidebarPanel";
             SidebarPanel.Size = new Size(194, 677);
             SidebarPanel.TabIndex = 2;
@@ -190,7 +190,7 @@ namespace SupermarketManagmentSystem_SMS
             hopePictureBox1.BackColor = Color.FromArgb(192, 196, 204);
             hopePictureBox1.Dock = DockStyle.Fill;
             hopePictureBox1.Image = Properties.Resources.tot;
-            hopePictureBox1.Location = new Point(998, 3);
+            hopePictureBox1.Location = new Point(785, 3);
             hopePictureBox1.Name = "hopePictureBox1";
             hopePictureBox1.PixelOffsetType = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
             hopePictureBox1.Size = new Size(194, 74);
@@ -204,7 +204,7 @@ namespace SupermarketManagmentSystem_SMS
             // 
             TobBarPanel.BackColor = Color.DarkCyan;
             TobBarPanel.Dock = DockStyle.Fill;
-            TobBarPanel.Location = new Point(-47, 3);
+            TobBarPanel.Location = new Point(-260, 3);
             TobBarPanel.Name = "TobBarPanel";
             TobBarPanel.Size = new Size(1039, 74);
             TobBarPanel.TabIndex = 1;
@@ -220,6 +220,7 @@ namespace SupermarketManagmentSystem_SMS
             RightToLeft = RightToLeft.Yes;
             RightToLeftLayout = true;
             Text = "AdminDashboardForm";
+            Load += AdminDashboardForm_Load;
             tableLayoutPanel1.ResumeLayout(false);
             SidebarPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)hopePictureBox1).EndInit();

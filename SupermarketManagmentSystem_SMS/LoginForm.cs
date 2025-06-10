@@ -1,4 +1,5 @@
 using SupermarketManagmentSystem_SMS;
+using SupermarketManagmentSystem_SMS.Models;
 using SupermarketManagmentSystem_SMS.Services;
 using SupermarketManagmentSystem_SMS.Utilities;
 namespace SupermarketManagmentSystem_SMS
@@ -37,14 +38,14 @@ namespace SupermarketManagmentSystem_SMS
                 {
                     // Show Admin Dashboard
                     //var adminDashboardForm = new AdminDashboardForm();
-                    var adminDashboardForm = new AdminDashboardForm();
+                    var adminDashboardForm = new MainForm(user);
                     adminDashboardForm.ShowDialog();
                     this.Show();
                 }
                 else if (user?.Role == UserRole.Cashier)
                 {
                     // Show Cashier Dashboard
-                    var cashierDashboardForm = new CashierDashboardForm(user);
+                    var cashierDashboardForm = new CashierMainForm(user);
                     cashierDashboardForm.ShowDialog();
                     this.Show();
                 }

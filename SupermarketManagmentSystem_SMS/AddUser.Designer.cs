@@ -164,68 +164,80 @@ namespace SupermarketManagmentSystem_SMS
             // label1
             // 
             label1.AutoSize = true;
+            label1.BackColor = Color.White;
             label1.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(258, 83);
+            label1.Location = new Point(252, 76);
             label1.Name = "label1";
             label1.Size = new Size(119, 31);
             label1.TabIndex = 41;
             label1.Text = "الاسم الاول";
+            //label1.Click += this.label1_Click;
             // 
             // label2
             // 
             label2.AutoSize = true;
+            label2.BackColor = Color.White;
             label2.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(254, 138);
+            label2.Location = new Point(248, 131);
             label2.Name = "label2";
             label2.Size = new Size(123, 31);
             label2.TabIndex = 42;
             label2.Text = "الاسم الاخير";
+            //label2.Click += this.label2_Click;
             // 
             // label3
             // 
             label3.AutoSize = true;
+            label3.BackColor = Color.White;
             label3.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(240, 217);
+            label3.Location = new Point(234, 210);
             label3.Name = "label3";
             label3.Size = new Size(137, 31);
             label3.TabIndex = 43;
             label3.Text = "الرقم القومى";
+            //label3.Click += this.label3_Click;
             // 
             // label4
             // 
             label4.AutoSize = true;
+            label4.BackColor = Color.White;
             label4.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.Location = new Point(271, 272);
+            label4.Location = new Point(265, 265);
             label4.Name = "label4";
             label4.Size = new Size(106, 31);
             label4.TabIndex = 44;
             label4.Text = "كلمة السر";
+            //label4.Click += this.label4_Click;
             // 
             // label5
             // 
             label5.AutoSize = true;
+            label5.BackColor = Color.White;
             label5.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.Location = new Point(231, 341);
+            label5.Location = new Point(225, 334);
             label5.Name = "label5";
             label5.Size = new Size(146, 31);
             label5.TabIndex = 45;
             label5.Text = "دور المستخدم";
+            //label5.Click += this.label5_Click;
             // 
             // label6
             // 
             label6.AutoSize = true;
+            label6.BackColor = Color.White;
             label6.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.Location = new Point(62, 9);
+            label6.Location = new Point(56, 2);
             label6.Name = "label6";
             label6.Size = new Size(277, 38);
             label6.TabIndex = 46;
             label6.Text = "تعديل بيانات المستخدم";
+            label6.Click += label6_Click;
             // 
             // AddUser
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(192, 255, 255);
+            BackColor = Color.White;
             BackgroundImage = Properties.Resources._121;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1164, 553);

@@ -83,5 +83,10 @@ namespace SupermarketManagmentSystem_SMS
         {
 
         }
+
+        private void AdminDashboardForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

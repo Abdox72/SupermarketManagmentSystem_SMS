@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -357,6 +358,66 @@ namespace SupermarketManagmentSystem_SMS
             }
         }
 
-        
+        private void CashierDashboardForm_Load_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PrintInvoice_Click(object sender, EventArgs e)
+        {
+            if (dataGridViewCard.Rows.Count == 0)
+            {
+                MessageBox.Show("السلة فارغة!");
+                return;
+            }
+
+            PrintDocument printDoc = new PrintDocument();
+            printDoc.PrintPage += (s, args) =>
+            {
+                float yPos = 0;
+                float leftMargin = args.MarginBounds.Left;
+                float topMargin = args.MarginBounds.Top;
+                Font printFont = new Font("Arial", 12);
+                float lineHeight = printFont.GetHeight(args.Graphics);
+
+                // Build receipt content
+                StringBuilder receipt = new StringBuilder();
+                receipt.AppendLine("RECEIPT");
+                receipt.AppendLine("------------------");
+                receipt.AppendLine($"Cashier: {_loggedInUser.FirstName} {_loggedInUser.LastName}");
+                receipt.AppendLine($"Date: {DateTime.Now:yyyy-MM-dd HH:mm:ss}");
+                receipt.AppendLine("------------------");
+
+                foreach (DataGridViewRow row in dataGridViewCard.Rows)
+                {
+                    if (row.IsNewRow) continue;
+                    string productName = row.Cells["ProductName"].Value.ToString();
+                    int quantity = Convert.ToInt32(row.Cells["Quantity"].Value);
+                    decimal unitPrice = Convert.ToDecimal(row.Cells["UnitPrice"].Value);
+                    decimal subtotal = Convert.ToDecimal(row.Cells["Subtotal"].Value);
+                    receipt.AppendLine($"{productName} x{quantity} @ {unitPrice:C} = {subtotal:C}");
+                }
+
+                receipt.AppendLine("------------------");
+                receipt.AppendLine($"Subtotal: {SubtotaltextBox.Text:C}");
+                receipt.AppendLine($"Discount: {DiscounttextBox.Text}%");
+                receipt.AppendLine($"Tax: {TaxtextBox.Text}%");
+                receipt.AppendLine($"Total: {TotalAmounttextBox.Text:C}");
+
+                args.Graphics.DrawString(receipt.ToString(), printFont, Brushes.Black, leftMargin, topMargin + yPos, new StringFormat());
+            };
+
+            PrintDialog printDialog = new PrintDialog();
+            printDialog.Document = printDoc;
+
+            if (printDialog.ShowDialog() == DialogResult.OK)
+            {
+                printDoc.Print();
+                MessageBox.Show("جاري طباعه الفاتورة الان!");
+            }
+        }
+
+       
     }
+
 }

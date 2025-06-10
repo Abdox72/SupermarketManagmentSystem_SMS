@@ -44,13 +44,11 @@
             panel2 = new Panel();
             foxLabel6 = new ReaLTaiizor.Controls.FoxLabel();
             searchTextBox = new ReaLTaiizor.Controls.HopeTextBox();
-            panel2 = new BufferedPanel();
             ProductGridView = new DataGridView();
             EditButton = new DataGridViewButtonColumn();
             DeleteButton = new DataGridViewButtonColumn();
             panel3 = new Panel();
             editProductButton = new ReaLTaiizor.Controls.DungeonButtonRight();
-            panel3 = new BufferedPanel();
             addButton = new ReaLTaiizor.Controls.DungeonButtonRight();
             SelectImageButton = new ReaLTaiizor.Controls.DungeonButtonLeft();
             ProductPictureBox = new PictureBox();
@@ -67,8 +65,7 @@
             // tableLayoutPanel1
             // 
             tableLayoutPanel1.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            tableLayoutPanel1.BackgroundImage = Properties.Resources.AddProduct;
-            tableLayoutPanel1.BackgroundImageLayout = ImageLayout.Stretch;
+            tableLayoutPanel1.BackgroundImage = Properties.Resources._11;
             tableLayoutPanel1.ColumnCount = 2;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50.9881439F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 49.0118561F));
@@ -89,6 +86,8 @@
             // panel1
             // 
             panel1.BackColor = Color.Transparent;
+            panel1.BackgroundImage = Properties.Resources._11;
+            panel1.BackgroundImageLayout = ImageLayout.Stretch;
             panel1.Controls.Add(PriceNumeric1);
             panel1.Controls.Add(QuantityNumeric);
             panel1.Controls.Add(CategoryComboBox);
@@ -113,7 +112,7 @@
             PriceNumeric1.Location = new Point(43, 341);
             PriceNumeric1.Margin = new Padding(3, 4, 3, 4);
             PriceNumeric1.Name = "PriceNumeric1";
-            PriceNumeric1.Size = new Size(272, 23);
+            PriceNumeric1.Size = new Size(272, 27);
             PriceNumeric1.TabIndex = 31;
             // 
             // QuantityNumeric
@@ -122,7 +121,7 @@
             QuantityNumeric.Location = new Point(43, 270);
             QuantityNumeric.Margin = new Padding(3, 4, 3, 4);
             QuantityNumeric.Name = "QuantityNumeric";
-            QuantityNumeric.Size = new Size(272, 23);
+            QuantityNumeric.Size = new Size(272, 27);
             QuantityNumeric.TabIndex = 30;
             // 
             // CategoryComboBox
@@ -133,7 +132,7 @@
             CategoryComboBox.Location = new Point(43, 111);
             CategoryComboBox.Margin = new Padding(3, 4, 3, 4);
             CategoryComboBox.Name = "CategoryComboBox";
-            CategoryComboBox.Size = new Size(272, 23);
+            CategoryComboBox.Size = new Size(272, 28);
             CategoryComboBox.TabIndex = 29;
             // 
             // foxLabel5
@@ -169,7 +168,7 @@
             BarcodeTextBox.SelectedText = "";
             BarcodeTextBox.SelectionLength = 0;
             BarcodeTextBox.SelectionStart = 0;
-            BarcodeTextBox.Size = new Size(272, 38);
+            BarcodeTextBox.Size = new Size(272, 43);
             BarcodeTextBox.TabIndex = 5;
             BarcodeTextBox.TabStop = false;
             BarcodeTextBox.UseSystemPasswordChar = false;
@@ -194,7 +193,7 @@
             NameTextBox.SelectedText = "";
             NameTextBox.SelectionLength = 0;
             NameTextBox.SelectionStart = 0;
-            NameTextBox.Size = new Size(272, 38);
+            NameTextBox.Size = new Size(272, 43);
             NameTextBox.TabIndex = 4;
             NameTextBox.TabStop = false;
             NameTextBox.UseSystemPasswordChar = false;
@@ -297,7 +296,7 @@
             searchTextBox.SelectedText = "";
             searchTextBox.SelectionLength = 0;
             searchTextBox.SelectionStart = 0;
-            searchTextBox.Size = new Size(227, 38);
+            searchTextBox.Size = new Size(227, 43);
             searchTextBox.TabIndex = 32;
             searchTextBox.TabStop = false;
             searchTextBox.UseSystemPasswordChar = false;
@@ -333,6 +332,7 @@
             // EditButton
             // 
             EditButton.HeaderText = "تعديل";
+            EditButton.MinimumWidth = 6;
             EditButton.Name = "EditButton";
             EditButton.ReadOnly = true;
             EditButton.Text = "تعديل";
@@ -341,6 +341,7 @@
             // DeleteButton
             // 
             DeleteButton.HeaderText = "حذف";
+            DeleteButton.MinimumWidth = 6;
             DeleteButton.Name = "DeleteButton";
             DeleteButton.ReadOnly = true;
             DeleteButton.Text = "حذف";
@@ -349,6 +350,8 @@
             // panel3
             // 
             panel3.BackColor = Color.Transparent;
+            panel3.BackgroundImage = Properties.Resources._11;
+            panel3.BackgroundImageLayout = ImageLayout.None;
             panel3.Controls.Add(editProductButton);
             panel3.Controls.Add(addButton);
             panel3.Controls.Add(SelectImageButton);
@@ -462,7 +465,6 @@
         #endregion
 
         private TableLayoutPanel tableLayoutPanel1;
-        private Panel panel1;
         private NumericUpDown PriceNumeric1;
         private NumericUpDown QuantityNumeric;
         private ComboBox CategoryComboBox;
@@ -484,5 +486,6 @@
         private ReaLTaiizor.Controls.DungeonButtonRight editProductButton;
         private ReaLTaiizor.Controls.FoxLabel foxLabel6;
         private ReaLTaiizor.Controls.HopeTextBox searchTextBox;
+        private BufferedPanel panel1;
     }
 }

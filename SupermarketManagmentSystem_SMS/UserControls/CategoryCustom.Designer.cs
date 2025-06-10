@@ -37,27 +37,31 @@
             // 
             // panel1
             // 
-            panel1.BackgroundImage = Properties.Resources.AddProduct;
+            panel1.AutoSize = true;
+            panel1.BackgroundImage = Properties.Resources._11;
             panel1.BackgroundImageLayout = ImageLayout.Stretch;
             panel1.Controls.Add(addButton);
             panel1.Controls.Add(foxLabel1);
             panel1.Controls.Add(NameTextBox);
-            panel1.Location = new Point(0, 4);
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new Point(0, 0);
             panel1.Margin = new Padding(3, 4, 3, 4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1018, 669);
+            panel1.Size = new Size(1022, 523);
             panel1.TabIndex = 0;
+            panel1.Paint += panel1_Paint;
             // 
             // addButton
             // 
-            addButton.BackColor = Color.Transparent;
+            addButton.BackColor = Color.Green;
+            addButton.BackgroundImage = Properties.Resources._11;
             addButton.BorderColor = Color.FromArgb(162, 120, 101);
             addButton.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             addButton.Image = null;
             addButton.ImageAlign = ContentAlignment.MiddleLeft;
             addButton.InactiveColorA = Color.FromArgb(253, 175, 143);
             addButton.InactiveColorB = Color.FromArgb(244, 146, 106);
-            addButton.Location = new Point(472, 568);
+            addButton.Location = new Point(408, 479);
             addButton.Margin = new Padding(3, 4, 3, 4);
             addButton.Name = "addButton";
             addButton.PressedColorA = Color.FromArgb(244, 146, 106);
@@ -72,19 +76,22 @@
             // 
             // foxLabel1
             // 
-            foxLabel1.BackColor = Color.Transparent;
-            foxLabel1.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            foxLabel1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            foxLabel1.BackColor = Color.White;
+            foxLabel1.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             foxLabel1.ForeColor = Color.Black;
-            foxLabel1.Location = new Point(865, 295);
+            foxLabel1.Location = new Point(547, 286);
             foxLabel1.Margin = new Padding(3, 4, 3, 4);
             foxLabel1.Name = "foxLabel1";
-            foxLabel1.Size = new Size(88, 25);
+            foxLabel1.RightToLeft = RightToLeft.Yes;
+            foxLabel1.Size = new Size(127, 43);
             foxLabel1.TabIndex = 6;
-            foxLabel1.Text = "اسم الصنف";
+            foxLabel1.Text = "اسم الصنف  ";
             foxLabel1.Click += foxLabel1_Click;
             // 
             // NameTextBox
             // 
+            NameTextBox.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             NameTextBox.BackColor = Color.White;
             NameTextBox.BaseColor = Color.FromArgb(44, 55, 66);
             NameTextBox.BorderColorA = Color.FromArgb(64, 158, 255);
@@ -92,7 +99,7 @@
             NameTextBox.Font = new Font("Segoe UI", 12F);
             NameTextBox.ForeColor = Color.FromArgb(48, 49, 51);
             NameTextBox.Hint = "";
-            NameTextBox.Location = new Point(557, 281);
+            NameTextBox.Location = new Point(227, 286);
             NameTextBox.Margin = new Padding(3, 4, 3, 4);
             NameTextBox.MaxLength = 32767;
             NameTextBox.Multiline = false;
@@ -111,12 +118,14 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            AutoSize = true;
             Controls.Add(panel1);
             Margin = new Padding(3, 4, 3, 4);
             Name = "CategoryCustom";
-            Size = new Size(1000, 600);
+            Size = new Size(1022, 523);
             panel1.ResumeLayout(false);
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
