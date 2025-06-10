@@ -22,6 +22,8 @@ namespace SupermarketManagmentSystem_SMS.UserControls
         List<Product> getproducts;
         BindingList<ProductDisplay> productsBindingList;
         Product productToEdit;
+        ButtonBehavior buttonBehavior = ButtonBehavior.Add;
+
         private void addDataToDataGrideView()
         {
             ProductDataGridView.DataSource = productsBindingList;
@@ -51,6 +53,25 @@ namespace SupermarketManagmentSystem_SMS.UserControls
                 HeaderText = " الصنف",
 
             });
+            EditAndDeleteButtonOnDataGridView();
+        }
+        private void EditAndDeleteButtonOnDataGridView()
+        {
+            // إضافة زر Edit
+            DataGridViewButtonColumn editColumn = new DataGridViewButtonColumn();
+            editColumn.HeaderText = "تعديل";
+            editColumn.Text = "تعديل";
+            editColumn.UseColumnTextForButtonValue = true;
+            editColumn.Name = "EditButton";
+            ProductDataGridView.Columns.Add(editColumn);
+
+            // إضافة زر Delete
+            DataGridViewButtonColumn deleteColumn = new DataGridViewButtonColumn();
+            deleteColumn.HeaderText = "حذف";
+            deleteColumn.Text = "حذف";
+            deleteColumn.UseColumnTextForButtonValue = true;
+            deleteColumn.Name = "DeleteButton";
+            ProductDataGridView.Columns.Add(deleteColumn);
         }
         //public AddProductControl() { }
         public AddProductControl(ApplicationDbContext _context)
@@ -132,13 +153,22 @@ namespace SupermarketManagmentSystem_SMS.UserControls
                 }
             }
         }
+        private void setAllTextBoxEmptyAfterAdd()
+        {
+            //ProductPictureBox.Visible = false;
+            NameTextBox.Text = "";
+            BarcodeTextBox.Text = "";
+            PriceNumeric1.Text = "";
+            QuantityNumeric.Text = "";
+            ProductPictureBox.Image = null;
+        }
         private void AddProduct()
         {
             Product product = new Product
             {
                 Name = NameTextBox.Text,
                 Barcode = BarcodeTextBox.Text,
-                Price = int.Parse(PriceNumeric1.Text),//PriceNumeric1.Value,
+                Price = decimal.Parse(PriceNumeric1.Text),//PriceNumeric1.Value,
                 CategoryID = SelectedCategory.CategoryID,
                 ImagePath = selectedImagePath,
                 Quantity = int.Parse(QuantityNumeric.Text),
@@ -149,25 +179,114 @@ namespace SupermarketManagmentSystem_SMS.UserControls
             {
                 ProductID= product.ProductID,
                 Name = NameTextBox.Text,
-                Price = PriceNumeric1.Value,
+                Price = decimal.Parse( PriceNumeric1.Text),
                 Quantity = int.Parse(QuantityNumeric.Text),
                 CategoryName = category.Name
             };
             dbcontext.Products.Add(product);
             dbcontext.SaveChanges();
             productsBindingList.Add(productDisplay);
+            setAllTextBoxEmptyAfterAdd();
         }
+        private bool checkIfProductExistBefor(string name,string barcode)
+        {
+            bool product = dbcontext.Products.Any(c =>( c.Name.ToLower() == name.ToLower())||(c.Barcode.ToLower()==barcode.ToLower()));
+            if (product) { return true; }
+            return false;
+        }
+        private bool checkNameAndBarcode(string name, string barcode)
+        {
+            if (NameTextBox.Text == "" || BarcodeTextBox.Text == "")
+            {
+                return true;
 
+            }
+            return false;
+        }
         private void addButton_Click(object sender, EventArgs e)
         {
-            Product product1 = dbcontext.Products.FirstOrDefault(c => (c.Name.ToLower() == NameTextBox.Text.ToLower()) || (c.Barcode.ToLower() == BarcodeTextBox.Text.ToLower()));
-            if (product1 != null)
+             bool exist=checkIfProductExistBefor(NameTextBox.Text, BarcodeTextBox.Text);
+             var product1 = dbcontext.Products.Where(c => (c.Name.ToLower() == NameTextBox.Text.ToLower()) || (c.Barcode.ToLower() == BarcodeTextBox.Text.ToLower())).ToList();
+            //var product1 = dbcontext.Products.FirstOrDefault(c =>c.ProductID==productToEdit.ProductID);
+            bool value = checkNameAndBarcode(NameTextBox.Text, BarcodeTextBox.Text);
+            if (buttonBehavior == ButtonBehavior.Add)
             {
-                MessageBox.Show("هذا المنتج موجود بالفعل");
+                if (exist)
+                {
+                    MessageBox.Show("هذا المنتج موجود بالفعل");
+                }
+                else if (value)
+                {
+                    MessageBox.Show("يجب اضافه اسم المنتج والباركود");
+
+                }
+                else
+                {
+                    AddProduct();
+                }
             }
-            else
+            else if (buttonBehavior == ButtonBehavior.Edit)
             {
-                AddProduct();
+                bool check = false;
+                foreach (var item in product1)
+                {
+                    if (item.ProductID != productToEdit.ProductID)
+                    {
+                        check = true;
+                        break;
+                    }
+                }
+                #region Edit DataBase
+                if (exist&& product1!=null&&check)
+                {
+                    MessageBox.Show("هذا المنتج موجود بالفعل");
+                }
+                else if (value)
+                {
+                    MessageBox.Show("يجب اضافه اسم المنتج والباركود");
+
+                }
+                else
+                {
+
+
+                    //اعملها update احسن وبرضو اعمل check ان ال name -barcode ميتكرروش
+                    productToEdit.Name = NameTextBox.Text;
+                    productToEdit.Barcode = BarcodeTextBox.Text;
+                    productToEdit.Price = decimal.Parse(PriceNumeric1.Text);
+                    productToEdit.Quantity = int.Parse(QuantityNumeric.Text);
+                    productToEdit.CategoryID = SelectedCategory.CategoryID;
+                    productToEdit.ImagePath = selectedImagePath;
+                    //dbcontext.Products.Update(productToEdit);
+                    dbcontext.SaveChanges();
+                    #endregion
+                    var itemToUpdate = productsBindingList.FirstOrDefault(p => p.ProductID == productToEdit.ProductID);
+                    if (itemToUpdate != null)
+                    {
+                        var category = dbcontext.Categories.FirstOrDefault(c => c.CategoryID == SelectedCategory.CategoryID);
+                        itemToUpdate.ProductID = productToEdit.ProductID;
+                        itemToUpdate.Name = productToEdit.Name;
+                        itemToUpdate.ProductID = productToEdit.ProductID;
+                        itemToUpdate.Quantity = int.Parse(QuantityNumeric.Text);
+                        itemToUpdate.Price = PriceNumeric1.Value;
+                        itemToUpdate.CategoryName = category.Name;
+                        //updata data in dataGrideView
+                        int index = productsBindingList.IndexOf(itemToUpdate);
+                        productsBindingList.ResetItem(index);
+                    }
+                    MessageBox.Show($" نم تعديل المنتج بنجاح ");
+                    addButton.Visible = true;
+                    editProductButton.Visible = false;
+                    #region Set Value null After Edit
+                    NameTextBox.Text = null;
+                    PriceNumeric1.Value = 0;
+                    QuantityNumeric.Value = 0;
+                    BarcodeTextBox.Text = null;
+                    ProductPictureBox.Visible = false;
+                    #endregion
+                    buttonBehavior = ButtonBehavior.Add;
+                    addButton.Text = "اضف";
+                }
             }
         }
 
@@ -184,9 +303,9 @@ namespace SupermarketManagmentSystem_SMS.UserControls
                 {
                     // مثلًا تفتح البيانات للتعديل
                     NameTextBox.Text=product?.Name!=null?product.Name:"";
-                    PriceNumeric1.Text = product.Price.ToString();
-                    QuantityNumeric.Text = product.Quantity.ToString();
-                    CategoryComboBox.SelectedItem = product.Category;
+                    PriceNumeric1.Text = product?.Price!=null?product.Price.ToString():"";
+                    QuantityNumeric.Text = product?.Quantity!=null?product.Quantity.ToString():"";
+                    CategoryComboBox.SelectedItem = product?.Category;
                     BarcodeTextBox.Text = product.Barcode;
                     //image 
                     try
@@ -207,9 +326,9 @@ namespace SupermarketManagmentSystem_SMS.UserControls
                         MessageBox.Show(ex.Message);
                     }
                         ProductPictureBox.Visible = true;
-                        addButton.Visible = false;
-                        editProductButton.Visible = true;
 
+                    buttonBehavior = ButtonBehavior.Edit;
+                    addButton.Text = "تعديل";
 
                 }
                 else if (columnName == "DeleteButton")
@@ -227,45 +346,7 @@ namespace SupermarketManagmentSystem_SMS.UserControls
 
         }
 
-        private void editProductButton_Click(object sender, EventArgs e)
-        {
-            #region Edit DataBase
-            //اعملها update احسن وبرضو اعمل check ان ال name -barcode ميتكرروش
-            productToEdit.Name = NameTextBox.Text;
-            productToEdit.Barcode = BarcodeTextBox.Text;
-            productToEdit.Price =int.Parse( PriceNumeric1.Text);
-            productToEdit.Quantity = int.Parse(QuantityNumeric.Text);
-            productToEdit.CategoryID = SelectedCategory.CategoryID;
-            productToEdit.ImagePath = selectedImagePath;
-            //dbcontext.Products.Update(productToEdit);
-            dbcontext.SaveChanges();
-            #endregion
-            var itemToUpdate = productsBindingList.FirstOrDefault(p => p.ProductID == productToEdit.ProductID);
-            if (itemToUpdate != null)
-            {
-                var category = dbcontext.Categories.FirstOrDefault(c => c.CategoryID == SelectedCategory.CategoryID);
-                itemToUpdate.ProductID = productToEdit.ProductID;
-                itemToUpdate.Name = productToEdit.Name;
-                itemToUpdate.ProductID = productToEdit.ProductID;
-                itemToUpdate.Quantity = int.Parse(QuantityNumeric.Text);
-                itemToUpdate.Price = PriceNumeric1.Value;
-                itemToUpdate.CategoryName = category.Name;
-                //updata data in dataGrideView
-                int index=productsBindingList.IndexOf(itemToUpdate);
-                productsBindingList.ResetItem(index); 
-            }
-            MessageBox.Show($" نم تعديل المنتج بنجاح ");
-            addButton.Visible = true;
-            editProductButton.Visible = false;
-            #region Set Value null After Edit
-            NameTextBox.Text = null;
-            PriceNumeric1.Value = 0;
-            QuantityNumeric.Value = 0;
-            BarcodeTextBox.Text = null;
-            ProductPictureBox.Visible=false;
-            #endregion
-        }
-
+       
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
             string searchTerm = searchTextBox.Text.Trim().ToLower();

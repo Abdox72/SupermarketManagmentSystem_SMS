@@ -44,13 +44,9 @@
             panel2 = new Panel();
             foxLabel6 = new ReaLTaiizor.Controls.FoxLabel();
             searchTextBox = new ReaLTaiizor.Controls.HopeTextBox();
-            panel2 = new BufferedPanel();
             ProductGridView = new DataGridView();
-            EditButton = new DataGridViewButtonColumn();
-            DeleteButton = new DataGridViewButtonColumn();
             panel3 = new Panel();
             editProductButton = new ReaLTaiizor.Controls.DungeonButtonRight();
-            panel3 = new BufferedPanel();
             addButton = new ReaLTaiizor.Controls.DungeonButtonRight();
             SelectImageButton = new ReaLTaiizor.Controls.DungeonButtonLeft();
             ProductPictureBox = new PictureBox();
@@ -320,7 +316,6 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             ProductGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             ProductGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            ProductGridView.Columns.AddRange(new DataGridViewColumn[] { EditButton, DeleteButton });
             ProductGridView.Location = new Point(-3, 119);
             ProductGridView.Margin = new Padding(3, 4, 3, 4);
             ProductGridView.Name = "ProductGridView";
@@ -329,22 +324,6 @@
             ProductGridView.Size = new Size(454, 404);
             ProductGridView.TabIndex = 12;
             ProductGridView.CellContentClick += ProductGridView_CellContentClick;
-            // 
-            // EditButton
-            // 
-            EditButton.HeaderText = "تعديل";
-            EditButton.Name = "EditButton";
-            EditButton.ReadOnly = true;
-            EditButton.Text = "تعديل";
-            EditButton.UseColumnTextForButtonValue = true;
-            // 
-            // DeleteButton
-            // 
-            DeleteButton.HeaderText = "حذف";
-            DeleteButton.Name = "DeleteButton";
-            DeleteButton.ReadOnly = true;
-            DeleteButton.Text = "حذف";
-            DeleteButton.UseColumnTextForButtonValue = true;
             // 
             // panel3
             // 
@@ -378,7 +357,6 @@
             editProductButton.Text = "تعديل";
             editProductButton.TextAlignment = StringAlignment.Center;
             editProductButton.Visible = false;
-            editProductButton.Click += editProductButton_Click;
             // 
             // addButton
             // 
@@ -462,7 +440,6 @@
         #endregion
 
         private TableLayoutPanel tableLayoutPanel1;
-        private Panel panel1;
         private NumericUpDown PriceNumeric1;
         private NumericUpDown QuantityNumeric;
         private ComboBox CategoryComboBox;
@@ -479,10 +456,9 @@
         private ReaLTaiizor.Controls.DungeonButtonRight addButton;
         private ReaLTaiizor.Controls.DungeonButtonLeft SelectImageButton;
         private PictureBox ProductPictureBox;
-        private DataGridViewButtonColumn EditButton;
-        private DataGridViewButtonColumn DeleteButton;
         private ReaLTaiizor.Controls.DungeonButtonRight editProductButton;
         private ReaLTaiizor.Controls.FoxLabel foxLabel6;
         private ReaLTaiizor.Controls.HopeTextBox searchTextBox;
+        private BufferedPanel panel1;
     }
 }
