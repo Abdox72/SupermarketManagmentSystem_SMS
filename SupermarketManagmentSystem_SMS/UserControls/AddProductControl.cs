@@ -13,6 +13,12 @@ using SupermarketManagmentSystem_SMS.Data;
 using SupermarketManagmentSystem_SMS.Dto;
 using System.Diagnostics;
 using ZXing.QrCode.Internal;
+using AForge.Video.DirectShow;
+using ZXing;
+using ZXing.Windows.Compatibility;
+using SupermarketManagmentSystem_SMS.Services;
+using AForge.Video;
+using System.Drawing.Imaging;
 namespace SupermarketManagmentSystem_SMS.UserControls
 {
     public partial class AddProductControl : UserControl
@@ -83,19 +89,6 @@ namespace SupermarketManagmentSystem_SMS.UserControls
             // خليك متأكد إنك كاتب اسم العمود صح بالضبط زي اللي في الـ designer
 
             this.DoubleBuffered = true; // Enable for user control
-            // ... existing code ...
-            EnableDoubleBuffering(ProductGridView);
-            EnableDoubleBuffering(ProductPictureBox);
-            EnableDoubleBuffering(CategoryComboBox);
-            EnableDoubleBuffering(NameTextBox);
-            EnableDoubleBuffering(BarcodeTextBox);
-            EnableDoubleBuffering(PriceNumeric1);
-            EnableDoubleBuffering(QuantityNumeric);
-            EnableDoubleBuffering(SelectImageButton);
-            EnableDoubleBuffering(addButton);
-            EnableDoubleBuffering(ProductDataGridView);
-            // Set double buffering for the user control
-
             dbcontext = _context;
             getproducts = dbcontext.Products.Include(c => c.Category).ToList();
             var displayList = getproducts.Select(p => new ProductDisplay
@@ -108,7 +101,16 @@ namespace SupermarketManagmentSystem_SMS.UserControls
             }).ToList();
             productsBindingList = new BindingList<ProductDisplay>(displayList);
             addDataToDataGrideView();
+
+
+            SetupBarcodeReader();
+            EnumerateCameras();
         }
+
+        public AddProductControl()
+        {
+        }
+
         public string selectedImagePath { get; set; } = "";
         public Category? SelectedCategory => CategoryComboBox.SelectedItem as Category;
 
@@ -174,7 +176,7 @@ namespace SupermarketManagmentSystem_SMS.UserControls
                 Quantity = int.Parse(QuantityNumeric.Text),
             };
             var category = dbcontext.Categories.FirstOrDefault(c => c.CategoryID == SelectedCategory.CategoryID);
-           //save and add this product to DataGridView 
+            //save and add this product to DataGridView 
             ProductDisplay productDisplay = new ProductDisplay
             {
                 ProductID= product.ProductID,
@@ -310,7 +312,7 @@ namespace SupermarketManagmentSystem_SMS.UserControls
                     //image 
                     try
                     {
-                        string fullPath = Path.Combine(Application.StartupPath, product.ImagePath??"");
+                        string fullPath = Path.Combine(Application.StartupPath, product.ImagePath ?? "");
 
                         if (File.Exists(fullPath))
                         {
@@ -346,6 +348,43 @@ namespace SupermarketManagmentSystem_SMS.UserControls
 
         }
 
+        private void editProductButton_Click(object sender, EventArgs e)
+        {
+            #region Edit DataBase
+            //اعملها update احسن وبرضو اعمل check ان ال name -barcode ميتكرروش
+            productToEdit.Name = NameTextBox.Text;
+            productToEdit.Barcode = BarcodeTextBox.Text;
+            productToEdit.Price = int.Parse(PriceNumeric1.Text);
+            productToEdit.Quantity = int.Parse(QuantityNumeric.Text);
+            productToEdit.CategoryID = SelectedCategory.CategoryID;
+            productToEdit.ImagePath = selectedImagePath;
+            //dbcontext.Products.Update(productToEdit);
+            dbcontext.SaveChanges();
+            #endregion
+            var itemToUpdate = productsBindingList.FirstOrDefault(p => p.ProductID == productToEdit.ProductID);
+            if (itemToUpdate != null)
+            {
+                var category = dbcontext.Categories.FirstOrDefault(c => c.CategoryID == SelectedCategory.CategoryID);
+                itemToUpdate.ProductID = productToEdit.ProductID;
+                itemToUpdate.Name = productToEdit.Name;
+                itemToUpdate.ProductID = productToEdit.ProductID;
+                itemToUpdate.Quantity = int.Parse(QuantityNumeric.Text);
+                itemToUpdate.Price = PriceNumeric1.Value;
+                itemToUpdate.CategoryName = category.Name;
+                //updata data in dataGrideView
+                int index = productsBindingList.IndexOf(itemToUpdate);
+                productsBindingList.ResetItem(index);
+            }
+            MessageBox.Show($" نم تعديل المنتج بنجاح ");
+            addButton.Visible = true;
+            editProductButton.Visible = false;
+            NameTextBox.Text = null;
+            PriceNumeric1.Value = 0;
+            QuantityNumeric.Value = 0;
+            BarcodeTextBox.Text = null;
+            ProductPictureBox.Visible = false;
+        }
+
        
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
@@ -355,11 +394,6 @@ namespace SupermarketManagmentSystem_SMS.UserControls
                 p.Name.ToLower().Contains(searchTerm) ||
                 p.CategoryName.ToLower().Contains(searchTerm)).ToList();
             ProductDataGridView.DataSource = filtered;
-        }
-
-        private void foxLabel6_Click(object sender, EventArgs e)
-        {
-
         }
 
         public new string ProductName
@@ -387,18 +421,70 @@ namespace SupermarketManagmentSystem_SMS.UserControls
             get { return ProductGridView; }
             set { ProductGridView = value; }
         }
-        //// Helper method to enable double-buffering on any control
-        //private void SetDoubleBuffered(Control control)
-        //{
-        //    typeof(Control).InvokeMember("DoubleBuffered",
-        //        BindingFlags.SetProperty | BindingFlags.Instance | BindingFlags.NonPublic,
-        //        null, control, new object[] { true });
-        //}
 
-        private void EnableDoubleBuffering(Control control)
+
+        private void SetupBarcodeReader()
         {
-            typeof(Control).GetProperty("DoubleBuffered", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic)
-                ?.SetValue(control, true, null);
+            _barcodeReader = new Services.ZxingBarcodeReaderService();
+        }
+
+        private void EnumerateCameras()
+        {
+            _videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
+            foreach (FilterInfo dev in _videoDevices)
+                comboBoxCameras.Items.Add(dev.Name);
+            if (comboBoxCameras.Items.Count > 0)
+                comboBoxCameras.SelectedIndex = 0;
+        }
+
+        private void panel1_ControlRemoved(object sender, ControlEventArgs e)
+        {
+            btnStopCam_Click(sender, e);
+        }
+        private void btnStartCam_Click(object sender, EventArgs e)
+        {
+            if (_videoDevices.Count == 0)
+            {
+                MessageBox.Show("No cameras found");
+                return;
+            }
+            var cameraIndex = comboBoxCameras.SelectedIndex;
+            var moniker = _videoDevices[cameraIndex].MonikerString;
+            _videoSource = new VideoCaptureDevice(moniker);
+            _videoSource.NewFrame += VideoSource_NewFrame;
+            _videoSource.Start();
+            btnStartCam.Enabled = false;
+            btnStopCam.Enabled = true;
+        }
+        private void btnStopCam_Click(object sender, EventArgs e)
+        {
+            if (_videoSource != null && _videoSource.IsRunning)
+            {
+                _videoSource.SignalToStop();
+                _videoSource.NewFrame -= VideoSource_NewFrame;
+            }
+            btnStartCam.Enabled = true;
+            btnStopCam.Enabled = false;
+        }
+        private void VideoSource_NewFrame(object sender, NewFrameEventArgs eventArgs)
+        {
+            using (var frame = (Bitmap)eventArgs.Frame.Clone())
+            {
+                CameraPictureBox.Image?.Dispose();
+                CameraPictureBox.Image = (Bitmap)frame.Clone();
+                var result = _barcodeReader.Decode(frame);
+                if (result != null )
+                {
+                    _videoSource.SignalToStop();   // pause scanning
+                    this.Invoke(new Action(() =>
+                    {
+                        //LookupProduct(result);
+                        BarcodeTextBox.Text = result; // set the barcode text
+                        btnStartCam.Enabled = true;   // allow restart
+                        btnStopCam.Enabled = false;
+                    }));
+                }
+            }
         }
     }
 }

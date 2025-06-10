@@ -11,7 +11,7 @@ namespace SupermarketManagmentSystem_SMS.UserControls
         public BufferedPanel()
         {
             this.DoubleBuffered = true;
-            this.SetStyle(ControlStyles.OptimizedDoubleBuffer , true);
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             this.UpdateStyles();
         }
     }

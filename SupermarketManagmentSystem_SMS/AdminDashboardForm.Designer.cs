@@ -64,7 +64,7 @@ namespace SupermarketManagmentSystem_SMS
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 80F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle());
-            tableLayoutPanel1.Size = new Size(982, 553);
+            tableLayoutPanel1.Size = new Size(1515, 956);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // ContentPanel
@@ -72,9 +72,9 @@ namespace SupermarketManagmentSystem_SMS
             ContentPanel.AutoScroll = true;
             ContentPanel.BackColor = Color.Transparent;
             ContentPanel.Dock = DockStyle.Fill;
-            ContentPanel.Location = new Point(-47, 83);
+            ContentPanel.Location = new Point(3, 83);
             ContentPanel.Name = "ContentPanel";
-            ContentPanel.Size = new Size(1039, 677);
+            ContentPanel.Size = new Size(1309, 870);
             ContentPanel.TabIndex = 0;
             // 
             // SidebarPanel
@@ -87,9 +87,9 @@ namespace SupermarketManagmentSystem_SMS
             SidebarPanel.Controls.Add(iconButton2);
             SidebarPanel.Controls.Add(iconButton1);
             SidebarPanel.Dock = DockStyle.Fill;
-            SidebarPanel.Location = new Point(998, 83);
+            SidebarPanel.Location = new Point(1318, 83);
             SidebarPanel.Name = "SidebarPanel";
-            SidebarPanel.Size = new Size(194, 677);
+            SidebarPanel.Size = new Size(194, 870);
             SidebarPanel.TabIndex = 2;
             // 
             // iconButton6
@@ -190,7 +190,7 @@ namespace SupermarketManagmentSystem_SMS
             hopePictureBox1.BackColor = Color.FromArgb(192, 196, 204);
             hopePictureBox1.Dock = DockStyle.Fill;
             hopePictureBox1.Image = Properties.Resources.tot;
-            hopePictureBox1.Location = new Point(998, 3);
+            hopePictureBox1.Location = new Point(1318, 3);
             hopePictureBox1.Name = "hopePictureBox1";
             hopePictureBox1.PixelOffsetType = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
             hopePictureBox1.Size = new Size(194, 74);
@@ -204,9 +204,9 @@ namespace SupermarketManagmentSystem_SMS
             // 
             TobBarPanel.BackColor = Color.DarkCyan;
             TobBarPanel.Dock = DockStyle.Fill;
-            TobBarPanel.Location = new Point(-47, 3);
+            TobBarPanel.Location = new Point(3, 3);
             TobBarPanel.Name = "TobBarPanel";
-            TobBarPanel.Size = new Size(1039, 74);
+            TobBarPanel.Size = new Size(1309, 74);
             TobBarPanel.TabIndex = 1;
             // 
             // AdminDashboardForm
@@ -214,12 +214,13 @@ namespace SupermarketManagmentSystem_SMS
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.DarkBlue;
-            ClientSize = new Size(982, 553);
+            ClientSize = new Size(1515, 956);
             Controls.Add(tableLayoutPanel1);
             Name = "AdminDashboardForm";
             RightToLeft = RightToLeft.Yes;
             RightToLeftLayout = true;
             Text = "AdminDashboardForm";
+            Load += AdminDashboardForm_Load;
             tableLayoutPanel1.ResumeLayout(false);
             SidebarPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)hopePictureBox1).EndInit();
@@ -237,7 +238,7 @@ namespace SupermarketManagmentSystem_SMS
         private FontAwesome.Sharp.IconButton iconButton6;
         private FontAwesome.Sharp.IconButton iconButton5;
         private ReaLTaiizor.Controls.HopePictureBox hopePictureBox1;
-        private BufferedPanel ContentPanel;
         private BufferedPanel TobBarPanel;
+        private BufferedPanel ContentPanel;
     }
 }

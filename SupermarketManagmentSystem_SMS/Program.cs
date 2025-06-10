@@ -18,9 +18,11 @@ namespace SupermarketManagmentSystem_SMS
             Application.SetCompatibleTextRenderingDefault(false);
 
            
+            //Application.Run(new CashierMainForm()); 
             //Application.Run(new Reports());
-            //Application.Run(new LoginForm());
-            Application.Run(new AdminDashboardForm());
+            Application.Run(new LoginForm());
+            //Application.Run(new AddUser());
+            //Application.Run(new CashierDashboardForm());
             //Application.Run(new BillingForm());
 
         }
