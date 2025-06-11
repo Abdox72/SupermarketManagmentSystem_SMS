@@ -50,8 +50,6 @@
             foxLabel6 = new ReaLTaiizor.Controls.FoxLabel();
             searchTextBox = new ReaLTaiizor.Controls.HopeTextBox();
             ProductGridView = new DataGridView();
-            EditButton = new DataGridViewButtonColumn();
-            DeleteButton = new DataGridViewButtonColumn();
             panel3 = new Panel();
             editProductButton = new ReaLTaiizor.Controls.DungeonButtonRight();
             addButton = new ReaLTaiizor.Controls.DungeonButtonRight();
@@ -451,7 +449,6 @@
             editProductButton.Text = "تعديل";
             editProductButton.TextAlignment = StringAlignment.Center;
             editProductButton.Visible = false;
-            editProductButton.Click += editProductButton_Click;
             // 
             // addButton
             // 
@@ -553,8 +550,6 @@
         private ReaLTaiizor.Controls.DungeonButtonRight addButton;
         private ReaLTaiizor.Controls.DungeonButtonLeft SelectImageButton;
         private PictureBox ProductPictureBox;
-        private DataGridViewButtonColumn EditButton;
-        private DataGridViewButtonColumn DeleteButton;
         private ReaLTaiizor.Controls.DungeonButtonRight editProductButton;
         private ReaLTaiizor.Controls.FoxLabel foxLabel6;
         private ReaLTaiizor.Controls.HopeTextBox searchTextBox;
