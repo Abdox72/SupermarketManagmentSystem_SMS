@@ -564,6 +564,5 @@
         private BufferedPanel panel1;
         private ComboBox comboBoxCameras;
         private Button btnStopCam;
-        private BufferedPanel panel1;
     }
 }

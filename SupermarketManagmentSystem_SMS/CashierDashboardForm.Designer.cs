@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CashierDashboardForm));
             tableLayoutPanel1 = new TableLayoutPanel();
             TotalSaleslabel = new Label();
             NumSaleslabel = new Label();
@@ -116,9 +115,8 @@
             // 
             CashierNamelabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             CashierNamelabel.AutoSize = true;
-            CashierNamelabel.Location = new Point(1158, 0);
             CashierNamelabel.ForeColor = Color.Crimson;
-            CashierNamelabel.Location = new Point(1208, 0);
+            CashierNamelabel.Location = new Point(1158, 0);
             CashierNamelabel.Name = "CashierNamelabel";
             CashierNamelabel.Size = new Size(98, 38);
             CashierNamelabel.TabIndex = 1;
@@ -217,6 +215,7 @@
             // groupBoxBilling
             // 
             groupBoxBilling.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
+            groupBoxBilling.BackColor = Color.Gray;
             groupBoxBilling.Controls.Add(PrintInvoice);
             groupBoxBilling.Controls.Add(CashReceivedtextBox);
             groupBoxBilling.Controls.Add(ChangeTextBox);
@@ -236,7 +235,7 @@
             groupBoxBilling.Margin = new Padding(0);
             groupBoxBilling.Name = "groupBoxBilling";
             groupBoxBilling.Padding = new Padding(0);
-            groupBoxBilling.Size = new Size(423, 523);
+            groupBoxBilling.Size = new Size(423, 568);
             groupBoxBilling.TabIndex = 4;
             groupBoxBilling.TabStop = false;
             groupBoxBilling.Text = "الفاتورة";
@@ -384,7 +383,7 @@
             btnStopCam.ForeColor = SystemColors.HighlightText;
             btnStopCam.Location = new Point(812, 231);
             btnStopCam.Name = "btnStopCam";
-            btnStopCam.Size = new Size(94, 29);
+            btnStopCam.Size = new Size(94, 41);
             btnStopCam.TabIndex = 41;
             btnStopCam.Text = "Stop";
             btnStopCam.UseVisualStyleBackColor = false;
@@ -407,7 +406,7 @@
             btnStartCam.ForeColor = SystemColors.HighlightText;
             btnStartCam.Location = new Point(915, 231);
             btnStartCam.Name = "btnStartCam";
-            btnStartCam.Size = new Size(94, 29);
+            btnStartCam.Size = new Size(94, 41);
             btnStartCam.TabIndex = 38;
             btnStartCam.Text = "Start";
             btnStartCam.UseVisualStyleBackColor = false;
@@ -416,6 +415,7 @@
             // CameraPictureBox
             // 
             CameraPictureBox.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            CameraPictureBox.BackColor = SystemColors.ActiveBorder;
             CameraPictureBox.BorderStyle = BorderStyle.FixedSingle;
             CameraPictureBox.Location = new Point(1027, 182);
             CameraPictureBox.Name = "CameraPictureBox";
@@ -430,14 +430,13 @@
             AutoScaleMode = AutoScaleMode.Font;
             AutoSize = true;
             BackColor = Color.Pink;
-            ClientSize = new Size(1309, 665);
+            BackgroundImage = Properties.Resources._11;
+            BackgroundImageLayout = ImageLayout.Stretch;
+            ClientSize = new Size(1259, 697);
             Controls.Add(btnStopCam);
             Controls.Add(comboBoxCameras);
             Controls.Add(btnStartCam);
             Controls.Add(CameraPictureBox);
-            BackgroundImage = Properties.Resources._11;
-            BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(1259, 697);
             Controls.Add(CompleteSalebutton);
             Controls.Add(groupBoxBilling);
             Controls.Add(AddToCardbutton);
@@ -446,8 +445,6 @@
             Controls.Add(tableLayoutPanel1);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
-            DoubleBuffered = true;
-            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "CashierDashboardForm";
             RightToLeft = RightToLeft.Yes;
             Text = "CashierDashboard";
@@ -496,5 +493,6 @@
         private ComboBox comboBoxCameras;
         private Button btnStartCam;
         private PictureBox CameraPictureBox;
+        private Button PrintInvoice;
     }
 }

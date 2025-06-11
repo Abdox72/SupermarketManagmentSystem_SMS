@@ -23,11 +23,14 @@ namespace SupermarketManagmentSystem_SMS
 
         ApplicationDbContext dbcontext = new ApplicationDbContextFactory().CreateDbContext(null);
         private AddProductControl addProductControl1;
+
         public MainForm(Models.User user)
         {
             InitializeComponent();
             _currentUser = user;
             ConfigureUI();
+            List<Category> categories = dbcontext.Categories.ToList();
+            addProductControl1.LoadCategories(categories);
         }
 
         public MainForm()
