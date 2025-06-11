@@ -30,6 +30,8 @@ namespace SupermarketManagmentSystem_SMS.UserControls
         Product productToEdit;
         ButtonBehavior buttonBehavior = ButtonBehavior.Add;
 
+
+
         private void addDataToDataGrideView()
         {
             ProductDataGridView.DataSource = productsBindingList;

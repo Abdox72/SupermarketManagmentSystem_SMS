@@ -19,7 +19,6 @@ namespace SupermarketManagmentSystem_SMS
     public partial class MainForm : Form
     {
         private readonly Models.User _currentUser;
-        private ApplicationDbContext _context;
 
         ApplicationDbContext dbcontext = new ApplicationDbContextFactory().CreateDbContext(null);
         private AddProductControl addProductControl1;
@@ -49,12 +48,11 @@ namespace SupermarketManagmentSystem_SMS
             this.StartPosition = FormStartPosition.CenterScreen;
             this.Font = new Font("Segoe UI", 10);
 
-            // ======= Header Panel =======
             Panel headerPanel = new Panel
             {
                 Dock = DockStyle.Top,
                 Height = 80,
-                BackColor = Color.FromArgb(0, 123, 255) // أزرق مشرق يعكس المهنية
+                BackColor = Color.FromArgb(0, 123, 255)
             };
 
             Label titleLabel = new Label
@@ -79,11 +77,11 @@ namespace SupermarketManagmentSystem_SMS
             string[] buttonTexts = { "تسجيل الخروج", "المنتجات", "الفئات", "المستخدمين", "التقارير" };
             Color[] buttonColors = {
             //Color.FromArgb(220, 53, 69),    
-            Color.FromArgb(40, 167, 69),    
-            Color.FromArgb(255, 193, 7),    
-            Color.FromArgb(23, 162, 184),   
-            Color.FromArgb(108, 117, 125),  
-            Color.FromArgb(0, 123, 255)    
+            Color.FromArgb(40, 167, 69),
+            Color.FromArgb(255, 193, 7),
+            Color.FromArgb(23, 162, 184),
+            Color.FromArgb(108, 117, 125),
+            Color.FromArgb(0, 123, 255)
             };
 
 
@@ -112,8 +110,8 @@ namespace SupermarketManagmentSystem_SMS
             menuButtons[2].Click += (s, e) => OpenForm(new CategoryCustom());
             menuButtons[3].Click += (s, e) => OpenForm(new AddUser());
             menuButtons[4].Click += (s, e) => OpenForm(new Reports());
-           //enuButtons[5].Click += (s, e) => OpenForm(new BillingForm());
-            
+            //enuButtons[5].Click += (s, e) => OpenForm(new BillingForm());
+
 
 
             Panel contentPanel = new Panel
@@ -139,13 +137,12 @@ namespace SupermarketManagmentSystem_SMS
             LoadPage(new AddProductControl(dbcontext));
         }
 
-        private void OpenForm(CategoryCustom categoryCustom)
+        private void OpenForm(UserControl uc)
         {
-            //categoryCustom.TopLevel = false;
-            //categoryCustom.FormBorderStyle = FormBorderStyle.None;
-            categoryCustom.Dock = DockStyle.Fill;
+
+            uc.Dock = DockStyle.Fill;
             EnsureContentPanelExists();
-            LoadPage(new CategoryCustom(dbcontext));
+            LoadPage(uc);
         }
 
         public void LoadPage(UserControl page)
@@ -197,11 +194,11 @@ namespace SupermarketManagmentSystem_SMS
         {
             if (MessageBox.Show("هل تريد تسجيل الخروج؟", "تأكيد", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-               
+
                 LoginForm LoginForm = new LoginForm();
                 LoginForm.Show();
 
-                this.Close(); 
+                this.Close();
             }
         }
 
@@ -209,6 +206,7 @@ namespace SupermarketManagmentSystem_SMS
         {
             InitializeComponent();
         }
+
     }
 }
 
