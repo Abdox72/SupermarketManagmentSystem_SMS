@@ -16,13 +16,18 @@ namespace SupermarketManagmentSystem_SMS
 {
     public partial class CategoryCustom : UserControl
     {
-        ApplicationDbContext dbcontext;
+        private ApplicationDbContext dbcontext;
+
         List<Category> getCategory;
         BindingList<CategoryDisplay> categoryBindingList;
         Category categoryToEdit;
-        ButtonBehavior buttonBehavior=ButtonBehavior.Add;
-        public CategoryCustom(ApplicationDbContext _context) : this()
+        ButtonBehavior buttonBehavior = ButtonBehavior.Add;
+
+
+        public CategoryCustom(ApplicationDbContext _context)
         {
+            InitializeComponent();
+
             dbcontext = _context;
             getCategory = dbcontext.Categories.ToList();
             var displayList = getCategory.Select(p => new CategoryDisplay
@@ -33,11 +38,7 @@ namespace SupermarketManagmentSystem_SMS
             }).ToList();
             categoryBindingList = new BindingList<CategoryDisplay>(displayList);
             addDataToDataGrideView();
-        }
-        public CategoryCustom()
-        {
-            InitializeComponent();
-            //عشان اشغل الevent بتاع ال edit-delete in dataGrideView
+
             CategoryDataGridView.CellContentClick += CategoryDataGridView_CellContentClick;
         }
         private void addDataToDataGrideView()
@@ -115,10 +116,6 @@ namespace SupermarketManagmentSystem_SMS
 
         }
 
-        private void foxLabel1_Click(object sender, EventArgs e)
-        {
-
-        }
         private bool checkIfCategoryExistBefor(string name)
         {
             bool category1 = dbcontext.Categories.Any(c => c.Name.ToLower() == name.ToLower());
@@ -179,15 +176,5 @@ namespace SupermarketManagmentSystem_SMS
             }
         }
 
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        public string CategoryName
-        {
-            get { return NameTextBox.Text; }
-            set { NameTextBox.Text = value; }
-        }
     }
 }

@@ -13,18 +13,17 @@ using System.Windows.Forms;
 
 namespace SupermarketManagmentSystem_SMS
 {
-    public partial class AddUser : Form
+    public partial class AddUser : UserControl
     {
-        //ApplicationDbContextFactory dbContextFactory = new ApplicationDbContextFactory();
-        //using var dbContext = dbContextFactory.CreateDbContext(null);
         private ApplicationDbContext dbcontext;
 
         private int selectedUserId = -1;
 
 
-        public AddUser()
+        public AddUser(ApplicationDbContext _dbcontext)
         {
             InitializeComponent();
+            dbcontext = _dbcontext;
             dbcontext = new ApplicationDbContextFactory().CreateDbContext(null);
             comboRole.DataSource = Enum.GetValues(typeof(UserRole));
             LoadUsers();
@@ -37,15 +36,15 @@ namespace SupermarketManagmentSystem_SMS
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            string nationalID = NationalIDtxt.Text;
             var user = new User
             {
                 FirstName = txtFirstname.Text,
                 LastName = txtLastname.Text,
-                NationalID = NationalIDtxt.Text,
+                NationalID = nationalID,
                 PasswordHash = PasswordHashtxt.Text,
                 Role = (UserRole)comboRole.SelectedItem
             };
-            string nationalID = NationalIDtxt.Text;
 
             bool exists = dbcontext.Users.Any(u => u.NationalID == nationalID);
 
@@ -57,7 +56,6 @@ namespace SupermarketManagmentSystem_SMS
 
             dbcontext.Users.Add(user);
             dbcontext.SaveChanges();
-
 
             LoadUsers();
         }
@@ -106,14 +104,5 @@ namespace SupermarketManagmentSystem_SMS
             comboRole.SelectedItem = Enum.Parse(typeof(UserRole), row.Cells["Role"].Value.ToString());
         }
 
-        private void AddUser_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

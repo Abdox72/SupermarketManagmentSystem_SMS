@@ -24,10 +24,19 @@ namespace SupermarketManagmentSystem_SMS.UserControls
     public partial class AddProductControl : UserControl
     {
 
-        ApplicationDbContext dbcontext;
+        private readonly ApplicationDbContext dbcontext;
+
+        private FilterInfoCollection _videoDevices;
+        private VideoCaptureDevice _videoSource;
+        private IBarcodeReaderService _barcodeReader;
+
         List<Product> getproducts;
         BindingList<ProductDisplay> productsBindingList;
         Product productToEdit;
+
+        public string selectedImagePath { get; set; } = "";
+
+
         private void addDataToDataGrideView()
         {
             ProductDataGridView.DataSource = productsBindingList;
@@ -58,17 +67,12 @@ namespace SupermarketManagmentSystem_SMS.UserControls
 
             });
         }
-        //public AddProductControl() { }
-        public AddProductControl(ApplicationDbContext _context)
+
+        public AddProductControl(ApplicationDbContext _dbcontext)
         {
             InitializeComponent();
-            //// بيخلي عمود التعديل والحذف في الاخر بس لسه مجربتهاش 
-            //ProductDataGridView.Columns["EditColumn"].DisplayIndex = ProductDataGridView.Columns.Count - 2;
-            //ProductDataGridView.Columns["DeleteColumn"].DisplayIndex = ProductDataGridView.Columns.Count - 1;
-            // خليك متأكد إنك كاتب اسم العمود صح بالضبط زي اللي في الـ designer
-
-            this.DoubleBuffered = true; // Enable for user control
-            dbcontext = _context;
+            this.DoubleBuffered = true;
+            dbcontext = _dbcontext;
             getproducts = dbcontext.Products.Include(c => c.Category).ToList();
             var displayList = getproducts.Select(p => new ProductDisplay
             {
@@ -78,19 +82,17 @@ namespace SupermarketManagmentSystem_SMS.UserControls
                 Quantity = p.Quantity,
                 CategoryName = p.Category.Name
             }).ToList();
-            productsBindingList = new BindingList<ProductDisplay>(displayList);
-            addDataToDataGrideView();
 
+            productsBindingList = new BindingList<ProductDisplay>(displayList);
+
+            LoadCategories(dbcontext.Categories.ToList());
+
+            addDataToDataGrideView();
 
             SetupBarcodeReader();
             EnumerateCameras();
         }
 
-        public AddProductControl()
-        {
-        }
-
-        public string selectedImagePath { get; set; } = "";
         public Category? SelectedCategory => CategoryComboBox.SelectedItem as Category;
 
         public void LoadCategories(List<Category> categories)
@@ -100,6 +102,7 @@ namespace SupermarketManagmentSystem_SMS.UserControls
             CategoryComboBox.DisplayMember = "Name";
             CategoryComboBox.ValueMember = "CategoryID";
         }
+
         private void SelectImageButton_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog ofd = new OpenFileDialog())
@@ -109,44 +112,39 @@ namespace SupermarketManagmentSystem_SMS.UserControls
 
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
-                    // اسم المجلد داخل مجلد المشروع
                     string projectFolder = Application.StartupPath;
                     string photoFolder = Path.Combine(projectFolder, "photo");
 
-                    //// لو المجلد مش موجود، أنشئه
                     if (!Directory.Exists(photoFolder))
                         Directory.CreateDirectory(photoFolder);
 
-                    // اسم جديد عشوائي للصورة عشان ميحصلش تعارض
                     string fileExt = Path.GetExtension(ofd.FileName);
                     string newFileName = Guid.NewGuid().ToString() + fileExt;
                     string destPath = Path.Combine(photoFolder, newFileName);
 
-                    // انسخ الصورة
                     File.Copy(ofd.FileName, destPath, true);
 
-                    // عرض الصورة
                     ProductPictureBox.Image = Image.FromFile(destPath);
                     ProductPictureBox.Visible = true;
 
-                    // خزّن المسار النسبي داخل المتغير (عشان يتخزن في قاعدة البيانات)
                     selectedImagePath = Path.Combine("photo", newFileName);
                 }
             }
         }
+       
         private void AddProduct()
         {
             Product product = new Product
             {
                 Name = NameTextBox.Text,
                 Barcode = BarcodeTextBox.Text,
-                Price = int.Parse(PriceNumeric1.Text),//PriceNumeric1.Value,
+                Price = decimal.Parse(PriceNumeric1.Text),
                 CategoryID = SelectedCategory.CategoryID,
                 ImagePath = selectedImagePath,
                 Quantity = int.Parse(QuantityNumeric.Text),
             };
             var category = dbcontext.Categories.FirstOrDefault(c => c.CategoryID == SelectedCategory.CategoryID);
-            //save and add this product to DataGridView 
+
             ProductDisplay productDisplay = new ProductDisplay
             {
                 ProductID= product.ProductID,
@@ -175,7 +173,7 @@ namespace SupermarketManagmentSystem_SMS.UserControls
 
         private void ProductGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0) // تأكد إنه مش الهيدر
+            if (e.RowIndex >= 0)
             {
                 var selectedProduct = (ProductDisplay)ProductDataGridView.Rows[e.RowIndex].DataBoundItem;
                 string columnName = ProductDataGridView.Columns[e.ColumnIndex].Name;
@@ -208,11 +206,9 @@ namespace SupermarketManagmentSystem_SMS.UserControls
                     {
                         MessageBox.Show(ex.Message);
                     }
-                        ProductPictureBox.Visible = true;
-                        addButton.Visible = false;
-                        editProductButton.Visible = true;
-
-
+                    ProductPictureBox.Visible = true;
+                    addButton.Visible = false;
+                    editProductButton.Visible = true;
                 }
                 else if (columnName == "DeleteButton")
                 {
@@ -231,17 +227,15 @@ namespace SupermarketManagmentSystem_SMS.UserControls
 
         private void editProductButton_Click(object sender, EventArgs e)
         {
-            #region Edit DataBase
             //اعملها update احسن وبرضو اعمل check ان ال name -barcode ميتكرروش
             productToEdit.Name = NameTextBox.Text;
             productToEdit.Barcode = BarcodeTextBox.Text;
-            productToEdit.Price =int.Parse( PriceNumeric1.Text);
+            productToEdit.Price =decimal.Parse( PriceNumeric1.Text);
             productToEdit.Quantity = int.Parse(QuantityNumeric.Text);
             productToEdit.CategoryID = SelectedCategory.CategoryID;
             productToEdit.ImagePath = selectedImagePath;
             //dbcontext.Products.Update(productToEdit);
             dbcontext.SaveChanges();
-            #endregion
             var itemToUpdate = productsBindingList.FirstOrDefault(p => p.ProductID == productToEdit.ProductID);
             if (itemToUpdate != null)
             {
@@ -259,13 +253,11 @@ namespace SupermarketManagmentSystem_SMS.UserControls
             MessageBox.Show($" نم تعديل المنتج بنجاح ");
             addButton.Visible = true;
             editProductButton.Visible = false;
-            #region Set Value null After Edit
             NameTextBox.Text = null;
             PriceNumeric1.Value = 0;
             QuantityNumeric.Value = 0;
             BarcodeTextBox.Text = null;
             ProductPictureBox.Visible=false;
-            #endregion
         }
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
@@ -307,7 +299,7 @@ namespace SupermarketManagmentSystem_SMS.UserControls
 
         private void SetupBarcodeReader()
         {
-            _barcodeReader = new Services.ZxingBarcodeReaderService();
+            _barcodeReader = new ZxingBarcodeReaderService();
         }
 
         private void EnumerateCameras()
@@ -368,5 +360,6 @@ namespace SupermarketManagmentSystem_SMS.UserControls
                 }
             }
         }
+    
     }
 }

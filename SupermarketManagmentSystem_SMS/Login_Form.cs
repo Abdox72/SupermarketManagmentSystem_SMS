@@ -1,21 +1,23 @@
-using SupermarketManagmentSystem_SMS;
-using SupermarketManagmentSystem_SMS.Models;
-using SupermarketManagmentSystem_SMS.Services;
+﻿using SupermarketManagmentSystem_SMS.Services;
 using SupermarketManagmentSystem_SMS.Utilities;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
 namespace SupermarketManagmentSystem_SMS
 {
-    public partial class LoginForm : Form
+    public partial class Login_Form : Form
     {
-        public LoginForm()
+        public Login_Form()
         {
             InitializeComponent();
-
         }
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
         private void LoginBtn_Click(object sender, EventArgs e)
         {
             string nationalID = NationalIdTextBox.Text.Trim();
@@ -36,16 +38,15 @@ namespace SupermarketManagmentSystem_SMS
                 //check role if admin or cashier
                 if (user?.Role == UserRole.Admin)
                 {
-                    // Show Admin Dashboard
-                    //var adminDashboardForm = new AdminDashboardForm();
-                    var adminDashboardForm = new MainForm(user);
+                    var adminDashboardForm = new AdminMainForm();
+                    adminDashboardForm.CurrentUser = user;
                     adminDashboardForm.ShowDialog();
                     this.Show();
                 }
                 else if (user?.Role == UserRole.Cashier)
                 {
-                    // Show Cashier Dashboard
-                    var cashierDashboardForm = new CashierMainForm(user);
+                    var cashierDashboardForm = new CashierMainForm();
+                    cashierDashboardForm.CurrentUser = user;
                     cashierDashboardForm.ShowDialog();
                     this.Show();
                 }

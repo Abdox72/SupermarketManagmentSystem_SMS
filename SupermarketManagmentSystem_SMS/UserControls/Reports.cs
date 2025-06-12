@@ -14,19 +14,15 @@ using System.Windows.Forms;
 
 namespace SupermarketManagmentSystem_SMS
 {
-    public partial class Reports : Form
+    public partial class Reports : UserControl
     {
         private ApplicationDbContext dbcontext;
-        public Reports()
+        public Reports(ApplicationDbContext _dbcontext)
         {
             InitializeComponent();
-            dbcontext = new ApplicationDbContextFactory().CreateDbContext(null);
+            dbcontext = _dbcontext;
         }
 
-        private void Reports_Load(object sender, EventArgs e)
-        {
-
-        }
         private void btnDay_Click(object sender, EventArgs e)
         {
             LoadSales(s => s.SaleDate.Date == DateTime.Today);
