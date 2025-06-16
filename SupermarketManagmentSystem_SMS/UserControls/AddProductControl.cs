@@ -19,62 +19,109 @@ using ZXing.Windows.Compatibility;
 using SupermarketManagmentSystem_SMS.Services;
 using AForge.Video;
 using System.Drawing.Imaging;
+using System.IO;
+
 namespace SupermarketManagmentSystem_SMS.UserControls
 {
     public partial class AddProductControl : UserControl
     {
-
-        private readonly ApplicationDbContext dbcontext;
-
+        private readonly ApplicationDbContext _dbContext;
+        private IBarcodeReaderService _barcodeReader;
         private FilterInfoCollection _videoDevices;
         private VideoCaptureDevice _videoSource;
-        private IBarcodeReaderService _barcodeReader;
+        private BindingList<ProductDisplay> _productsBindingList;
+        private Product _productToEdit;
+        private string _selectedImagePath = "";
+        private bool _isEditing = false;
 
-        List<Product> getproducts;
-        BindingList<ProductDisplay> productsBindingList;
-        Product productToEdit;
-
-        public string selectedImagePath { get; set; } = "";
-
-
-        private void addDataToDataGrideView()
-        {
-            ProductDataGridView.DataSource = productsBindingList;
-            ProductDataGridView.Columns["Name"].Visible = false;
-            ProductDataGridView.Columns["ProductID"].Visible = false;
-            ProductDataGridView.Columns["Price"].Visible = false;
-            ProductDataGridView.Columns["Quantity"].Visible = false;
-            ProductDataGridView.Columns["CategoryName"].Visible = false;
-            ProductDataGridView.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "Name",
-                HeaderText = "اسم المنتج"
-            });
-            ProductDataGridView.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "Price",
-                HeaderText = "سعر المنتج"
-            });
-            ProductDataGridView.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "Quantity",
-                HeaderText = " الكميه المتاحه"
-            });
-            ProductDataGridView.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                DataPropertyName = "CategoryName",
-                HeaderText = " الصنف",
-
-            });
-        }
-
-        public AddProductControl(ApplicationDbContext _dbcontext)
+        public AddProductControl(ApplicationDbContext dbContext)
         {
             InitializeComponent();
             this.DoubleBuffered = true;
-            dbcontext = _dbcontext;
-            getproducts = dbcontext.Products.Include(c => c.Category).ToList();
-            var displayList = getproducts.Select(p => new ProductDisplay
+            _dbContext = dbContext;
+            _barcodeReader = new ZxingBarcodeReaderService();
+
+            GridViewStyler.Style(ProductGridView);
+
+            InitializeControls();
+            LoadData();
+            SetupBarcodeReader();
+            EnumerateCameras();
+        }
+
+        private void InitializeControls()
+        {
+            PriceNumeric1.DecimalPlaces = 2;
+            PriceNumeric1.Minimum = 0;
+            QuantityNumeric.Minimum = 0;
+
+            searchTextBox.TextChanged += SearchTextBox_TextChanged;
+
+            SetupDataGridView();
+        }
+
+        private void SetupDataGridView()
+        {
+            ProductGridView.AutoGenerateColumns = false;
+            ProductGridView.Columns.Clear();
+
+            ProductGridView.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Name",
+                HeaderText = "اسم المنتج",
+                Width = 150
+            });
+
+            ProductGridView.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Price",
+                HeaderText = "سعر المنتج",
+                Width = 100
+            });
+
+            ProductGridView.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Quantity",
+                HeaderText = "الكميه المتاحه",
+                Width = 100
+            });
+
+            ProductGridView.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "CategoryName",
+                HeaderText = "الصنف",
+                Width = 100
+            });
+
+            var editButton = new DataGridViewButtonColumn
+            {
+                Name = "EditButton",
+                HeaderText = "تعديل",
+                Text = "تعديل",
+                UseColumnTextForButtonValue = true,
+                Width = 70
+            };
+
+            var deleteButton = new DataGridViewButtonColumn
+            {
+                Name = "DeleteButton",
+                HeaderText = "حذف",
+                Text = "حذف",
+                UseColumnTextForButtonValue = true,
+                Width = 70
+            };
+
+            ProductGridView.Columns.Add(editButton);
+            ProductGridView.Columns.Add(deleteButton);
+        }
+
+        private void LoadData()
+        {
+            var products = _dbContext.Products
+                .Include(c => c.Category)
+                .ToList();
+
+            var displayList = products.Select(p => new ProductDisplay
             {
                 ProductID = p.ProductID,
                 Name = p.Name,
@@ -83,17 +130,11 @@ namespace SupermarketManagmentSystem_SMS.UserControls
                 CategoryName = p.Category.Name
             }).ToList();
 
-            productsBindingList = new BindingList<ProductDisplay>(displayList);
+            _productsBindingList = new BindingList<ProductDisplay>(displayList);
+            ProductGridView.DataSource = _productsBindingList;
 
-            LoadCategories(dbcontext.Categories.ToList());
-
-            addDataToDataGrideView();
-
-            SetupBarcodeReader();
-            EnumerateCameras();
+            LoadCategories(_dbContext.Categories.ToList());
         }
-
-        public Category? SelectedCategory => CategoryComboBox.SelectedItem as Category;
 
         public void LoadCategories(List<Category> categories)
         {
@@ -112,190 +153,264 @@ namespace SupermarketManagmentSystem_SMS.UserControls
 
                 if (ofd.ShowDialog() == DialogResult.OK)
                 {
-                    string projectFolder = Application.StartupPath;
-                    string photoFolder = Path.Combine(projectFolder, "photo");
+                    try
+                    {
+                        string projectFolder = Application.StartupPath;
+                        string photoFolder = Path.Combine(projectFolder, "photo");
 
-                    if (!Directory.Exists(photoFolder))
-                        Directory.CreateDirectory(photoFolder);
+                        if (!Directory.Exists(photoFolder))
+                            Directory.CreateDirectory(photoFolder);
 
-                    string fileExt = Path.GetExtension(ofd.FileName);
-                    string newFileName = Guid.NewGuid().ToString() + fileExt;
-                    string destPath = Path.Combine(photoFolder, newFileName);
+                        string fileExt = Path.GetExtension(ofd.FileName);
+                        string newFileName = Guid.NewGuid().ToString() + fileExt;
+                        string destPath = Path.Combine(photoFolder, newFileName);
 
-                    File.Copy(ofd.FileName, destPath, true);
+                        File.Copy(ofd.FileName, destPath, true);
 
-                    ProductPictureBox.Image = Image.FromFile(destPath);
-                    ProductPictureBox.Visible = true;
+                        ProductPictureBox.Image = Image.FromFile(destPath);
+                        ProductPictureBox.Visible = true;
 
-                    selectedImagePath = Path.Combine("photo", newFileName);
+                        _selectedImagePath = Path.Combine("photo", newFileName);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"حدث خطأ أثناء حفظ الصورة: {ex.Message}", "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
         }
-       
+
         private void AddProduct()
         {
-            Product product = new Product
-            {
-                Name = NameTextBox.Text,
-                Barcode = BarcodeTextBox.Text,
-                Price = decimal.Parse(PriceNumeric1.Text),
-                CategoryID = SelectedCategory.CategoryID,
-                ImagePath = selectedImagePath,
-                Quantity = int.Parse(QuantityNumeric.Text),
-            };
-            var category = dbcontext.Categories.FirstOrDefault(c => c.CategoryID == SelectedCategory.CategoryID);
+            if (!ValidateInputs())
+                return;
 
-            ProductDisplay productDisplay = new ProductDisplay
+            try
             {
-                ProductID= product.ProductID,
-                Name = NameTextBox.Text,
-                Price = PriceNumeric1.Value,
-                Quantity = int.Parse(QuantityNumeric.Text),
-                CategoryName = category.Name
-            };
-            dbcontext.Products.Add(product);
-            dbcontext.SaveChanges();
-            productsBindingList.Add(productDisplay);
+                var product = new Product
+                {
+                    Name = NameTextBox.Text.Trim(),
+                    Barcode = BarcodeTextBox.Text.Trim(),
+                    Price = decimal.Parse(PriceNumeric1.Text),
+                    CategoryID = ((Category)CategoryComboBox.SelectedItem).CategoryID,
+                    ImagePath = _selectedImagePath,
+                    Quantity = (int)QuantityNumeric.Value
+                };
+
+                _dbContext.Products.Add(product);
+                _dbContext.SaveChanges();
+
+                var productDisplay = new ProductDisplay
+                {
+                    ProductID = product.ProductID,
+                    Name = product.Name,
+                    Price = product.Price,
+                    Quantity = product.Quantity,
+                    CategoryName = ((Category)CategoryComboBox.SelectedItem).Name
+                };
+
+                _productsBindingList.Add(productDisplay);
+                ClearInputs();
+                MessageBox.Show("تم إضافة المنتج بنجاح", "نجاح", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"حدث خطأ أثناء إضافة المنتج: {ex.Message}", "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private bool ValidateInputs()
+        {
+            if (string.IsNullOrWhiteSpace(NameTextBox.Text))
+            {
+                MessageBox.Show("الرجاء إدخال اسم المنتج", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            if (string.IsNullOrWhiteSpace(BarcodeTextBox.Text))
+            {
+                MessageBox.Show("الرجاء إدخال الباركود", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            if (CategoryComboBox.SelectedItem == null)
+            {
+                MessageBox.Show("الرجاء اختيار الصنف", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            if (PriceNumeric1.Value <= 0)
+            {
+                MessageBox.Show("الرجاء إدخال سعر صحيح", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            if (QuantityNumeric.Value < 0)
+            {
+                MessageBox.Show("الرجاء إدخال كمية صحيحة", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            return true;
+        }
+
+        private void ClearInputs()
+        {
+            NameTextBox.Text = string.Empty;
+            BarcodeTextBox.Text = string.Empty;
+            PriceNumeric1.Value = 0;
+            QuantityNumeric.Value = 0;
+            CategoryComboBox.SelectedIndex = -1;
+            ProductPictureBox.Image = null;
+            ProductPictureBox.Visible = false;
+            _selectedImagePath = string.Empty;
+            _isEditing = false;
         }
 
         private void addButton_Click(object sender, EventArgs e)
         {
-            Product product1 = dbcontext.Products.FirstOrDefault(c => (c.Name.ToLower() == NameTextBox.Text.ToLower()) || (c.Barcode.ToLower() == BarcodeTextBox.Text.ToLower()));
-            if (product1 != null)
+            if (_isEditing)
             {
-                MessageBox.Show("هذا المنتج موجود بالفعل");
+                UpdateProduct();
             }
             else
             {
-                AddProduct();
+                var existingProduct = _dbContext.Products.FirstOrDefault(p =>
+                    p.Name.ToLower() == NameTextBox.Text.ToLower() ||
+                    p.Barcode.ToLower() == BarcodeTextBox.Text.ToLower());
+
+                if (existingProduct != null)
+                {
+                    MessageBox.Show("هذا المنتج موجود بالفعل", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    AddProduct();
+                }
+            }
+        }
+
+        private void UpdateProduct()
+        {
+            if (!ValidateInputs())
+                return;
+
+            try
+            {
+                _productToEdit.Name = NameTextBox.Text.Trim();
+                _productToEdit.Barcode = BarcodeTextBox.Text.Trim();
+                _productToEdit.Price = decimal.Parse(PriceNumeric1.Text);
+                _productToEdit.Quantity = (int)QuantityNumeric.Value;
+                _productToEdit.CategoryID = ((Category)CategoryComboBox.SelectedItem).CategoryID;
+                _productToEdit.ImagePath = _selectedImagePath;
+
+                _dbContext.SaveChanges();
+
+                var itemToUpdate = _productsBindingList.FirstOrDefault(p => p.ProductID == _productToEdit.ProductID);
+                if (itemToUpdate != null)
+                {
+                    itemToUpdate.Name = _productToEdit.Name;
+                    itemToUpdate.Price = _productToEdit.Price;
+                    itemToUpdate.Quantity = _productToEdit.Quantity;
+                    itemToUpdate.CategoryName = ((Category)CategoryComboBox.SelectedItem).Name;
+                    _productsBindingList.ResetItem(_productsBindingList.IndexOf(itemToUpdate));
+                }
+
+                MessageBox.Show("تم تعديل المنتج بنجاح", "نجاح", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ClearInputs();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"حدث خطأ أثناء تعديل المنتج: {ex.Message}", "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void ProductGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)
-            {
-                var selectedProduct = (ProductDisplay)ProductDataGridView.Rows[e.RowIndex].DataBoundItem;
-                string columnName = ProductDataGridView.Columns[e.ColumnIndex].Name;
-                var product = dbcontext.Products.FirstOrDefault(c => c.ProductID == selectedProduct.ProductID);
-                //set to the refrance to catch it in edit column
-                productToEdit = product;
-                if (columnName == "EditButton")
-                {
-                    // مثلًا تفتح البيانات للتعديل
-                    NameTextBox.Text=product?.Name!=null?product.Name:"";
-                    PriceNumeric1.Text = product.Price.ToString();
-                    QuantityNumeric.Text = product.Quantity.ToString();
-                    CategoryComboBox.SelectedItem = product.Category;
-                    BarcodeTextBox.Text = product.Barcode;
-                    //image 
-                    try
-                    {
-                        string fullPath = Path.Combine(Application.StartupPath, product.ImagePath ?? "");
+            if (e.RowIndex < 0) return;
 
-                        if (File.Exists(fullPath))
-                        {
-                            ProductPictureBox.Image = Image.FromFile(fullPath);
-                        }
-                        else
-                        {
-                            ProductPictureBox.Image = null;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message);
-                    }
+            var selectedProduct = (ProductDisplay)ProductGridView.Rows[e.RowIndex].DataBoundItem;
+            var columnName = ProductGridView.Columns[e.ColumnIndex].Name;
+
+            switch (columnName)
+            {
+                case "EditButton":
+                    EditProduct(selectedProduct);
+                    addButton.Text = "تعديل";
+                    break;
+                case "DeleteButton":
+                    DeleteProduct(selectedProduct);
+                    break;
+            }
+        }
+
+        private void EditProduct(ProductDisplay selectedProduct)
+        {
+            _productToEdit = _dbContext.Products.FirstOrDefault(p => p.ProductID == selectedProduct.ProductID);
+            if (_productToEdit == null) return;
+
+            _isEditing = true;
+            NameTextBox.Text = _productToEdit.Name;
+            BarcodeTextBox.Text = _productToEdit.Barcode;
+            PriceNumeric1.Value = (decimal)_productToEdit.Price;
+            QuantityNumeric.Value = _productToEdit.Quantity;
+            CategoryComboBox.SelectedValue = _productToEdit.CategoryID;
+
+            if (!string.IsNullOrEmpty(_productToEdit.ImagePath))
+            {
+                string fullPath = Path.Combine(Application.StartupPath, _productToEdit.ImagePath);
+                if (File.Exists(fullPath))
+                {
+                    ProductPictureBox.Image = Image.FromFile(fullPath);
                     ProductPictureBox.Visible = true;
-                    addButton.Visible = false;
-                    editProductButton.Visible = true;
+                    _selectedImagePath = _productToEdit.ImagePath;
                 }
-                else if (columnName == "DeleteButton")
-                {
-                    var confirm = MessageBox.Show($"هل تريد حذف المنتج {selectedProduct.Name}؟", "تأكيد", MessageBoxButtons.YesNo);
+            }
+        }
 
-                    if (confirm == DialogResult.Yes)
+        private void DeleteProduct(ProductDisplay selectedProduct)
+        {
+            var confirm = MessageBox.Show(
+                $"هل تريد حذف المنتج {selectedProduct.Name}؟",
+                "تأكيد",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (confirm == DialogResult.Yes)
+            {
+                try
+                {
+                    var product = _dbContext.Products.FirstOrDefault(p => p.ProductID == selectedProduct.ProductID);
+                    if (product != null)
                     {
-                        productsBindingList.Remove(selectedProduct);
-                        dbcontext.Products.Remove(product);
-                        dbcontext.SaveChanges();
+                        _dbContext.Products.Remove(product);
+                        _dbContext.SaveChanges();
+                        _productsBindingList.Remove(selectedProduct);
+                        MessageBox.Show("تم حذف المنتج بنجاح", "نجاح", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"حدث خطأ أثناء حذف المنتج: {ex.Message}", "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
-
         }
 
-        private void editProductButton_Click(object sender, EventArgs e)
+        private void SearchTextBox_TextChanged(object sender, EventArgs e)
         {
-            //اعملها update احسن وبرضو اعمل check ان ال name -barcode ميتكرروش
-            productToEdit.Name = NameTextBox.Text;
-            productToEdit.Barcode = BarcodeTextBox.Text;
-            productToEdit.Price =decimal.Parse( PriceNumeric1.Text);
-            productToEdit.Quantity = int.Parse(QuantityNumeric.Text);
-            productToEdit.CategoryID = SelectedCategory.CategoryID;
-            productToEdit.ImagePath = selectedImagePath;
-            //dbcontext.Products.Update(productToEdit);
-            dbcontext.SaveChanges();
-            var itemToUpdate = productsBindingList.FirstOrDefault(p => p.ProductID == productToEdit.ProductID);
-            if (itemToUpdate != null)
-            {
-                var category = dbcontext.Categories.FirstOrDefault(c => c.CategoryID == SelectedCategory.CategoryID);
-                itemToUpdate.ProductID = productToEdit.ProductID;
-                itemToUpdate.Name = productToEdit.Name;
-                itemToUpdate.ProductID = productToEdit.ProductID;
-                itemToUpdate.Quantity = int.Parse(QuantityNumeric.Text);
-                itemToUpdate.Price = PriceNumeric1.Value;
-                itemToUpdate.CategoryName = category.Name;
-                //updata data in dataGrideView
-                int index=productsBindingList.IndexOf(itemToUpdate);
-                productsBindingList.ResetItem(index); 
-            }
-            MessageBox.Show($" نم تعديل المنتج بنجاح ");
-            addButton.Visible = true;
-            editProductButton.Visible = false;
-            NameTextBox.Text = null;
-            PriceNumeric1.Value = 0;
-            QuantityNumeric.Value = 0;
-            BarcodeTextBox.Text = null;
-            ProductPictureBox.Visible=false;
-        }
-
-        private void txtSearch_TextChanged(object sender, EventArgs e)
-        {
+            LoadData();
+            if (searchTextBox.Text.Trim().Count() == 0)
+                return;
             string searchTerm = searchTextBox.Text.Trim().ToLower();
-
-            var filtered = productsBindingList.Where(p =>
+            var filtered = _productsBindingList.Where(p =>
                 p.Name.ToLower().Contains(searchTerm) ||
-                p.CategoryName.ToLower().Contains(searchTerm)).ToList();
-            ProductDataGridView.DataSource = filtered;
-        }
+                p.CategoryName.ToLower().Contains(searchTerm) ||
+                p.Price.ToString().Contains(searchTerm) ||
+                p.Quantity.ToString().Contains(searchTerm)).ToList();
 
-        public new string ProductName
-        {
-            get { return NameTextBox.Text; }
-            set { NameTextBox.Text = value; }
+            _productsBindingList = new BindingList<ProductDisplay>(filtered);
+            ProductGridView.DataSource = _productsBindingList;
         }
-        public string ProductBarcode
-        {
-            get { return BarcodeTextBox.Text; }
-            set { BarcodeTextBox.Text = value; }
-        }
-        public string ProductQuantity
-        {
-            get { return QuantityNumeric.Text; }
-            set { QuantityNumeric.Text = value; }
-        }
-        public string ProductPrice
-        {
-            get { return PriceNumeric1.Text; }
-            set { PriceNumeric1.Text = value; }
-        }
-        public DataGridView ProductDataGridView
-        {
-            get { return ProductGridView; }
-            set { ProductGridView = value; }
-        }
-
 
         private void SetupBarcodeReader()
         {
@@ -305,31 +420,38 @@ namespace SupermarketManagmentSystem_SMS.UserControls
         private void EnumerateCameras()
         {
             _videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
+            comboBoxCameras.Items.Clear();
+
             foreach (FilterInfo dev in _videoDevices)
                 comboBoxCameras.Items.Add(dev.Name);
+
             if (comboBoxCameras.Items.Count > 0)
                 comboBoxCameras.SelectedIndex = 0;
         }
 
-        private void panel1_ControlRemoved(object sender, ControlEventArgs e)
-        {
-            btnStopCam_Click(sender, e);
-        }
         private void btnStartCam_Click(object sender, EventArgs e)
         {
             if (_videoDevices.Count == 0)
             {
-                MessageBox.Show("No cameras found");
+                MessageBox.Show("لم يتم العثور على كاميرات", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            var cameraIndex = comboBoxCameras.SelectedIndex;
-            var moniker = _videoDevices[cameraIndex].MonikerString;
-            _videoSource = new VideoCaptureDevice(moniker);
-            _videoSource.NewFrame += VideoSource_NewFrame;
-            _videoSource.Start();
-            btnStartCam.Enabled = false;
-            btnStopCam.Enabled = true;
+            try
+            {
+                var cameraIndex = comboBoxCameras.SelectedIndex;
+                var moniker = _videoDevices[cameraIndex].MonikerString;
+                _videoSource = new VideoCaptureDevice(moniker);
+                _videoSource.NewFrame += VideoSource_NewFrame;
+                _videoSource.Start();
+                btnStartCam.Enabled = false;
+                btnStopCam.Enabled = true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"حدث خطأ أثناء تشغيل الكاميرا: {ex.Message}", "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
+
         private void btnStopCam_Click(object sender, EventArgs e)
         {
             if (_videoSource != null && _videoSource.IsRunning)
@@ -340,26 +462,57 @@ namespace SupermarketManagmentSystem_SMS.UserControls
             btnStartCam.Enabled = true;
             btnStopCam.Enabled = false;
         }
+
         private void VideoSource_NewFrame(object sender, NewFrameEventArgs eventArgs)
         {
-            using (var frame = (Bitmap)eventArgs.Frame.Clone())
+            try
             {
-                CameraPictureBox.Image?.Dispose();
-                CameraPictureBox.Image = (Bitmap)frame.Clone();
-                var result = _barcodeReader.Decode(frame);
-                if (result != null )
+                using (var frame = (Bitmap)eventArgs.Frame.Clone())
                 {
-                    _videoSource.SignalToStop();   // pause scanning
-                    this.Invoke(new Action(() =>
+                    CameraPictureBox.Image?.Dispose();
+                    CameraPictureBox.Image = (Bitmap)frame.Clone();
+
+                    var result = _barcodeReader.Decode(frame);
+                    if (result != null)
                     {
-                        //LookupProduct(result);
-                        BarcodeTextBox.Text = result; // set the barcode text
-                        btnStartCam.Enabled = true;   // allow restart
-                        btnStopCam.Enabled = false;
-                    }));
+                        _videoSource.SignalToStop();
+                        this.Invoke(new Action(() =>
+                        {
+                            BarcodeTextBox.Text = result;
+                            btnStartCam.Enabled = true;
+                            btnStopCam.Enabled = false;
+                        }));
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error in VideoSource_NewFrame: {ex.Message}");
+            }
         }
-    
+
+        protected override void OnControlRemoved(ControlEventArgs e)
+        {
+            base.OnControlRemoved(e);
+            btnStopCam_Click(this, EventArgs.Empty);
+        }
+
+        private void ClearBtn_Click(object sender, EventArgs e)
+        {
+            ClearInputs();
+            _isEditing = false;
+            addButton.Text = "إضافة";
+            if (_videoSource != null && _videoSource.IsRunning)
+            {
+                _videoSource.SignalToStop();
+                _videoSource.NewFrame -= VideoSource_NewFrame;
+            }
+        }
+        public new void BringToFront()
+        {
+            base.BringToFront();
+            this.LoadData();
+        }
+
     }
 }

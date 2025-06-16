@@ -1,4 +1,5 @@
-﻿using SupermarketManagmentSystem_SMS.Services;
+﻿using Microsoft.EntityFrameworkCore;
+using SupermarketManagmentSystem_SMS.Services;
 using SupermarketManagmentSystem_SMS.Utilities;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,8 @@ namespace SupermarketManagmentSystem_SMS
         public Login_Form()
         {
             InitializeComponent();
+            using (var ctx = new ApplicationDbContextFactory().CreateDbContext(null))
+                ctx.Database.Migrate();
         }
         private void LoginBtn_Click(object sender, EventArgs e)
         {
@@ -28,12 +31,12 @@ namespace SupermarketManagmentSystem_SMS
 
             if (string.IsNullOrEmpty(nationalID) || string.IsNullOrEmpty(password))
             {
-                MessageBox.Show("Please enter both National ID and Password.", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("أدخل الرقم القومي والرقم السري للدخول", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             if (AuthenticationService.AuthenticateUser(nationalID, password, out var user))
             {
-                MessageBox.Show($"Welcome {user?.FirstName} {user?.LastName}!", "Login Successful", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"مرحبا بك {user?.FirstName} {user?.LastName}", "نجح تسجيل الدخول", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Hide();
                 //check role if admin or cashier
                 if (user?.Role == UserRole.Admin)
@@ -53,8 +56,18 @@ namespace SupermarketManagmentSystem_SMS
             }
             else
             {
-                MessageBox.Show("Invalid National ID or Password.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("خطأ في الرقم القومي أو الرقم السري", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using AForge.Video;
+using AForge.Video;
 using AForge.Video.DirectShow;
 using SupermarketManagmentSystem_SMS.Data;
 using SupermarketManagmentSystem_SMS.Models;
@@ -42,12 +42,12 @@ namespace SupermarketManagmentSystem_SMS
 
         private void CashierDashboardForm_Load(object sender, EventArgs e)
         {
-            CashierNamelabel.Text = $"{loggedInUser?.FirstName} {loggedInUser?.LastName}:الكاشير";
+            string fullName = loggedInUser?.FirstName + " " + loggedInUser?.LastName;
+            CashierNamelabel.Text = "الكاشير" + " : " + fullName;
             CashierShiftlabel.Text = $"{DateTime.Now:hh:mm tt}:بداية الشيفت";
             UpdateSalesSummary();
         }
 
-        //Calculates subtotal and updates the total amount
         private void CalculateTotals()
         {
             decimal subtotal = 0;
@@ -81,11 +81,10 @@ namespace SupermarketManagmentSystem_SMS
 
             if (product == null)
             {
-                MessageBox.Show("المنتج خلصان.");
+                MessageBox.Show("المنتج غير متوفر.");
                 return;
             }
 
-            // check proudect find in card /// If product is already in cart, increase quantity
             foreach (DataGridViewRow row in dataGridViewCard.Rows)
             {
                 if (row.Cells["ProductName"].Value.ToString() == product.Name)
@@ -135,7 +134,6 @@ namespace SupermarketManagmentSystem_SMS
             CalculateChange();
         }
 
-        // Updates subtotal for a specific row based on quantity and unit price
         private void UpdateRowSubtotal(int rowIndex)
         {
             var row = dataGridViewCard.Rows[rowIndex];
@@ -155,7 +153,6 @@ namespace SupermarketManagmentSystem_SMS
                 }
             }
         }
-        //Recalculates the subtotal of the entire cart and updates total
         private void UpdateSubtotal()
         {
             decimal subtotal = 0;
@@ -176,8 +173,6 @@ namespace SupermarketManagmentSystem_SMS
             UpdateTotalAmount();
         }
 
-
-        // Calculates and displays the change based on total and received cash
         private void CalculateChange()
         {
             decimal total = 0;
@@ -201,12 +196,10 @@ namespace SupermarketManagmentSystem_SMS
             ChangeTextBox.Text = change.ToString("0.00");
         }
 
-        // Handles Add to Cart button click
         private void AddToCardbutton_Click(object sender, EventArgs e)
         {
             AddProductToCart();
         }
-        // Handles click on remove button in the cart grid
         private void dataGridViewCard_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0 && dataGridViewCard.Columns[e.ColumnIndex].Name == "Remove")
@@ -230,7 +223,6 @@ namespace SupermarketManagmentSystem_SMS
                 CalculateTotals();
             }
         }
-        // Handles Enter key press in barcode textbox to trigger add-to-cart
         private void BarcodetextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -241,16 +233,11 @@ namespace SupermarketManagmentSystem_SMS
             }
         }
 
-        private void txtDiscount_TextChanged(object sender, EventArgs e)
+        private void discountOrTax_TextChanged(object sender, EventArgs e)
         {
             UpdateTotalAmount();
         }
 
-        private void txtTax_TextChanged(object sender, EventArgs e)
-        {
-            UpdateTotalAmount();
-        }
-        // Recalculates subtotal and totals after editing quantity
         private void dataGridViewCard_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == dataGridViewCard.Columns["Quantity"].Index)
@@ -260,22 +247,11 @@ namespace SupermarketManagmentSystem_SMS
                 UpdateTotalAmount();
             }
         }
-        // Events for updating total amount on discount/tax changes
-        private void DiscounttextBox_TextChanged(object sender, EventArgs e)
-        {
-            UpdateTotalAmount();
-        }
 
-        private void TaxtextBox_TextChanged(object sender, EventArgs e)
-        {
-            UpdateTotalAmount();
-        }
-        // Recalculates change when cash received is updated
         private void CashReceivedtextBox_TextChanged(object sender, EventArgs e)
         {
             CalculateChange();
         }
-        // Handles the process of saving a completed sale (invoice) to database
         private void CompleteSalebutton_Click(object sender, EventArgs e)
         {
             if (dataGridViewCard.Rows.Count == 0)
@@ -287,7 +263,7 @@ namespace SupermarketManagmentSystem_SMS
             {
                 try
                 {
-                    var sale = new Sale // Create sale object
+                    var sale = new Sale
                     {
                         SaleDate = DateTime.Now,
                         TotalAmount = Convert.ToDecimal(TotalAmounttextBox.Text),
@@ -297,7 +273,7 @@ namespace SupermarketManagmentSystem_SMS
                     db.Sales.Add(sale);
                     db.SaveChanges();
 
-                    foreach (DataGridViewRow row in dataGridViewCard.Rows) // Add sale items
+                    foreach (DataGridViewRow row in dataGridViewCard.Rows)
                     {
                         if (row.IsNewRow) continue;
 
@@ -328,8 +304,6 @@ namespace SupermarketManagmentSystem_SMS
                     MessageBox.Show("تم حفظ الفاتورة ");
                     CashReceivedtextBox.Clear();
                     ChangeTextBox.Clear();
-
-                    //delete items from card
                     dataGridViewCard.Rows.Clear();
                     SubtotaltextBox.Text = "0.00";
                     TotalAmounttextBox.Text = "0.00";
@@ -344,8 +318,6 @@ namespace SupermarketManagmentSystem_SMS
             }
             
         }
-
-        // Updates the number of sales and total sales since shift started
         private void UpdateSalesSummary()
         {
 
@@ -372,11 +344,6 @@ namespace SupermarketManagmentSystem_SMS
                 comboBoxCameras.Items.Add(dev.Name);
             if (comboBoxCameras.Items.Count > 0)
                 comboBoxCameras.SelectedIndex = 0;
-        }
-
-        private void CashierDashboardForm_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            btnStopCam_Click(sender, e);
         }
         private void btnStartCam_Click(object sender, EventArgs e)
         {
@@ -440,7 +407,6 @@ namespace SupermarketManagmentSystem_SMS
                 Font printFont = new Font("Arial", 12);
                 float lineHeight = printFont.GetHeight(args.Graphics);
 
-                // Build receipt content
                 StringBuilder receipt = new StringBuilder();
                 receipt.AppendLine("RECEIPT");
                 receipt.AppendLine("------------------");

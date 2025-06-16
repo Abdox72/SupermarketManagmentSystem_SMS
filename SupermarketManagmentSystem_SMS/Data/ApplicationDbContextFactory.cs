@@ -6,10 +6,8 @@ public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<Applicati
 {
     public ApplicationDbContext CreateDbContext(string[]? args)
     {
-
         var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-        var dbPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..\\..\\..\\SupermarketManagementSystem.db");
-        var txt = Path.GetFullPath(dbPath);
+        var txt = "SupermarketManagementSystem.db";
         optionsBuilder.UseSqlite($"Data Source={txt}");
         return new ApplicationDbContext(optionsBuilder.Options);
     }

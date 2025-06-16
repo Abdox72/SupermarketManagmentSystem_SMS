@@ -1,4 +1,5 @@
-﻿namespace SupermarketManagmentSystem_SMS
+﻿
+namespace SupermarketManagmentSystem_SMS
 {
     partial class CashierSales
     {
@@ -69,7 +70,7 @@
             // tableLayoutPanel1
             // 
             tableLayoutPanel1.AutoSize = true;
-            tableLayoutPanel1.BackColor = Color.Navy;
+            tableLayoutPanel1.BackColor = Color.RebeccaPurple;
             tableLayoutPanel1.ColumnCount = 4;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
@@ -82,7 +83,7 @@
             tableLayoutPanel1.Dock = DockStyle.Top;
             tableLayoutPanel1.Font = new Font("Arial", 16.2F, FontStyle.Regular, GraphicsUnit.Point, 178);
             tableLayoutPanel1.ForeColor = SystemColors.HighlightText;
-            tableLayoutPanel1.Location = new Point(0, 0);
+            tableLayoutPanel1.Location = new Point(0, 10);
             tableLayoutPanel1.Margin = new Padding(0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RightToLeft = RightToLeft.No;
@@ -116,7 +117,7 @@
             // 
             CashierNamelabel.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             CashierNamelabel.AutoSize = true;
-            CashierNamelabel.ForeColor = Color.Crimson;
+            CashierNamelabel.ForeColor = Color.Cyan;
             CashierNamelabel.Location = new Point(1177, 0);
             CashierNamelabel.Name = "CashierNamelabel";
             CashierNamelabel.Size = new Size(79, 32);
@@ -141,12 +142,12 @@
             dataGridViewCard.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewCard.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCard.Columns.AddRange(new DataGridViewColumn[] { ProductName, UnitPrice, Quantity, Subtotal, Remove });
-            dataGridViewCard.Location = new Point(544, 312);
+            dataGridViewCard.Location = new Point(544, 322);
             dataGridViewCard.Name = "dataGridViewCard";
             dataGridViewCard.RightToLeft = RightToLeft.Yes;
             dataGridViewCard.RowHeadersWidth = 51;
             dataGridViewCard.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewCard.Size = new Size(686, 364);
+            dataGridViewCard.Size = new Size(686, 354);
             dataGridViewCard.TabIndex = 1;
             dataGridViewCard.CellContentClick += dataGridViewCard_CellContentClick;
             dataGridViewCard.CellEndEdit += dataGridViewCard_CellEndEdit;
@@ -188,12 +189,13 @@
             Remove.Name = "Remove";
             Remove.Text = "حذف";
             Remove.UseColumnTextForButtonValue = true;
+
             // 
             // BarcodetextBox
             // 
             BarcodetextBox.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             BarcodetextBox.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            BarcodetextBox.Location = new Point(745, 108);
+            BarcodetextBox.Location = new Point(745, 118);
             BarcodetextBox.Name = "BarcodetextBox";
             BarcodetextBox.Size = new Size(485, 34);
             BarcodetextBox.TabIndex = 2;
@@ -202,21 +204,22 @@
             // AddToCardbutton
             // 
             AddToCardbutton.BackColor = Color.Navy;
+            AddToCardbutton.Cursor = Cursors.Hand;
             AddToCardbutton.FlatStyle = FlatStyle.Flat;
             AddToCardbutton.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             AddToCardbutton.ForeColor = SystemColors.HighlightText;
-            AddToCardbutton.Location = new Point(544, 108);
+            AddToCardbutton.Location = new Point(571, 108);
             AddToCardbutton.Name = "AddToCardbutton";
-            AddToCardbutton.Size = new Size(150, 34);
+            AddToCardbutton.Size = new Size(138, 34);
             AddToCardbutton.TabIndex = 3;
-            AddToCardbutton.Text = "بحث";
+            AddToCardbutton.Text = "أضف للسلة";
             AddToCardbutton.UseVisualStyleBackColor = false;
             AddToCardbutton.Click += AddToCardbutton_Click;
             // 
             // groupBoxBilling
             // 
             groupBoxBilling.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
-            groupBoxBilling.BackColor = SystemColors.ActiveCaption;
+            groupBoxBilling.BackColor = SystemColors.GradientActiveCaption;
             groupBoxBilling.Controls.Add(PrintInvoice);
             groupBoxBilling.Controls.Add(CashReceivedtextBox);
             groupBoxBilling.Controls.Add(ChangeTextBox);
@@ -233,20 +236,24 @@
             groupBoxBilling.Controls.Add(Subtotallabel);
             groupBoxBilling.FlatStyle = FlatStyle.Flat;
             groupBoxBilling.Font = new Font("Microsoft Sans Serif", 13.8F, FontStyle.Bold);
-            groupBoxBilling.Location = new Point(31, 108);
+            groupBoxBilling.ForeColor = Color.Black;
+            groupBoxBilling.Location = new Point(31, 118);
             groupBoxBilling.Margin = new Padding(0);
             groupBoxBilling.Name = "groupBoxBilling";
             groupBoxBilling.Padding = new Padding(0);
-            groupBoxBilling.Size = new Size(423, 568);
+            groupBoxBilling.Size = new Size(485, 558);
             groupBoxBilling.TabIndex = 4;
             groupBoxBilling.TabStop = false;
             groupBoxBilling.Text = "الفاتورة";
             // 
             // PrintInvoice
             // 
-            PrintInvoice.BackColor = Color.FromArgb(0, 192, 0);
+            PrintInvoice.BackColor = Color.FromArgb(192, 0, 0);
+            PrintInvoice.Cursor = Cursors.Hand;
+            PrintInvoice.FlatStyle = FlatStyle.Flat;
             PrintInvoice.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            PrintInvoice.Location = new Point(6, 514);
+            PrintInvoice.ForeColor = SystemColors.ControlLightLight;
+            PrintInvoice.Location = new Point(35, 491);
             PrintInvoice.Name = "PrintInvoice";
             PrintInvoice.Size = new Size(169, 42);
             PrintInvoice.TabIndex = 12;
@@ -256,24 +263,24 @@
             // 
             // CashReceivedtextBox
             // 
-            CashReceivedtextBox.Location = new Point(204, 391);
+            CashReceivedtextBox.Location = new Point(245, 396);
             CashReceivedtextBox.Name = "CashReceivedtextBox";
-            CashReceivedtextBox.Size = new Size(96, 34);
+            CashReceivedtextBox.Size = new Size(127, 34);
             CashReceivedtextBox.TabIndex = 5;
             CashReceivedtextBox.TextChanged += CashReceivedtextBox_TextChanged;
             // 
             // ChangeTextBox
             // 
-            ChangeTextBox.Location = new Point(28, 391);
+            ChangeTextBox.Location = new Point(35, 397);
             ChangeTextBox.Name = "ChangeTextBox";
-            ChangeTextBox.Size = new Size(94, 34);
+            ChangeTextBox.Size = new Size(128, 34);
             ChangeTextBox.TabIndex = 6;
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.FlatStyle = FlatStyle.Flat;
-            label3.Location = new Point(125, 392);
+            label3.Location = new Point(166, 398);
             label3.Name = "label3";
             label3.Size = new Size(60, 29);
             label3.TabIndex = 11;
@@ -282,10 +289,11 @@
             // CompleteSalebutton
             // 
             CompleteSalebutton.BackColor = Color.Navy;
+            CompleteSalebutton.Cursor = Cursors.Hand;
             CompleteSalebutton.FlatStyle = FlatStyle.Flat;
             CompleteSalebutton.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             CompleteSalebutton.ForeColor = SystemColors.HighlightText;
-            CompleteSalebutton.Location = new Point(245, 514);
+            CompleteSalebutton.Location = new Point(276, 491);
             CompleteSalebutton.Name = "CompleteSalebutton";
             CompleteSalebutton.Size = new Size(169, 42);
             CompleteSalebutton.TabIndex = 5;
@@ -298,7 +306,7 @@
             label1.AutoSize = true;
             label1.FlatStyle = FlatStyle.Flat;
             label1.Font = new Font("Microsoft Sans Serif", 13.8F, FontStyle.Bold);
-            label1.Location = new Point(306, 392);
+            label1.Location = new Point(378, 397);
             label1.Name = "label1";
             label1.Size = new Size(76, 29);
             label1.TabIndex = 9;
@@ -307,10 +315,10 @@
             // TotalAmounttextBox
             // 
             TotalAmounttextBox.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            TotalAmounttextBox.Location = new Point(28, 296);
+            TotalAmounttextBox.Location = new Point(35, 296);
             TotalAmounttextBox.Name = "TotalAmounttextBox";
             TotalAmounttextBox.ReadOnly = true;
-            TotalAmounttextBox.Size = new Size(169, 31);
+            TotalAmounttextBox.Size = new Size(237, 31);
             TotalAmounttextBox.TabIndex = 8;
             // 
             // TotalAmountlabel
@@ -318,7 +326,7 @@
             TotalAmountlabel.AutoSize = true;
             TotalAmountlabel.FlatStyle = FlatStyle.Flat;
             TotalAmountlabel.Font = new Font("Microsoft Sans Serif", 13.8F, FontStyle.Bold);
-            TotalAmountlabel.Location = new Point(235, 292);
+            TotalAmountlabel.Location = new Point(307, 292);
             TotalAmountlabel.Name = "TotalAmountlabel";
             TotalAmountlabel.Size = new Size(147, 29);
             TotalAmountlabel.TabIndex = 7;
@@ -326,18 +334,18 @@
             // 
             // TaxtextBox
             // 
-            TaxtextBox.Location = new Point(28, 222);
+            TaxtextBox.Location = new Point(35, 222);
             TaxtextBox.Name = "TaxtextBox";
-            TaxtextBox.Size = new Size(169, 34);
+            TaxtextBox.Size = new Size(237, 34);
             TaxtextBox.TabIndex = 6;
-            TaxtextBox.TextChanged += TaxtextBox_TextChanged;
+            TaxtextBox.TextChanged += discountOrTax_TextChanged;
             // 
             // Taxlabel
             // 
             Taxlabel.AutoSize = true;
             Taxlabel.FlatStyle = FlatStyle.Flat;
             Taxlabel.Font = new Font("Microsoft Sans Serif", 13.8F, FontStyle.Bold);
-            Taxlabel.Location = new Point(253, 221);
+            Taxlabel.Location = new Point(325, 221);
             Taxlabel.Name = "Taxlabel";
             Taxlabel.Size = new Size(129, 29);
             Taxlabel.TabIndex = 6;
@@ -345,18 +353,18 @@
             // 
             // DiscounttextBox
             // 
-            DiscounttextBox.Location = new Point(28, 148);
+            DiscounttextBox.Location = new Point(35, 148);
             DiscounttextBox.Name = "DiscounttextBox";
-            DiscounttextBox.Size = new Size(169, 34);
+            DiscounttextBox.Size = new Size(237, 34);
             DiscounttextBox.TabIndex = 5;
-            DiscounttextBox.TextChanged += DiscounttextBox_TextChanged;
+            DiscounttextBox.TextChanged += discountOrTax_TextChanged;
             // 
             // SubtotaltextBox
             // 
-            SubtotaltextBox.Location = new Point(28, 74);
+            SubtotaltextBox.Location = new Point(35, 74);
             SubtotaltextBox.Name = "SubtotaltextBox";
             SubtotaltextBox.ReadOnly = true;
-            SubtotaltextBox.Size = new Size(169, 34);
+            SubtotaltextBox.Size = new Size(237, 34);
             SubtotaltextBox.TabIndex = 6;
             // 
             // Discountlabel
@@ -364,7 +372,7 @@
             Discountlabel.AutoSize = true;
             Discountlabel.FlatStyle = FlatStyle.Flat;
             Discountlabel.Font = new Font("Microsoft Sans Serif", 13.8F, FontStyle.Bold);
-            Discountlabel.Location = new Point(267, 150);
+            Discountlabel.Location = new Point(339, 150);
             Discountlabel.Name = "Discountlabel";
             Discountlabel.Size = new Size(115, 29);
             Discountlabel.TabIndex = 5;
@@ -375,7 +383,7 @@
             Subtotallabel.AutoSize = true;
             Subtotallabel.FlatStyle = FlatStyle.Flat;
             Subtotallabel.Font = new Font("Microsoft Sans Serif", 13.8F, FontStyle.Bold);
-            Subtotallabel.Location = new Point(204, 79);
+            Subtotallabel.Location = new Point(276, 79);
             Subtotallabel.Name = "Subtotallabel";
             Subtotallabel.Size = new Size(178, 29);
             Subtotallabel.TabIndex = 5;
@@ -385,9 +393,10 @@
             // 
             btnStopCam.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnStopCam.BackColor = Color.Crimson;
+            btnStopCam.Cursor = Cursors.Hand;
             btnStopCam.FlatStyle = FlatStyle.Flat;
             btnStopCam.ForeColor = SystemColors.HighlightText;
-            btnStopCam.Location = new Point(745, 223);
+            btnStopCam.Location = new Point(745, 233);
             btnStopCam.Name = "btnStopCam";
             btnStopCam.Size = new Size(94, 41);
             btnStopCam.TabIndex = 41;
@@ -399,7 +408,7 @@
             // 
             comboBoxCameras.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             comboBoxCameras.FormattingEnabled = true;
-            comboBoxCameras.Location = new Point(745, 148);
+            comboBoxCameras.Location = new Point(745, 158);
             comboBoxCameras.Name = "comboBoxCameras";
             comboBoxCameras.Size = new Size(485, 28);
             comboBoxCameras.TabIndex = 40;
@@ -408,9 +417,10 @@
             // 
             btnStartCam.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnStartCam.BackColor = Color.MidnightBlue;
+            btnStartCam.Cursor = Cursors.Hand;
             btnStartCam.FlatStyle = FlatStyle.Flat;
             btnStartCam.ForeColor = SystemColors.HighlightText;
-            btnStartCam.Location = new Point(848, 223);
+            btnStartCam.Location = new Point(848, 233);
             btnStartCam.Name = "btnStartCam";
             btnStartCam.Size = new Size(94, 41);
             btnStartCam.TabIndex = 38;
@@ -423,7 +433,7 @@
             CameraPictureBox.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             CameraPictureBox.BackColor = SystemColors.ActiveBorder;
             CameraPictureBox.BorderStyle = BorderStyle.FixedSingle;
-            CameraPictureBox.Location = new Point(996, 182);
+            CameraPictureBox.Location = new Point(996, 192);
             CameraPictureBox.Name = "CameraPictureBox";
             CameraPictureBox.Size = new Size(234, 124);
             CameraPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -448,6 +458,7 @@
             Controls.Add(tableLayoutPanel1);
             DoubleBuffered = true;
             Name = "CashierSales";
+            Padding = new Padding(0, 10, 0, 0);
             RightToLeft = RightToLeft.Yes;
             Size = new Size(1259, 697);
             tableLayoutPanel1.ResumeLayout(false);

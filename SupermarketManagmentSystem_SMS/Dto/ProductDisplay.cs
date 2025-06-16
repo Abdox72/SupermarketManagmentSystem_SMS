@@ -15,5 +15,7 @@ namespace SupermarketManagmentSystem_SMS.Dto
 
         public string CategoryName { get; set; }
 
+        public string Barcode { get; set; }
+
     }
 }

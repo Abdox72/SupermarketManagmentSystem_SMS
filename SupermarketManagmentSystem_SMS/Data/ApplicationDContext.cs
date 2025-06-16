@@ -38,8 +38,8 @@ namespace SupermarketManagmentSystem_SMS.Data
                 new User
                 {
                     ID = 1,
-                    FirstName = "Abdo",
-                    LastName = "Mustafa",
+                    FirstName = "محمد",
+                    LastName = "أحمد",
                     NationalID = "12345678901234",
                     PasswordHash = AuthenticationService.HashPassword("admin123"),
                     Role = Utilities.UserRole.Admin
@@ -47,8 +47,8 @@ namespace SupermarketManagmentSystem_SMS.Data
                 new User
                 {
                     ID = 2,
-                    FirstName = "Ahmed",
-                    LastName = "Ali",
+                    FirstName = "سيد",
+                    LastName = "علي",
                     NationalID = "23456789012345",
                     PasswordHash = AuthenticationService.HashPassword("cashier123"),
                     Role = Utilities.UserRole.Cashier

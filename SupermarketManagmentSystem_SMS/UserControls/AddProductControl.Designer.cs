@@ -31,8 +31,9 @@
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             tableLayoutPanel1 = new TableLayoutPanel();
             panel1 = new BufferedPanel();
-            editProductButton = new ReaLTaiizor.Controls.DungeonButtonRight();
-            addButton = new ReaLTaiizor.Controls.DungeonButtonRight();
+            label5 = new Label();
+            ClearBtn = new Button();
+            addButton = new Button();
             ProductPictureBox = new PictureBox();
             btnStopCam = new Button();
             SelectImageButton = new ReaLTaiizor.Controls.DungeonButtonLeft();
@@ -54,8 +55,6 @@
             foxLabel6 = new ReaLTaiizor.Controls.FoxLabel();
             searchTextBox = new ReaLTaiizor.Controls.HopeTextBox();
             ProductGridView = new DataGridView();
-            EditButton = new DataGridViewButtonColumn();
-            DeleteButton = new DataGridViewButtonColumn();
             tableLayoutPanel1.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)ProductPictureBox).BeginInit();
@@ -82,15 +81,16 @@
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel1.Size = new Size(1177, 866);
+            tableLayoutPanel1.Size = new Size(1191, 793);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // panel1
             // 
-            panel1.AutoSize = true;
+            panel1.AutoScroll = true;
             panel1.BackColor = Color.Transparent;
             panel1.BackgroundImageLayout = ImageLayout.None;
-            panel1.Controls.Add(editProductButton);
+            panel1.Controls.Add(label5);
+            panel1.Controls.Add(ClearBtn);
             panel1.Controls.Add(addButton);
             panel1.Controls.Add(ProductPictureBox);
             panel1.Controls.Add(btnStopCam);
@@ -111,69 +111,72 @@
             panel1.Controls.Add(foxLabel1);
             panel1.Dock = DockStyle.Fill;
             panel1.Font = new Font("Cooper Arabic", 7.79999971F);
-            panel1.Location = new Point(577, 0);
+            panel1.Location = new Point(584, 0);
             panel1.Margin = new Padding(0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(600, 866);
+            panel1.Size = new Size(607, 793);
             panel1.TabIndex = 0;
-            panel1.ControlRemoved += panel1_ControlRemoved;
             // 
-            // editProductButton
+            // label5
             // 
-            editProductButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            editProductButton.BackColor = Color.Transparent;
-            editProductButton.BorderColor = Color.FromArgb(162, 120, 101);
-            editProductButton.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            editProductButton.Image = null;
-            editProductButton.ImageAlign = ContentAlignment.MiddleLeft;
-            editProductButton.InactiveColorA = Color.FromArgb(253, 175, 143);
-            editProductButton.InactiveColorB = Color.FromArgb(244, 146, 106);
-            editProductButton.Location = new Point(53, 637);
-            editProductButton.Name = "editProductButton";
-            editProductButton.PressedColorA = Color.FromArgb(244, 146, 106);
-            editProductButton.PressedColorB = Color.FromArgb(244, 146, 106);
-            editProductButton.PressedContourColorA = Color.FromArgb(162, 120, 101);
-            editProductButton.PressedContourColorB = Color.FromArgb(162, 120, 101);
-            editProductButton.Size = new Size(172, 47);
-            editProductButton.TabIndex = 20;
-            editProductButton.Text = "تعديل";
-            editProductButton.TextAlignment = StringAlignment.Center;
-            editProductButton.Visible = false;
-            editProductButton.Click += editProductButton_Click;
+            label5.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            label5.BackColor = Color.Brown;
+            label5.FlatStyle = FlatStyle.Popup;
+            label5.Font = new Font("Cooper Arabic", 12F);
+            label5.ForeColor = Color.AntiqueWhite;
+            label5.Location = new Point(44, 24);
+            label5.Name = "label5";
+            label5.Size = new Size(528, 51);
+            label5.TabIndex = 83;
+            label5.Text = "إدارة المنتجات";
+            label5.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // ClearBtn
+            // 
+            ClearBtn.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            ClearBtn.BackColor = Color.Crimson;
+            ClearBtn.Cursor = Cursors.Hand;
+            ClearBtn.FlatAppearance.BorderSize = 0;
+            ClearBtn.FlatStyle = FlatStyle.Flat;
+            ClearBtn.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 178);
+            ClearBtn.ForeColor = Color.White;
+            ClearBtn.Location = new Point(97, 738);
+            ClearBtn.Name = "ClearBtn";
+            ClearBtn.Size = new Size(175, 47);
+            ClearBtn.TabIndex = 39;
+            ClearBtn.Text = "تفريغ";
+            ClearBtn.UseVisualStyleBackColor = false;
+            ClearBtn.Click += ClearBtn_Click;
             // 
             // addButton
             // 
             addButton.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            addButton.BackColor = Color.Transparent;
-            addButton.BorderColor = Color.FromArgb(162, 120, 101);
-            addButton.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            addButton.Image = null;
-            addButton.ImageAlign = ContentAlignment.MiddleLeft;
-            addButton.InactiveColorA = Color.FromArgb(253, 175, 143);
-            addButton.InactiveColorB = Color.FromArgb(244, 146, 106);
-            addButton.Location = new Point(281, 637);
-            addButton.Margin = new Padding(3, 4, 3, 4);
+            addButton.BackColor = Color.Green;
+            addButton.Cursor = Cursors.Hand;
+            addButton.FlatAppearance.BorderSize = 0;
+            addButton.FlatStyle = FlatStyle.Flat;
+            addButton.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 178);
+            addButton.ForeColor = Color.White;
+            addButton.Location = new Point(296, 738);
             addButton.Name = "addButton";
-            addButton.PressedColorA = Color.FromArgb(244, 146, 106);
-            addButton.PressedColorB = Color.FromArgb(244, 146, 106);
-            addButton.PressedContourColorA = Color.FromArgb(162, 120, 101);
-            addButton.PressedContourColorB = Color.FromArgb(162, 120, 101);
-            addButton.Size = new Size(172, 47);
-            addButton.TabIndex = 19;
-            addButton.Text = "اضف";
-            addButton.TextAlignment = StringAlignment.Center;
+            addButton.Size = new Size(175, 47);
+            addButton.TabIndex = 38;
+            addButton.Text = "أضف";
+            addButton.UseVisualStyleBackColor = false;
             addButton.Click += addButton_Click;
             // 
             // ProductPictureBox
             // 
+            ProductPictureBox.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             ProductPictureBox.BackColor = SystemColors.ActiveCaption;
             ProductPictureBox.BorderStyle = BorderStyle.FixedSingle;
             ProductPictureBox.ErrorImage = Properties.Resources.products;
             ProductPictureBox.Image = Properties.Resources.tot;
             ProductPictureBox.InitialImage = Properties.Resources.products1;
-            ProductPictureBox.Location = new Point(53, 502);
+            ProductPictureBox.Location = new Point(296, 576);
+            ProductPictureBox.Margin = new Padding(0);
             ProductPictureBox.Name = "ProductPictureBox";
-            ProductPictureBox.Size = new Size(140, 122);
+            ProductPictureBox.Size = new Size(175, 148);
             ProductPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
             ProductPictureBox.TabIndex = 19;
             ProductPictureBox.TabStop = false;
@@ -182,13 +185,18 @@
             // btnStopCam
             // 
             btnStopCam.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnStopCam.BackColor = Color.Firebrick;
+            btnStopCam.Cursor = Cursors.Hand;
+            btnStopCam.FlatAppearance.BorderSize = 0;
+            btnStopCam.FlatStyle = FlatStyle.Flat;
             btnStopCam.Font = new Font("Arial", 12F);
-            btnStopCam.Location = new Point(53, 318);
+            btnStopCam.ForeColor = Color.White;
+            btnStopCam.Location = new Point(152, 353);
             btnStopCam.Name = "btnStopCam";
             btnStopCam.Size = new Size(94, 29);
             btnStopCam.TabIndex = 36;
             btnStopCam.Text = "إيقاف";
-            btnStopCam.UseVisualStyleBackColor = true;
+            btnStopCam.UseVisualStyleBackColor = false;
             btnStopCam.Click += btnStopCam_Click;
             // 
             // SelectImageButton
@@ -201,16 +209,16 @@
             SelectImageButton.ImageAlign = ContentAlignment.MiddleLeft;
             SelectImageButton.InactiveColorA = Color.FromArgb(253, 252, 252);
             SelectImageButton.InactiveColorB = Color.FromArgb(239, 237, 236);
-            SelectImageButton.Location = new Point(281, 545);
+            SelectImageButton.Location = new Point(64, 515);
             SelectImageButton.Margin = new Padding(3, 4, 3, 4);
             SelectImageButton.Name = "SelectImageButton";
             SelectImageButton.PressedColorA = Color.FromArgb(226, 226, 226);
             SelectImageButton.PressedColorB = Color.FromArgb(237, 237, 237);
             SelectImageButton.PressedContourColorA = Color.FromArgb(167, 167, 167);
             SelectImageButton.PressedContourColorB = Color.FromArgb(167, 167, 167);
-            SelectImageButton.Size = new Size(172, 50);
+            SelectImageButton.Size = new Size(407, 50);
             SelectImageButton.TabIndex = 18;
-            SelectImageButton.Text = "اختار صوره المنتج";
+            SelectImageButton.Text = "اختار صوره";
             SelectImageButton.TextAlignment = StringAlignment.Center;
             SelectImageButton.Click += SelectImageButton_Click;
             // 
@@ -219,9 +227,9 @@
             comboBoxCameras.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             comboBoxCameras.Font = new Font("Arial", 10.2F);
             comboBoxCameras.FormattingEnabled = true;
-            comboBoxCameras.Location = new Point(53, 198);
+            comboBoxCameras.Location = new Point(64, 222);
             comboBoxCameras.Name = "comboBoxCameras";
-            comboBoxCameras.Size = new Size(400, 27);
+            comboBoxCameras.Size = new Size(407, 27);
             comboBoxCameras.TabIndex = 35;
             // 
             // foxLabel7
@@ -230,7 +238,7 @@
             foxLabel7.BackColor = Color.Transparent;
             foxLabel7.Font = new Font("Arial", 13.8F);
             foxLabel7.ForeColor = Color.Black;
-            foxLabel7.Location = new Point(495, 198);
+            foxLabel7.Location = new Point(513, 209);
             foxLabel7.Margin = new Padding(3, 4, 3, 4);
             foxLabel7.Name = "foxLabel7";
             foxLabel7.Size = new Size(59, 25);
@@ -240,20 +248,25 @@
             // btnStartCam
             // 
             btnStartCam.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnStartCam.BackColor = Color.LimeGreen;
+            btnStartCam.Cursor = Cursors.Hand;
+            btnStartCam.FlatAppearance.BorderSize = 0;
+            btnStartCam.FlatStyle = FlatStyle.Flat;
             btnStartCam.Font = new Font("Arial", 12F);
-            btnStartCam.Location = new Point(53, 270);
+            btnStartCam.ForeColor = Color.White;
+            btnStartCam.Location = new Point(152, 305);
             btnStartCam.Name = "btnStartCam";
             btnStartCam.Size = new Size(94, 29);
             btnStartCam.TabIndex = 33;
             btnStartCam.Text = "تشغيل";
-            btnStartCam.UseVisualStyleBackColor = true;
+            btnStartCam.UseVisualStyleBackColor = false;
             btnStartCam.Click += btnStartCam_Click;
             // 
             // CameraPictureBox
             // 
             CameraPictureBox.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             CameraPictureBox.BorderStyle = BorderStyle.FixedSingle;
-            CameraPictureBox.Location = new Point(250, 236);
+            CameraPictureBox.Location = new Point(268, 260);
             CameraPictureBox.Name = "CameraPictureBox";
             CameraPictureBox.Size = new Size(203, 171);
             CameraPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -266,20 +279,20 @@
             PriceNumeric1.DecimalPlaces = 2;
             PriceNumeric1.Font = new Font("Arial", 10.2F);
             PriceNumeric1.Increment = new decimal(new int[] { 1, 0, 0, 65536 });
-            PriceNumeric1.Location = new Point(53, 465);
+            PriceNumeric1.Location = new Point(64, 478);
             PriceNumeric1.Margin = new Padding(3, 4, 3, 4);
             PriceNumeric1.Name = "PriceNumeric1";
-            PriceNumeric1.Size = new Size(400, 27);
+            PriceNumeric1.Size = new Size(407, 27);
             PriceNumeric1.TabIndex = 31;
             // 
             // QuantityNumeric
             // 
             QuantityNumeric.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             QuantityNumeric.Font = new Font("Arial", 10.2F);
-            QuantityNumeric.Location = new Point(53, 425);
+            QuantityNumeric.Location = new Point(64, 438);
             QuantityNumeric.Margin = new Padding(3, 4, 3, 4);
             QuantityNumeric.Name = "QuantityNumeric";
-            QuantityNumeric.Size = new Size(400, 27);
+            QuantityNumeric.Size = new Size(407, 27);
             QuantityNumeric.TabIndex = 30;
             // 
             // CategoryComboBox
@@ -288,10 +301,10 @@
             CategoryComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
             CategoryComboBox.Font = new Font("Arial", 10.2F);
             CategoryComboBox.FormattingEnabled = true;
-            CategoryComboBox.Location = new Point(53, 77);
+            CategoryComboBox.Location = new Point(64, 134);
             CategoryComboBox.Margin = new Padding(3, 4, 3, 4);
             CategoryComboBox.Name = "CategoryComboBox";
-            CategoryComboBox.Size = new Size(400, 27);
+            CategoryComboBox.Size = new Size(407, 27);
             CategoryComboBox.TabIndex = 29;
             // 
             // foxLabel5
@@ -300,7 +313,7 @@
             foxLabel5.BackColor = Color.Transparent;
             foxLabel5.Font = new Font("Arial", 13.8F);
             foxLabel5.ForeColor = Color.Black;
-            foxLabel5.Location = new Point(483, 127);
+            foxLabel5.Location = new Point(501, 174);
             foxLabel5.Margin = new Padding(3, 4, 3, 4);
             foxLabel5.Name = "foxLabel5";
             foxLabel5.Size = new Size(71, 25);
@@ -317,7 +330,7 @@
             BarcodeTextBox.Font = new Font("Arial", 10.2F);
             BarcodeTextBox.ForeColor = Color.FromArgb(48, 49, 51);
             BarcodeTextBox.Hint = "";
-            BarcodeTextBox.Location = new Point(53, 127);
+            BarcodeTextBox.Location = new Point(64, 174);
             BarcodeTextBox.Margin = new Padding(3, 4, 3, 4);
             BarcodeTextBox.MaxLength = 32767;
             BarcodeTextBox.Multiline = false;
@@ -327,7 +340,7 @@
             BarcodeTextBox.SelectedText = "";
             BarcodeTextBox.SelectionLength = 0;
             BarcodeTextBox.SelectionStart = 0;
-            BarcodeTextBox.Size = new Size(400, 36);
+            BarcodeTextBox.Size = new Size(407, 36);
             BarcodeTextBox.TabIndex = 5;
             BarcodeTextBox.TabStop = false;
             BarcodeTextBox.UseSystemPasswordChar = false;
@@ -342,7 +355,7 @@
             NameTextBox.Font = new Font("Arial", 10.2F);
             NameTextBox.ForeColor = Color.FromArgb(48, 49, 51);
             NameTextBox.Hint = "";
-            NameTextBox.Location = new Point(53, 25);
+            NameTextBox.Location = new Point(64, 82);
             NameTextBox.Margin = new Padding(3, 4, 3, 4);
             NameTextBox.MaxLength = 32767;
             NameTextBox.Multiline = false;
@@ -352,7 +365,7 @@
             NameTextBox.SelectedText = "";
             NameTextBox.SelectionLength = 0;
             NameTextBox.SelectionStart = 0;
-            NameTextBox.Size = new Size(400, 36);
+            NameTextBox.Size = new Size(407, 36);
             NameTextBox.TabIndex = 4;
             NameTextBox.TabStop = false;
             NameTextBox.UseSystemPasswordChar = false;
@@ -363,7 +376,7 @@
             foxLabel4.BackColor = Color.Transparent;
             foxLabel4.Font = new Font("Arial", 13.8F);
             foxLabel4.ForeColor = Color.Black;
-            foxLabel4.Location = new Point(495, 423);
+            foxLabel4.Location = new Point(513, 423);
             foxLabel4.Margin = new Padding(3, 4, 3, 4);
             foxLabel4.Name = "foxLabel4";
             foxLabel4.Size = new Size(59, 25);
@@ -376,7 +389,7 @@
             foxLabel3.BackColor = Color.Transparent;
             foxLabel3.Font = new Font("Arial", 13.8F);
             foxLabel3.ForeColor = Color.Black;
-            foxLabel3.Location = new Point(495, 463);
+            foxLabel3.Location = new Point(513, 463);
             foxLabel3.Margin = new Padding(3, 4, 3, 4);
             foxLabel3.Name = "foxLabel3";
             foxLabel3.Size = new Size(59, 25);
@@ -389,7 +402,7 @@
             foxLabel2.BackColor = Color.Transparent;
             foxLabel2.Font = new Font("Arial", 13.8F);
             foxLabel2.ForeColor = Color.Black;
-            foxLabel2.Location = new Point(495, 77);
+            foxLabel2.Location = new Point(513, 121);
             foxLabel2.Margin = new Padding(3, 4, 3, 4);
             foxLabel2.Name = "foxLabel2";
             foxLabel2.Size = new Size(59, 25);
@@ -402,7 +415,7 @@
             foxLabel1.BackColor = Color.Transparent;
             foxLabel1.Font = new Font("Arial", 13.8F);
             foxLabel1.ForeColor = Color.Black;
-            foxLabel1.Location = new Point(472, 31);
+            foxLabel1.Location = new Point(490, 88);
             foxLabel1.Margin = new Padding(3, 4, 3, 4);
             foxLabel1.Name = "foxLabel1";
             foxLabel1.Size = new Size(82, 25);
@@ -411,7 +424,6 @@
             // 
             // panel2
             // 
-            panel2.AutoSize = true;
             panel2.BackColor = Color.Transparent;
             panel2.Controls.Add(foxLabel6);
             panel2.Controls.Add(searchTextBox);
@@ -420,7 +432,7 @@
             panel2.Location = new Point(0, 0);
             panel2.Margin = new Padding(0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(577, 866);
+            panel2.Size = new Size(584, 793);
             panel2.TabIndex = 1;
             // 
             // foxLabel6
@@ -429,7 +441,7 @@
             foxLabel6.BackColor = Color.Transparent;
             foxLabel6.Font = new Font("Arial", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 178);
             foxLabel6.ForeColor = Color.Black;
-            foxLabel6.Location = new Point(486, 35);
+            foxLabel6.Location = new Point(493, 35);
             foxLabel6.Margin = new Padding(3, 4, 3, 4);
             foxLabel6.Name = "foxLabel6";
             foxLabel6.RightToLeft = RightToLeft.Yes;
@@ -458,11 +470,10 @@
             searchTextBox.SelectedText = "";
             searchTextBox.SelectionLength = 0;
             searchTextBox.SelectionStart = 0;
-            searchTextBox.Size = new Size(377, 36);
+            searchTextBox.Size = new Size(384, 36);
             searchTextBox.TabIndex = 32;
             searchTextBox.TabStop = false;
             searchTextBox.UseSystemPasswordChar = false;
-            searchTextBox.TextChanged += txtSearch_TextChanged;
             // 
             // ProductGridView
             // 
@@ -482,37 +493,17 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             ProductGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             ProductGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            ProductGridView.Columns.AddRange(new DataGridViewColumn[] { EditButton, DeleteButton });
-            ProductGridView.Location = new Point(0, 119);
+            ProductGridView.Location = new Point(0, 77);
             ProductGridView.Margin = new Padding(0);
             ProductGridView.Name = "ProductGridView";
             ProductGridView.ReadOnly = true;
             ProductGridView.RowHeadersWidth = 51;
-            ProductGridView.Size = new Size(577, 747);
+            ProductGridView.Size = new Size(584, 716);
             ProductGridView.TabIndex = 12;
             ProductGridView.CellContentClick += ProductGridView_CellContentClick;
             // 
-            // EditButton
-            // 
-            EditButton.HeaderText = "تعديل";
-            EditButton.MinimumWidth = 6;
-            EditButton.Name = "EditButton";
-            EditButton.ReadOnly = true;
-            EditButton.Text = "تعديل";
-            EditButton.UseColumnTextForButtonValue = true;
-            // 
-            // DeleteButton
-            // 
-            DeleteButton.HeaderText = "حذف";
-            DeleteButton.MinimumWidth = 6;
-            DeleteButton.Name = "DeleteButton";
-            DeleteButton.ReadOnly = true;
-            DeleteButton.Text = "حذف";
-            DeleteButton.UseColumnTextForButtonValue = true;
-            // 
             // AddProductControl
             // 
-            AutoSize = true;
             BackColor = Color.Transparent;
             BackgroundImageLayout = ImageLayout.None;
             Controls.Add(tableLayoutPanel1);
@@ -522,9 +513,8 @@
             Margin = new Padding(0);
             Name = "AddProductControl";
             RightToLeft = RightToLeft.Yes;
-            Size = new Size(1177, 866);
+            Size = new Size(1191, 793);
             tableLayoutPanel1.ResumeLayout(false);
-            tableLayoutPanel1.PerformLayout();
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)ProductPictureBox).EndInit();
             ((System.ComponentModel.ISupportInitialize)CameraPictureBox).EndInit();
@@ -550,11 +540,7 @@
         private ReaLTaiizor.Controls.FoxLabel foxLabel1;
         private Panel panel2;
         private DataGridView ProductGridView;
-        private ReaLTaiizor.Controls.DungeonButtonRight addButton;
         private ReaLTaiizor.Controls.DungeonButtonLeft SelectImageButton;
-        private DataGridViewButtonColumn EditButton;
-        private DataGridViewButtonColumn DeleteButton;
-        private ReaLTaiizor.Controls.DungeonButtonRight editProductButton;
         private ReaLTaiizor.Controls.FoxLabel foxLabel6;
         private ReaLTaiizor.Controls.HopeTextBox searchTextBox;
         private ReaLTaiizor.Controls.FoxLabel foxLabel7;
@@ -564,5 +550,8 @@
         private ComboBox comboBoxCameras;
         private Button btnStopCam;
         private PictureBox ProductPictureBox;
+        private Button addButton;
+        private Button ClearBtn;
+        private Label label5;
     }
 }

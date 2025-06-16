@@ -45,6 +45,16 @@ namespace SupermarketManagmentSystem_SMS.Services
                 PasswordHash = hashedPassword,
                 Role = role == "Admin" ? Utilities.UserRole.Admin : Utilities.UserRole.Cashier
             });
+            try
+            {
+                dbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                errorMessage = $"Error creating user: {ex.Message}";
+                return false;
+            }
+
             return true;
         }
         //login or authenticate the user

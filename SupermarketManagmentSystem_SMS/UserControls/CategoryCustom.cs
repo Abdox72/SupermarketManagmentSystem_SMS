@@ -16,165 +16,273 @@ namespace SupermarketManagmentSystem_SMS
 {
     public partial class CategoryCustom : UserControl
     {
-        private ApplicationDbContext dbcontext;
+        private readonly ApplicationDbContext _dbContext;
+        private BindingList<CategoryDisplay> _categoryBindingList;
+        private Category _categoryToEdit;
+        private bool _isEditing = false;
 
-        List<Category> getCategory;
-        BindingList<CategoryDisplay> categoryBindingList;
-        Category categoryToEdit;
-        ButtonBehavior buttonBehavior = ButtonBehavior.Add;
-
-
-        public CategoryCustom(ApplicationDbContext _context)
+        public CategoryCustom(ApplicationDbContext context)
         {
             InitializeComponent();
+            _dbContext = context;
+            GridViewStyler.Style(CategoryDataGridView);
 
-            dbcontext = _context;
-            getCategory = dbcontext.Categories.ToList();
-            var displayList = getCategory.Select(p => new CategoryDisplay
-            {
-                CategoryID = p.CategoryID,
-                Name = p.Name,
-                Description = p.Description
-            }).ToList();
-            categoryBindingList = new BindingList<CategoryDisplay>(displayList);
-            addDataToDataGrideView();
-
-            CategoryDataGridView.CellContentClick += CategoryDataGridView_CellContentClick;
+            InitializeControls();
+            LoadData();
         }
-        private void addDataToDataGrideView()
+
+        private void InitializeControls()
         {
-            CategoryDataGridView.DataSource = categoryBindingList;
-            CategoryDataGridView.Columns["Name"].Visible = false;
-            CategoryDataGridView.Columns["Description"].Visible = false;
-            CategoryDataGridView.Columns["CategoryID"].Visible = false;
+            // Set up grid view
+            SetupDataGridView();
+            
+            // Set up event handlers
+            CategoryDataGridView.CellContentClick += CategoryDataGridView_CellContentClick;
+            
+            // Set up search functionality
+            searchTextBox.TextChanged += SearchTextBox_TextChanged;
+        }
+
+        private void SetupDataGridView()
+        {
+            CategoryDataGridView.AutoGenerateColumns = false;
+            CategoryDataGridView.Columns.Clear();
+
             CategoryDataGridView.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Name",
-                HeaderText = "اسم الصنف"
+                HeaderText = "اسم الصنف",
+                Width = 150
             });
+
             CategoryDataGridView.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Description",
-                HeaderText = "الوصف"
+                HeaderText = "الوصف",
+                Width = 200
             });
-            //كدا هيضافو في الاخر بعد ما عملت ليهم datasource
-            EditAndDeleteButtonOnDataGridView();
-        }
-        private void EditAndDeleteButtonOnDataGridView()
-        {
-            // إضافة زر Edit
-            DataGridViewButtonColumn editColumn = new DataGridViewButtonColumn();
-            editColumn.HeaderText = "تعديل";
-            editColumn.Text = "تعديل";
-            editColumn.UseColumnTextForButtonValue = true;
-            editColumn.Name = "EditButton";
-            CategoryDataGridView.Columns.Add(editColumn);
 
-            // إضافة زر Delete
-            DataGridViewButtonColumn deleteColumn = new DataGridViewButtonColumn();
-            deleteColumn.HeaderText = "حذف";
-            deleteColumn.Text = "حذف";
-            deleteColumn.UseColumnTextForButtonValue = true;
-            deleteColumn.Name = "DeleteButton";
-            CategoryDataGridView.Columns.Add(deleteColumn);
-        }    
+            var editButton = new DataGridViewButtonColumn
+            {
+                Name = "EditButton",
+                HeaderText = "تعديل",
+                Text = "تعديل",
+                UseColumnTextForButtonValue = true,
+                Width = 70
+            };
+
+            var deleteButton = new DataGridViewButtonColumn
+            {
+                Name = "DeleteButton",
+                HeaderText = "حذف",
+                Text = "حذف",
+                UseColumnTextForButtonValue = true,
+                Width = 70
+            };
+
+            CategoryDataGridView.Columns.Add(editButton);
+            CategoryDataGridView.Columns.Add(deleteButton);
+        }
+
+        private void LoadData()
+        {
+            var categories = _dbContext.Categories.ToList();
+            var displayList = categories.Select(c => new CategoryDisplay
+            {
+                CategoryID = c.CategoryID,
+                Name = c.Name,
+                Description = c.Description
+            }).ToList();
+
+            _categoryBindingList = new BindingList<CategoryDisplay>(displayList);
+            CategoryDataGridView.DataSource = _categoryBindingList;
+        }
+
         private void CategoryDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0) // تأكد إنه مش الهيدر
+            if (e.RowIndex < 0) return;
+
+            var selectedCategory = (CategoryDisplay)CategoryDataGridView.Rows[e.RowIndex].DataBoundItem;
+            var columnName = CategoryDataGridView.Columns[e.ColumnIndex].Name;
+
+            switch (columnName)
             {
-                var selectedProduct = (CategoryDisplay)CategoryDataGridView.Rows[e.RowIndex].DataBoundItem;
-                string columnName = CategoryDataGridView.Columns[e.ColumnIndex].Name;
-                var category = dbcontext.Categories.FirstOrDefault(c => c.CategoryID == selectedProduct.CategoryID);
-                //set to the refrance to catch it in edit column
-                categoryToEdit = category;
-                if (columnName == "EditButton")
-                {
-                    //change ButtonBeBehavior 
-                    buttonBehavior = ButtonBehavior.Edit;
-                    addButton.Text= "تعديل";
-                    // مثلًا تفتح البيانات للتعديل
-                    NameTextBox.Text = category?.Name != null ? category.Name : "";
-                    DescriptionTextBox.Text = category?.Description != null ? category.Description : "";
+                case "EditButton":
+                    EditCategory(selectedCategory);
+                    break;
+                case "DeleteButton":
+                    DeleteCategory(selectedCategory);
+                    break;
+            }
+        }
 
-                    //addButton.Visible = false;
-                    //EditButton.Visible = true;
-                }
-                else if (columnName == "DeleteButton")
-                {
-                    var confirm = MessageBox.Show($" هل تريد حذف الصنف مع العلم ان حذف الصنف سيؤادي الي حذف جميع المنتجات التي بداخله{selectedProduct.Name}؟", "تأكيد", MessageBoxButtons.YesNo);
+        private void EditCategory(CategoryDisplay selectedCategory)
+        {
+            _categoryToEdit = _dbContext.Categories.FirstOrDefault(c => c.CategoryID == selectedCategory.CategoryID);
+            if (_categoryToEdit == null) return;
 
-                    if (confirm == DialogResult.Yes)
+            _isEditing = true;
+            NameTextBox.Text = _categoryToEdit.Name;
+            DescriptionTextBox.Text = _categoryToEdit.Description;
+            addButton.Text = "تعديل";
+        }
+
+        private void DeleteCategory(CategoryDisplay selectedCategory)
+        {
+            var confirm = MessageBox.Show(
+                $"هل تريد حذف الصنف {selectedCategory.Name}؟\nسيتم حذف جميع المنتجات المرتبطة بهذا الصنف.",
+                "تأكيد الحذف",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+
+            if (confirm == DialogResult.Yes)
+            {
+                try
+                {
+                    var category = _dbContext.Categories
+                        .Include(c => c.Products)
+                        .FirstOrDefault(c => c.CategoryID == selectedCategory.CategoryID);
+
+                    if (category != null)
                     {
-                        var productInThisCategory = dbcontext.Products.Include(c => c.Category).Where(c => c.CategoryID == category.CategoryID).ToList();
-                        categoryBindingList.Remove(selectedProduct);
-                        dbcontext.Categories.Remove(category);
-                        dbcontext.Products.RemoveRange(productInThisCategory);
-                        dbcontext.SaveChanges();
+                        _dbContext.Products.RemoveRange(category.Products);
+                        _dbContext.Categories.Remove(category);
+                        _dbContext.SaveChanges();
+                        _categoryBindingList.Remove(selectedCategory);
+                        MessageBox.Show("تم حذف الصنف وجميع المنتجات المرتبطة به بنجاح", "نجاح", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"حدث خطأ أثناء حذف الصنف: {ex.Message}", "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private bool ValidateInputs()
+        {
+            if (string.IsNullOrWhiteSpace(NameTextBox.Text))
+            {
+                MessageBox.Show("الرجاء إدخال اسم الصنف", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
             }
 
+            return true;
         }
 
-        private bool checkIfCategoryExistBefor(string name)
+        private void ClearInputs()
         {
-            bool category1 = dbcontext.Categories.Any(c => c.Name.ToLower() == name.ToLower());
-            if(category1) {return true;}
-            return false;
+            NameTextBox.Text = string.Empty;
+            DescriptionTextBox.Text = string.Empty;
+            _isEditing = false;
+            addButton.Text = "إضافة";
         }
 
-        //for add and edit not only add
         private void addButton_Click(object sender, EventArgs e)
         {
-            if(buttonBehavior== ButtonBehavior.Add)
+            if (!ValidateInputs())
+                return;
+
+            try
             {
-            bool exist = checkIfCategoryExistBefor(NameTextBox.Text);
-            if (exist) MessageBox.Show("هذا الصنف موجود بالفعل");
-            else
-            {
-                Category category = new Category() { Name = NameTextBox.Text, Description = DescriptionTextBox.Text };
-                dbcontext.Categories.Add(category);
-                dbcontext.SaveChanges();
-                //add to DataGridView
-                CategoryDisplay categoryDisplay = new CategoryDisplay
+                if (_isEditing)
                 {
-                    CategoryID = category.CategoryID,
-                    Name = NameTextBox.Text,
-                    Description = DescriptionTextBox.Text,
-                };
-                categoryBindingList.Add(categoryDisplay);
-                    NameTextBox.Text = "";
-                    DescriptionTextBox.Text = "";
-             }
-            }
-            else if(buttonBehavior == ButtonBehavior.Edit)
-            {
-                bool exist = checkIfCategoryExistBefor(NameTextBox.Text);
-                if (exist) MessageBox.Show("هذا الصنف موجود بالفعل");
+                    UpdateCategory();
+                }
                 else
                 {
-                    categoryToEdit.Name = NameTextBox.Text;
-                    categoryToEdit.Description = DescriptionTextBox.Text;
-                    dbcontext.SaveChanges();
-
-                    var itemToUpdate = categoryBindingList.FirstOrDefault(p => p.CategoryID == categoryToEdit.CategoryID);
-                    if (itemToUpdate != null)
-                    {
-                        itemToUpdate.CategoryID = categoryToEdit.CategoryID;
-                        itemToUpdate.Name = categoryToEdit.Name;
-                        itemToUpdate.Description = categoryToEdit.Description;
-
-                        int index = categoryBindingList.IndexOf(itemToUpdate);
-                        categoryBindingList.ResetItem(index);
-                    }
-                    MessageBox.Show($" نم تعديل الصنف بنجاح ");
-                    NameTextBox.Text = null;
-                    DescriptionTextBox.Text = null;
-                    buttonBehavior = ButtonBehavior.Add;
-                    addButton.Text = "اضف";
+                    AddCategory();
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"حدث خطأ: {ex.Message}", "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
+        private void AddCategory()
+        {
+            var existingCategory = _dbContext.Categories
+                .FirstOrDefault(c => c.Name.ToLower() == NameTextBox.Text.Trim().ToLower());
+
+            if (existingCategory != null)
+            {
+                MessageBox.Show("هذا الصنف موجود بالفعل", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var category = new Category
+            {
+                Name = NameTextBox.Text.Trim(),
+                Description = DescriptionTextBox.Text.Trim()
+            };
+
+            _dbContext.Categories.Add(category);
+            _dbContext.SaveChanges();
+
+            var categoryDisplay = new CategoryDisplay
+            {
+                CategoryID = category.CategoryID,
+                Name = category.Name,
+                Description = category.Description
+            };
+
+            _categoryBindingList.Add(categoryDisplay);
+            ClearInputs();
+            MessageBox.Show("تم إضافة الصنف بنجاح", "نجاح", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void UpdateCategory()
+        {
+            var existingCategory = _dbContext.Categories
+                .FirstOrDefault(c => c.Name.ToLower() == NameTextBox.Text.Trim().ToLower() && 
+                                   c.CategoryID != _categoryToEdit.CategoryID);
+
+            if (existingCategory != null)
+            {
+                MessageBox.Show("هذا الصنف موجود بالفعل", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            _categoryToEdit.Name = NameTextBox.Text.Trim();
+            _categoryToEdit.Description = DescriptionTextBox.Text.Trim();
+            _dbContext.SaveChanges();
+
+            var itemToUpdate = _categoryBindingList.FirstOrDefault(c => c.CategoryID == _categoryToEdit.CategoryID);
+            if (itemToUpdate != null)
+            {
+                itemToUpdate.Name = _categoryToEdit.Name;
+                itemToUpdate.Description = _categoryToEdit.Description;
+                _categoryBindingList.ResetItem(_categoryBindingList.IndexOf(itemToUpdate));
+            }
+
+            ClearInputs();
+            MessageBox.Show("تم تعديل الصنف بنجاح", "نجاح", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void SearchTextBox_TextChanged(object sender, EventArgs e)
+        {
+            LoadData();
+            if(searchTextBox.Text.Trim().Count() == 0)
+                return;
+            string searchTerm = searchTextBox.Text.Trim().ToLower();
+
+            var filtered = _categoryBindingList.Where(c =>
+                c.Name.ToLower().Contains(searchTerm) ||
+                (c.Description != null && c.Description.ToLower().Contains(searchTerm))).ToList();
+
+            _categoryBindingList = new BindingList<CategoryDisplay>(filtered);
+            CategoryDataGridView.DataSource = _categoryBindingList;
+        }
+
+        private void ClearBtn_Click(object sender, EventArgs e)
+        {
+            ClearInputs();
+        }
+        public new void BringToFront()
+        {
+            base.BringToFront();
+            this.LoadData();
+        }
     }
 }
