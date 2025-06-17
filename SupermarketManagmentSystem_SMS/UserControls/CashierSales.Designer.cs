@@ -149,6 +149,7 @@ namespace SupermarketManagmentSystem_SMS
             dataGridViewCard.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewCard.Size = new Size(686, 354);
             dataGridViewCard.TabIndex = 1;
+            dataGridViewCard.CellBeginEdit += dataGridViewCard_CellBeginEdit;
             dataGridViewCard.CellContentClick += dataGridViewCard_CellContentClick;
             dataGridViewCard.CellEndEdit += dataGridViewCard_CellEndEdit;
             // 
@@ -189,7 +190,6 @@ namespace SupermarketManagmentSystem_SMS
             Remove.Name = "Remove";
             Remove.Text = "حذف";
             Remove.UseColumnTextForButtonValue = true;
-
             // 
             // BarcodetextBox
             // 
@@ -208,7 +208,7 @@ namespace SupermarketManagmentSystem_SMS
             AddToCardbutton.FlatStyle = FlatStyle.Flat;
             AddToCardbutton.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             AddToCardbutton.ForeColor = SystemColors.HighlightText;
-            AddToCardbutton.Location = new Point(571, 108);
+            AddToCardbutton.Location = new Point(572, 118);
             AddToCardbutton.Name = "AddToCardbutton";
             AddToCardbutton.Size = new Size(138, 34);
             AddToCardbutton.TabIndex = 3;

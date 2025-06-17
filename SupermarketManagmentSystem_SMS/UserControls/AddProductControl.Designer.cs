@@ -376,7 +376,7 @@
             foxLabel4.BackColor = Color.Transparent;
             foxLabel4.Font = new Font("Arial", 13.8F);
             foxLabel4.ForeColor = Color.Black;
-            foxLabel4.Location = new Point(513, 423);
+            foxLabel4.Location = new Point(513, 438);
             foxLabel4.Margin = new Padding(3, 4, 3, 4);
             foxLabel4.Name = "foxLabel4";
             foxLabel4.Size = new Size(59, 25);
@@ -389,7 +389,7 @@
             foxLabel3.BackColor = Color.Transparent;
             foxLabel3.Font = new Font("Arial", 13.8F);
             foxLabel3.ForeColor = Color.Black;
-            foxLabel3.Location = new Point(513, 463);
+            foxLabel3.Location = new Point(513, 478);
             foxLabel3.Margin = new Padding(3, 4, 3, 4);
             foxLabel3.Name = "foxLabel3";
             foxLabel3.Size = new Size(59, 25);

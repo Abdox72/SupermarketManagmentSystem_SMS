@@ -84,6 +84,11 @@ namespace SupermarketManagmentSystem_SMS
                 MessageBox.Show("المنتج غير متوفر.");
                 return;
             }
+            if(product.Quantity == 0)
+            {
+                MessageBox.Show("المنتج غير متوفر في المخزن.");
+                return;
+            }
 
             foreach (DataGridViewRow row in dataGridViewCard.Rows)
             {
@@ -92,9 +97,8 @@ namespace SupermarketManagmentSystem_SMS
 
                     int currentQty = Convert.ToInt32(row.Cells["Quantity"].Value);
                     row.Cells["Quantity"].Value = currentQty + 1;
-
-
                     row.Cells["Subtotal"].Value = (currentQty + 1) * product.Price;
+                    row.Tag = product.ProductID;
 
                     CalculateTotals();
                     BarcodetextBox.Clear();
@@ -104,6 +108,8 @@ namespace SupermarketManagmentSystem_SMS
             }
             // Add new product row
             dataGridViewCard.Rows.Add(product.Name, product.Price, 1, product.Price, "❌");
+            var newRow = dataGridViewCard.Rows[dataGridViewCard.Rows.Count - 1];
+            newRow.Tag = product.ProductID;
 
             CalculateTotals();
             BarcodetextBox.Clear();
@@ -134,25 +140,6 @@ namespace SupermarketManagmentSystem_SMS
             CalculateChange();
         }
 
-        private void UpdateRowSubtotal(int rowIndex)
-        {
-            var row = dataGridViewCard.Rows[rowIndex];
-
-            if (row.Cells["Quantity"].Value != null && row.Cells["UnitPrice"].Value != null)
-            {
-                int quantity;
-                decimal unitPrice;
-
-                bool quantityParsed = int.TryParse(row.Cells["Quantity"].Value.ToString(), out quantity);
-                bool priceParsed = decimal.TryParse(row.Cells["UnitPrice"].Value.ToString(), out unitPrice);
-
-                if (quantityParsed && priceParsed)
-                {
-                    decimal subtotal = quantity * unitPrice;
-                    row.Cells["Subtotal"].Value = subtotal.ToString("0.00");
-                }
-            }
-        }
         private void UpdateSubtotal()
         {
             decimal subtotal = 0;
@@ -168,7 +155,6 @@ namespace SupermarketManagmentSystem_SMS
                     }
                 }
             }
-
             SubtotaltextBox.Text = subtotal.ToString("0.00");
             UpdateTotalAmount();
         }
@@ -204,22 +190,7 @@ namespace SupermarketManagmentSystem_SMS
         {
             if (e.RowIndex >= 0 && dataGridViewCard.Columns[e.ColumnIndex].Name == "Remove")
             {
-                var row = dataGridViewCard.Rows[e.RowIndex];
-                int quantity = Convert.ToInt32(row.Cells["Quantity"].Value);
-
-                if (quantity > 1)
-                {
-                    quantity--;
-                    row.Cells["Quantity"].Value = quantity;
-
-                    decimal price = Convert.ToDecimal(row.Cells["UnitPrice"].Value);
-                    row.Cells["Subtotal"].Value = price * quantity;
-                }
-                else
-                {
-                    dataGridViewCard.Rows.RemoveAt(e.RowIndex);
-                }
-
+                dataGridViewCard.Rows.RemoveAt(e.RowIndex);
                 CalculateTotals();
             }
         }
@@ -242,9 +213,52 @@ namespace SupermarketManagmentSystem_SMS
         {
             if (e.ColumnIndex == dataGridViewCard.Columns["Quantity"].Index)
             {
-                UpdateRowSubtotal(e.RowIndex);
-                UpdateSubtotal();
-                UpdateTotalAmount();
+                var row = dataGridViewCard.Rows[e.RowIndex];
+
+                if (row.Cells["Quantity"].Value != null && row.Cells["UnitPrice"].Value != null)
+                {
+                    int quantity;
+                    decimal unitPrice;
+                    int productId;
+
+                    bool quantityParsed = int.TryParse(row.Cells["Quantity"].Value.ToString(), out quantity);
+                    bool priceParsed = decimal.TryParse(row.Cells["UnitPrice"].Value.ToString(), out unitPrice);
+                    bool ProductIdParsed = int.TryParse(row.Tag?.ToString(), out productId);
+
+                    if (!quantityParsed || !priceParsed)
+                    {
+                        MessageBox.Show("الرجاء التأكد من إدخال الكمية والسعر بشكل صحيح.");
+                        row.Cells["Quantity"].Value = oldValue;
+                        return;
+                    }
+                    if (!ProductIdParsed)
+                    {
+                        MessageBox.Show("حدث خطأ اثناء استرجاع المنتج!");
+                        row.Cells["Quantity"].Value = oldValue;
+                        return;
+                    }
+                    Product? _product = db.Products.FirstOrDefault(p => p.ProductID == productId);
+                    if (_product == null)
+                    {
+                        MessageBox.Show("رقم المنتج غير صحيح!");
+                        row.Cells["Quantity"].Value = oldValue;
+                        return;
+                    }
+                    if (_product.Quantity < quantity)
+                    {
+                        MessageBox.Show("تلك الكمية غير متوفرة في المخزن!");
+                        row.Cells["Quantity"].Value = oldValue;
+                        return;
+                    }
+
+                    if (quantityParsed && priceParsed)
+                    {
+                        row.Cells["Subtotal"].Value = (quantity * unitPrice).ToString("0.00");
+                    }
+
+                    UpdateSubtotal();
+                    UpdateTotalAmount();
+                }
             }
         }
 
@@ -280,19 +294,22 @@ namespace SupermarketManagmentSystem_SMS
                         string productName = row.Cells["ProductName"].Value.ToString();
                         int quantity = Convert.ToInt32(row.Cells["Quantity"].Value);
                         decimal price = Convert.ToDecimal(row.Cells["UnitPrice"].Value);
+                        int productId = Convert.ToInt32(row.Tag);
 
-                        var product = db.Products.FirstOrDefault(p => p.Name == productName);
+                        var product = db.Products.FirstOrDefault(p => p.ProductID == productId);
                         if (product == null) continue;
 
                         var saleItem = new SaleItem
                         {
                             SaleId = sale.SaleID,
-                            ProductId = product.ProductID,
+                            ProductId = productId,
                             Quantity = quantity,
                             UnitPrice = price
                         };
 
                         db.SaleItems.Add(saleItem);
+                        product.Quantity -= quantity;
+                        db.Products.Update(product); 
                     }
 
                     db.SaveChanges();
@@ -443,7 +460,12 @@ namespace SupermarketManagmentSystem_SMS
             }
         }
 
-      
+        string? oldValue;
+
+        private void dataGridViewCard_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
+        {
+            oldValue = dataGridViewCard[e.ColumnIndex, e.RowIndex].Value?.ToString();
+        }
     }
 
 }
