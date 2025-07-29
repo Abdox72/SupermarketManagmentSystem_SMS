@@ -1,8 +1,5 @@
-using AForge.Video;
-using AForge.Video.DirectShow;
 using SupermarketManagmentSystem_SMS.Data;
 using SupermarketManagmentSystem_SMS.Models;
-using SupermarketManagmentSystem_SMS.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,13 +19,10 @@ namespace SupermarketManagmentSystem_SMS
         private User loggedInUser;
 
         private DateTime _shiftStartTime;
-        
 
-        private FilterInfoCollection _videoDevices;
-        private VideoCaptureDevice _videoSource;
-        private IBarcodeReaderService _barcodeReader;
+        // Camera-related fields removed
 
-        public CashierSales(ApplicationDbContext _dbcontext , User _loggedUsr)
+        public CashierSales(ApplicationDbContext _dbcontext, User _loggedUsr)
         {
             InitializeComponent();
             db = _dbcontext;
@@ -36,8 +30,18 @@ namespace SupermarketManagmentSystem_SMS
             this.Load += CashierDashboardForm_Load;
             _shiftStartTime = DateTime.UtcNow;
 
-            SetupBarcodeReader();
-            EnumerateCameras();
+
+            // Camera setup removed
+            // SetupBarcodeReader();
+            // EnumerateCameras();
+
+            // Hide camera controls since using hardware scanner
+            CameraPictureBox.Visible = false;
+            comboBoxCameras.Visible = false;
+            btnStartCam.Visible = false;
+            btnStopCam.Visible = false;
+
+            BarcodetextBox.Focus();
         }
 
         private void CashierDashboardForm_Load(object sender, EventArgs e)
@@ -84,7 +88,7 @@ namespace SupermarketManagmentSystem_SMS
                 MessageBox.Show("المنتج غير متوفر.");
                 return;
             }
-            if(product.Quantity == 0)
+            if (product.Quantity == 0)
             {
                 MessageBox.Show("المنتج غير متوفر في المخزن.");
                 return;
@@ -114,7 +118,7 @@ namespace SupermarketManagmentSystem_SMS
             CalculateTotals();
             BarcodetextBox.Clear();
             BarcodetextBox.Focus();
-            
+
         }
 
         private void UpdateTotalAmount() //Updates total amount after discount and tax
@@ -309,7 +313,7 @@ namespace SupermarketManagmentSystem_SMS
 
                         db.SaleItems.Add(saleItem);
                         product.Quantity -= quantity;
-                        db.Products.Update(product); 
+                        db.Products.Update(product);
                     }
 
                     db.SaveChanges();
@@ -333,79 +337,23 @@ namespace SupermarketManagmentSystem_SMS
                     MessageBox.Show("حدث خطأ :\n" + ex.Message);
                 }
             }
-            
+
         }
         private void UpdateSalesSummary()
         {
 
-                var salesThisShift = db.Sales
-            .Where(s => s.CashierID == loggedInUser.ID && s.SaleDate >= _shiftStartTime)
-                        .ToList();
+            var salesThisShift = db.Sales
+        .Where(s => s.CashierID == loggedInUser.ID && s.SaleDate >= _shiftStartTime)
+                    .ToList();
 
-                int numberOfSales = salesThisShift.Count();
-                decimal totalSales = salesThisShift.Sum(s => s.TotalAmount);
+            int numberOfSales = salesThisShift.Count();
+            decimal totalSales = salesThisShift.Sum(s => s.TotalAmount);
 
-                NumSaleslabel.Text = $"عدد الفواتير: {numberOfSales}";
-                TotalSaleslabel.Text = $"إجمالي المبيعات: {totalSales:C2}";
-        }
-
-        private void SetupBarcodeReader()
-        {
-            _barcodeReader = new ZxingBarcodeReaderService();
+            NumSaleslabel.Text = $"عدد الفواتير: {numberOfSales}";
+            TotalSaleslabel.Text = $"إجمالي المبيعات: {totalSales:C2}";
         }
 
-        private void EnumerateCameras()
-        {
-            _videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
-            foreach (FilterInfo dev in _videoDevices)
-                comboBoxCameras.Items.Add(dev.Name);
-            if (comboBoxCameras.Items.Count > 0)
-                comboBoxCameras.SelectedIndex = 0;
-        }
-        private void btnStartCam_Click(object sender, EventArgs e)
-        {
-            if (_videoDevices.Count == 0)
-            {
-                MessageBox.Show("No cameras found");
-                return;
-            }
-            var cameraIndex = comboBoxCameras.SelectedIndex;
-            var moniker = _videoDevices[cameraIndex].MonikerString;
-            _videoSource = new VideoCaptureDevice(moniker);
-            _videoSource.NewFrame += VideoSource_NewFrame;
-            _videoSource.Start();
-            btnStartCam.Enabled = false;
-            btnStopCam.Enabled = true;
-        }
-        private void btnStopCam_Click(object sender, EventArgs e)
-        {
-            if (_videoSource != null && _videoSource.IsRunning)
-            {
-                _videoSource.SignalToStop();
-                _videoSource.NewFrame -= VideoSource_NewFrame;
-            }
-            btnStartCam.Enabled = true;
-            btnStopCam.Enabled = false;
-        }
-        private void VideoSource_NewFrame(object sender, NewFrameEventArgs eventArgs)
-        {
-            using (var frame = (Bitmap)eventArgs.Frame.Clone())
-            {
-                CameraPictureBox.Image?.Dispose();
-                CameraPictureBox.Image = (Bitmap)frame.Clone();
-                var result = _barcodeReader.Decode(frame);
-                if (result != null)
-                {
-                    _videoSource.SignalToStop();   // pause scanning
-                    this.Invoke(new Action(() =>
-                    {
-                        BarcodetextBox.Text = result; // set the barcode text
-                        btnStartCam.Enabled = true;   // allow restart
-                        btnStopCam.Enabled = false;
-                    }));
-                }
-            }
-        }
+        // Camera-related methods removed
 
         private void PrintInvoice_Click(object sender, EventArgs e)
         {
@@ -465,6 +413,16 @@ namespace SupermarketManagmentSystem_SMS
         private void dataGridViewCard_CellBeginEdit(object sender, DataGridViewCellCancelEventArgs e)
         {
             oldValue = dataGridViewCard[e.ColumnIndex, e.RowIndex].Value?.ToString();
+        }
+
+        private void CashierSales_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBoxCameras_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 

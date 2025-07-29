@@ -12,13 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using SupermarketManagmentSystem_SMS.Data;
 using SupermarketManagmentSystem_SMS.Dto;
 using System.Diagnostics;
-using ZXing.QrCode.Internal;
-using AForge.Video.DirectShow;
-using ZXing;
-using ZXing.Windows.Compatibility;
 using SupermarketManagmentSystem_SMS.Services;
-using AForge.Video;
-using System.Drawing.Imaging;
 using System.IO;
 
 namespace SupermarketManagmentSystem_SMS.UserControls
@@ -27,8 +21,6 @@ namespace SupermarketManagmentSystem_SMS.UserControls
     {
         private readonly ApplicationDbContext _dbContext;
         private IBarcodeReaderService _barcodeReader;
-        private FilterInfoCollection _videoDevices;
-        private VideoCaptureDevice _videoSource;
         private BindingList<ProductDisplay> _productsBindingList;
         private Product _productToEdit;
         private string _selectedImagePath = "";
@@ -45,8 +37,9 @@ namespace SupermarketManagmentSystem_SMS.UserControls
 
             InitializeControls();
             LoadData();
-            SetupBarcodeReader();
-            EnumerateCameras();
+
+            // Hide camera-related controls for scanner-only usage
+
         }
 
         private void InitializeControls()
@@ -76,14 +69,14 @@ namespace SupermarketManagmentSystem_SMS.UserControls
             {
                 DataPropertyName = "Price",
                 HeaderText = "سعر المنتج",
-                Width = 100
+                Width = 80
             });
 
             ProductGridView.Columns.Add(new DataGridViewTextBoxColumn
             {
                 DataPropertyName = "Quantity",
                 HeaderText = "الكميه المتاحه",
-                Width = 100
+                Width = 70
             });
 
             ProductGridView.Columns.Add(new DataGridViewTextBoxColumn
@@ -91,6 +84,13 @@ namespace SupermarketManagmentSystem_SMS.UserControls
                 DataPropertyName = "CategoryName",
                 HeaderText = "الصنف",
                 Width = 100
+            });
+
+            ProductGridView.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "Place",
+                HeaderText = "مكان التخزين",
+                Width = 120
             });
 
             var editButton = new DataGridViewButtonColumn
@@ -126,6 +126,7 @@ namespace SupermarketManagmentSystem_SMS.UserControls
                 ProductID = p.ProductID,
                 Name = p.Name,
                 Price = p.Price,
+                Place = p.Place,
                 Quantity = p.Quantity,
                 CategoryName = p.Category.Name
             }).ToList();
@@ -192,6 +193,7 @@ namespace SupermarketManagmentSystem_SMS.UserControls
                     Name = NameTextBox.Text.Trim(),
                     Barcode = BarcodeTextBox.Text.Trim(),
                     Price = decimal.Parse(PriceNumeric1.Text),
+                    Place = PlaceTxt.Text.Trim(),
                     CategoryID = ((Category)CategoryComboBox.SelectedItem).CategoryID,
                     ImagePath = _selectedImagePath,
                     Quantity = (int)QuantityNumeric.Value
@@ -205,6 +207,8 @@ namespace SupermarketManagmentSystem_SMS.UserControls
                     ProductID = product.ProductID,
                     Name = product.Name,
                     Price = product.Price,
+                    Place = product.Place,
+
                     Quantity = product.Quantity,
                     CategoryName = ((Category)CategoryComboBox.SelectedItem).Name
                 };
@@ -258,6 +262,7 @@ namespace SupermarketManagmentSystem_SMS.UserControls
         {
             NameTextBox.Text = string.Empty;
             BarcodeTextBox.Text = string.Empty;
+            PlaceTxt.Text = string.Empty;
             PriceNumeric1.Value = 0;
             QuantityNumeric.Value = 0;
             CategoryComboBox.SelectedIndex = -1;
@@ -300,6 +305,7 @@ namespace SupermarketManagmentSystem_SMS.UserControls
                 _productToEdit.Name = NameTextBox.Text.Trim();
                 _productToEdit.Barcode = BarcodeTextBox.Text.Trim();
                 _productToEdit.Price = decimal.Parse(PriceNumeric1.Text);
+                _productToEdit.Place = PlaceTxt.Text.Trim();
                 _productToEdit.Quantity = (int)QuantityNumeric.Value;
                 _productToEdit.CategoryID = ((Category)CategoryComboBox.SelectedItem).CategoryID;
                 _productToEdit.ImagePath = _selectedImagePath;
@@ -353,6 +359,7 @@ namespace SupermarketManagmentSystem_SMS.UserControls
             NameTextBox.Text = _productToEdit.Name;
             BarcodeTextBox.Text = _productToEdit.Barcode;
             PriceNumeric1.Value = (decimal)_productToEdit.Price;
+            PlaceTxt.Text = _productToEdit.Place ?? string.Empty;
             QuantityNumeric.Value = _productToEdit.Quantity;
             CategoryComboBox.SelectedValue = _productToEdit.CategoryID;
 
@@ -412,107 +419,39 @@ namespace SupermarketManagmentSystem_SMS.UserControls
             ProductGridView.DataSource = _productsBindingList;
         }
 
-        private void SetupBarcodeReader()
-        {
-            _barcodeReader = new ZxingBarcodeReaderService();
-        }
-
-        private void EnumerateCameras()
-        {
-            _videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
-            comboBoxCameras.Items.Clear();
-
-            foreach (FilterInfo dev in _videoDevices)
-                comboBoxCameras.Items.Add(dev.Name);
-
-            if (comboBoxCameras.Items.Count > 0)
-                comboBoxCameras.SelectedIndex = 0;
-        }
-
-        private void btnStartCam_Click(object sender, EventArgs e)
-        {
-            if (_videoDevices.Count == 0)
-            {
-                MessageBox.Show("لم يتم العثور على كاميرات", "تنبيه", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-            try
-            {
-                var cameraIndex = comboBoxCameras.SelectedIndex;
-                var moniker = _videoDevices[cameraIndex].MonikerString;
-                _videoSource = new VideoCaptureDevice(moniker);
-                _videoSource.NewFrame += VideoSource_NewFrame;
-                _videoSource.Start();
-                btnStartCam.Enabled = false;
-                btnStopCam.Enabled = true;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"حدث خطأ أثناء تشغيل الكاميرا: {ex.Message}", "خطأ", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void btnStopCam_Click(object sender, EventArgs e)
-        {
-            if (_videoSource != null && _videoSource.IsRunning)
-            {
-                _videoSource.SignalToStop();
-                _videoSource.NewFrame -= VideoSource_NewFrame;
-            }
-            btnStartCam.Enabled = true;
-            btnStopCam.Enabled = false;
-        }
-
-        private void VideoSource_NewFrame(object sender, NewFrameEventArgs eventArgs)
-        {
-            try
-            {
-                using (var frame = (Bitmap)eventArgs.Frame.Clone())
-                {
-                    CameraPictureBox.Image?.Dispose();
-                    CameraPictureBox.Image = (Bitmap)frame.Clone();
-
-                    var result = _barcodeReader.Decode(frame);
-                    if (result != null)
-                    {
-                        _videoSource.SignalToStop();
-                        this.Invoke(new Action(() =>
-                        {
-                            BarcodeTextBox.Text = result;
-                            btnStartCam.Enabled = true;
-                            btnStopCam.Enabled = false;
-                        }));
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine($"Error in VideoSource_NewFrame: {ex.Message}");
-            }
-        }
-
-        protected override void OnControlRemoved(ControlEventArgs e)
-        {
-            base.OnControlRemoved(e);
-            btnStopCam_Click(this, EventArgs.Empty);
-        }
+        // Camera-related methods removed
 
         private void ClearBtn_Click(object sender, EventArgs e)
         {
             ClearInputs();
             _isEditing = false;
             addButton.Text = "إضافة";
-            if (_videoSource != null && _videoSource.IsRunning)
-            {
-                _videoSource.SignalToStop();
-                _videoSource.NewFrame -= VideoSource_NewFrame;
-            }
         }
+
         public new void BringToFront()
         {
             base.BringToFront();
             this.LoadData();
         }
 
+        private void foxLabel8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void hopeTextBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void CameraPictureBox_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

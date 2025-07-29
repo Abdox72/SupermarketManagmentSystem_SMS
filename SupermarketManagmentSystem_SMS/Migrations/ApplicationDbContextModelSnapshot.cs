@@ -117,6 +117,9 @@ namespace SupermarketManagmentSystem_SMS.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Place")
+                        .HasColumnType("TEXT");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
@@ -258,19 +261,19 @@ namespace SupermarketManagmentSystem_SMS.Migrations
                         new
                         {
                             ID = 1,
-                            FirstName = "Abdo",
-                            LastName = "Mustafa",
+                            FirstName = "محمد",
+                            LastName = "أحمد",
                             NationalID = "12345678901234",
-                            PasswordHash = "$2a$11$Qfbm.xMkxnC/P5eXUNhNbu8B8xLpMcoCUvPo4lmUL0UPEZbDtEOlK",
+                            PasswordHash = "$2a$11$vZvzeTmS6wB/nU5dScAvQOsekddeBZQOGTgpg00IF6DxAvqNvMfWe",
                             Role = 0
                         },
                         new
                         {
                             ID = 2,
-                            FirstName = "Ahmed",
-                            LastName = "Ali",
+                            FirstName = "سيد",
+                            LastName = "علي",
                             NationalID = "23456789012345",
-                            PasswordHash = "$2a$11$3M0QAhnahTkUAaeSq/mWRuj98W2J4FFIa7FwCvOZwsa3GSYbJGrJK",
+                            PasswordHash = "$2a$11$EMs/u/CKXhCG/bB3CnRLZeYnxoVVtgZ5CZyhseZinf2m7DhVrQEKG",
                             Role = 1
                         });
                 });

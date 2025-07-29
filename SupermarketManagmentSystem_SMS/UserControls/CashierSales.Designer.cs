@@ -142,12 +142,12 @@ namespace SupermarketManagmentSystem_SMS
             dataGridViewCard.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewCard.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCard.Columns.AddRange(new DataGridViewColumn[] { ProductName, UnitPrice, Quantity, Subtotal, Remove });
-            dataGridViewCard.Location = new Point(544, 322);
+            dataGridViewCard.Location = new Point(544, 285);
             dataGridViewCard.Name = "dataGridViewCard";
             dataGridViewCard.RightToLeft = RightToLeft.Yes;
             dataGridViewCard.RowHeadersWidth = 51;
             dataGridViewCard.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridViewCard.Size = new Size(686, 354);
+            dataGridViewCard.Size = new Size(686, 391);
             dataGridViewCard.TabIndex = 1;
             dataGridViewCard.CellBeginEdit += dataGridViewCard_CellBeginEdit;
             dataGridViewCard.CellContentClick += dataGridViewCard_CellContentClick;
@@ -402,7 +402,6 @@ namespace SupermarketManagmentSystem_SMS
             btnStopCam.TabIndex = 41;
             btnStopCam.Text = "إيقاف";
             btnStopCam.UseVisualStyleBackColor = false;
-            btnStopCam.Click += btnStopCam_Click;
             // 
             // comboBoxCameras
             // 
@@ -412,6 +411,7 @@ namespace SupermarketManagmentSystem_SMS
             comboBoxCameras.Name = "comboBoxCameras";
             comboBoxCameras.Size = new Size(485, 28);
             comboBoxCameras.TabIndex = 40;
+            comboBoxCameras.SelectedIndexChanged += comboBoxCameras_SelectedIndexChanged;
             // 
             // btnStartCam
             // 
@@ -426,16 +426,15 @@ namespace SupermarketManagmentSystem_SMS
             btnStartCam.TabIndex = 38;
             btnStartCam.Text = "تشغيل";
             btnStartCam.UseVisualStyleBackColor = false;
-            btnStartCam.Click += btnStartCam_Click;
             // 
             // CameraPictureBox
             // 
             CameraPictureBox.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             CameraPictureBox.BackColor = SystemColors.ActiveBorder;
             CameraPictureBox.BorderStyle = BorderStyle.FixedSingle;
-            CameraPictureBox.Location = new Point(996, 192);
+            CameraPictureBox.Location = new Point(1083, 197);
             CameraPictureBox.Name = "CameraPictureBox";
-            CameraPictureBox.Size = new Size(234, 124);
+            CameraPictureBox.Size = new Size(147, 82);
             CameraPictureBox.SizeMode = PictureBoxSizeMode.StretchImage;
             CameraPictureBox.TabIndex = 37;
             CameraPictureBox.TabStop = false;
@@ -461,6 +460,7 @@ namespace SupermarketManagmentSystem_SMS
             Padding = new Padding(0, 10, 0, 0);
             RightToLeft = RightToLeft.Yes;
             Size = new Size(1259, 697);
+            Load += CashierSales_Load;
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewCard).EndInit();

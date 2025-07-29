@@ -19,8 +19,7 @@ namespace SupermarketManagmentSystem_SMS.Models
 
         //unique
         public string Barcode { get; set; } = string.Empty;
-
-
+        public string? Place { get; set; }
         public int? CategoryID { get; set; }
         [ForeignKey("CategoryID")]
         public Category? Category { get; set; }
